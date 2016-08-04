@@ -51,33 +51,33 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var animals = ['cat', 'dog', 'fish'];
+    let animals = ['cat', 'dog', 'fish'];
 
     // bad:
-    var targetInputs = ['cat', 'dog', 'fish'];
+    let targetInputs = ['cat', 'dog', 'fish'];
     ```
 
 * Collections such as arrays and maps should have plural noun variable names.
 
     ```javascript
     // good:
-    var animals = ['cat', 'dog', 'fish'];
+    let animals = ['cat', 'dog', 'fish'];
 
     // bad:
-    var animalList = ['cat', 'dog', 'fish'];
+    let animalList = ['cat', 'dog', 'fish'];
 
     // bad:
-    var animal = ['cat', 'dog', 'fish'];
+    let animal = ['cat', 'dog', 'fish'];
     ```
 
 * Name your variables after their purpose, not their structure
 
     ```javascript
     // good:
-    var animals = ['cat', 'dog', 'fish'];
+    let animals = ['cat', 'dog', 'fish'];
 
     // bad:
-    var array = ['cat', 'dog', 'fish'];
+    let array = ['cat', 'dog', 'fish'];
     ```
 
 
@@ -87,14 +87,14 @@ When writing any block of code that is logically subordinate to the line immedia
 
   ```javascript
   // good:
-  var list = ['a', 'b', 'c']
-  for(var i = 0; i < list.length; i++){
+  let list = ['a', 'b', 'c']
+  for(let i = 0; i < list.length; i++){
     alert(list[i]);
   }
 
   // bad:
-  var list = ['a', 'b', 'c']
-  for(var i in list){
+  let list = ['a', 'b', 'c']
+  for(let i in list){
     alert(list[i]);
   }
   ```
@@ -133,7 +133,7 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var go = function(){...};
+    let go = function(){...};
 
     // bad:
     function stop(){...};
@@ -171,12 +171,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
   ```javascript
   // good:
-  var greet = function(){
+  let greet = function(){
     alert('hi');
   };
 
   // bad:
-  var greet = function(){
+  let greet = function(){
     alert('hi');
   }
   ```
@@ -213,8 +213,8 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // discouraged:
-    var firstItem  = getFirst ();
-    var secondItem = getSecond();
+    let firstItem  = getFirst ();
+    let secondItem = getSecond();
     ```
 
 * Put `else` and `else if` statements on the same line as the ending curly brace for the preceding `if` block
@@ -279,22 +279,22 @@ When writing any block of code that is logically subordinate to the line immedia
 
 ### Variable declaration
 
-* Use a new var statement for each line you declare a variable on.
+* Use a new let statement for each line you declare a variable on.
 * Do not break variable declarations onto mutiple lines.
 * Use a new line for each variable declaration.
 * See http://benalman.com/news/2012/05/multiple-var-statements-javascript/ for more details
 
     ```javascript
     // good:
-    var ape;
-    var bat;
+    let ape;
+    let bat;
 
     // bad:
-    var cat,
+    let cat,
         dog
 
     // use sparingly:
-    var eel, fly;
+    let eel, fly;
     ```
 
 ### Capital letters in variable names
@@ -310,12 +310,12 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var overwriteNumber = function(){
+    let overwriteNumber = function(){
       window.exported = Math.random();
     };
 
     // bad:
-    var overwriteNumber = function(){
+    let overwriteNumber = function(){
       exported = Math.random();
     };
     ```
@@ -324,14 +324,14 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var animals = [
+    let animals = [
       'ape',
       'bat',
       'cat'
     ];
 
     // bad:
-    var animals = [
+    let animals = [
         'ape'
       , 'bat'
       , 'cat'
@@ -344,16 +344,16 @@ When writing any block of code that is logically subordinate to the line immedia
 
     ```javascript
     // good:
-    var dog = 'dog';
-    var cat = 'cat';
+    let dog = 'dog';
+    let cat = 'cat';
 
     // acceptable:
-    var dog = "dog";
-    var cat = "cat";
+    let dog = "dog";
+    let cat = "cat";
 
     // bad:
-    var dog = 'dog';
-    var cat = "cat";
+    let dog = 'dog';
+    let cat = "cat";
     ```
 
 
