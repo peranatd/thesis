@@ -4,7 +4,8 @@ const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
 // const session = require('express-session');
 
-const textSentiment = require('./watson.js')
+const textSentiment = require('./watson.js');
+const ms = require('./ms.js');
 
 // App
 const app = express();
@@ -19,5 +20,8 @@ app.post('/api/text', function (req, res) {
     .then(result => res.status(201).send(result))
     .catch(err => res.status(201).send(err));
 });
+app.post('/api/image', function(req, res) {
+  ms(req, res);
+})
 
 module.exports = app;
