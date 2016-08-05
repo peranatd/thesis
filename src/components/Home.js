@@ -1,6 +1,6 @@
 import React from 'react';
 
-let Home = () => (
+const Home = () => (
   <div>
     <h1> Home </h1>
     <img src="http://nordicapis.com/wp-content/uploads/20-emotion-recognition-apis-nordic-apis.png"  alt="main" />
