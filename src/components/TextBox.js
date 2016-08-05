@@ -4,14 +4,16 @@ import $ from 'jquery';
 class TextBox extends Component {
   constructor (props) {
     super(props);
-    this.state = {text: ' '};
+    this.state = {text: ''};
   }
 
   handleChange () {
+    let text = this.state.text;
     $.ajax({
       url:'/api/text',
       type:'POST',
-      data:{text: this.state.text},
+      data: JSON.stringify({text: text}),
+      contentType: 'application/json',
       success: function () {
         console.log('ajax post request successfully')
       },
