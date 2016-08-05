@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 class ImageUpload extends React.Component {
   constructor(props) {
@@ -9,14 +10,14 @@ class ImageUpload extends React.Component {
     };
   }
 
-  _handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
-    console.log('handle uploading-', this.state.file);
-    console.log('imageurl', this.state.imagePreviewUrl);
+    //console.log('handle uploading-', this.state.file);
+    //console.log('imageurl', this.state.imagePreviewUrl);
     $.ajax({
       url:"/api/image",
       type:"POST",
-      data: this.state.imagePreviewUrl,
+      data: this.state.file,
       success: function(results) {
         //maybe redirect to result page
       },
@@ -26,12 +27,11 @@ class ImageUpload extends React.Component {
     });
   }
 
-  _handleImageChange(e) {
+  handleImageChange(e) {
     e.preventDefault();
 
     let reader = new FileReader();
     let file = e.target.files[0];
-
     reader.onloadend = () => {
       this.setState({
         file: file,
@@ -52,9 +52,9 @@ class ImageUpload extends React.Component {
 
     return (
       <div className="previewComponent">
-        <form onSubmit={(e)=>this._handleSubmit(e)}>
-          <input className="fileInput" type="file" onChange={(e)=>this._handleImageChange(e)} />
-          <button className="submitButton" type="submit" onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>
+        <form onSubmit={(e)=>this.handleSubmit(e)}>
+          <input className="fileInput" type="file" onChange={(e)=>this.handleImageChange(e)} />
+          <button className="submitButton" type="submit" onClick={(e)=>this.handleSubmit(e)}>Upload Image</button>
         </form>
         <div className="imgPreview">
           {$imagePreview}
