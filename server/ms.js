@@ -1,8 +1,18 @@
 const credential = require('./credential.js');
 const Promise = require('bluebird');
+const request = require('request');
 
-function emotion(req, res) {
-  console.log(req);
+function emotion(imgBuffer, res) {
+  console.log(imgBuffer);
+  const options = {
+    url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
+    headers: {
+      'Content-Type': 'application/octet-stream',
+      'Content-Length': imgBuffer.length,
+      'Ocp-Apim-Subscription-Key': credential.microsoft.key
+    }
+  };
+
   res.status(201).send()
 }
 

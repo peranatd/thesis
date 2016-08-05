@@ -18,22 +18,24 @@ class ImageUpload extends React.Component {
         data.append(key, value);
     });
 
-    $.ajax({
-      url:"/api/image",
-      type:"POST",
-      data: data,
-      cache: false,
-      dataType: 'json',
-      processData: false,
-      contentType: false,
-      success: function(results) {
-        //maybe redirect to result page
-        console.log(results)
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    });
+    // Read and send file as a base64 encoded string
+    const reader = new FileReader();
+    const file = files[0];
+    reader.onloadend = () => {
+      $.ajax({
+        url:"/api/image",
+        type:"POST",
+        contentType: 'application/json',
+        data: JSON.stringify({image: reader.result}),
+        success: function(results) {
+          //maybe redirect to result page
+        },
+        error: function(err) {
+          console.log(err);
+        }
+      });
+    }
+    reader.readAsDataURL(file);
   }
   render(){
     return (

@@ -2,6 +2,7 @@ const express = require('express');
 const partials = require('express-partials');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
+const fs = require('fs')
 // const session = require('express-session');
 
 const textSentiment = require('./watson.js');
@@ -21,7 +22,8 @@ app.post('/api/text', function (req, res) {
     .catch(err => res.status(201).send(err));
 });
 app.post('/api/image', function(req, res) {
-  ms(req, res);
+  let image = Buffer.from(req.body.image.split(',')[1], 'base64');
+  ms(image, res);
 })
 
 module.exports = app;
