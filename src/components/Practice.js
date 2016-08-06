@@ -8,6 +8,6 @@ const Practice = () => (
     <TextBox />
     <ImageUpload />
   </div>
-)
+);
 
 export default Practice;

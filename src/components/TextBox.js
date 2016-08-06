@@ -15,10 +15,10 @@ class TextBox extends Component {
       data: JSON.stringify({text: text}),
       contentType: 'application/json',
       success: function () {
-        console.log('ajax post request successfully')
+        console.log('ajax post request successfully');
       },
       error: function () {
-        console.log('ajax post request failed!')
+        console.log('ajax post request failed!');
       }
     });
   }
@@ -28,7 +28,7 @@ class TextBox extends Component {
       <div >
         <h2>TextBox</h2>
         <p>Please upload your text file</p>
-        <textarea rows="4" placeholder="Write down your transcription here..." onChange={(e)=>{this.setState({text: e.target.value})}} />
+        <textarea rows="4" placeholder="Write down your transcription here..." onChange={(e)=>{this.setState({text: e.target.value});}} />
         <button onClick={this.handleChange.bind(this)}>Upload Text</button>
       </div>
     );

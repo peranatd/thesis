@@ -1,17 +1,15 @@
-const express = require('express');
+const app = require('express')();
 const partials = require('express-partials');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
-const multer  = require('multer');
 
+const multer  = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+
 const textSentiment = require('./watson.js');
 const ms = require('./ms.js');
-
-// App
-const app = express();
 
 app.use(partials());
 app.use(bodyParser.json());
