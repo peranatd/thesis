@@ -20,7 +20,6 @@ const textSentiment = function (objText) {
       if (err) {
         reject(err);
       } else {
-        console.log(tone);
         resolve(tone);
       }
     });
