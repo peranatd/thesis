@@ -23,8 +23,8 @@ class ImageUpload extends React.Component {
     const file = files[0];
     reader.onloadend = () => {
       $.ajax({
-        url:"/api/image",
-        type:"POST",
+        url:'/api/image',
+        type:'POST',
         contentType: 'application/json',
         data: JSON.stringify({image: reader.result}),
         success: function(results) {
@@ -44,7 +44,7 @@ class ImageUpload extends React.Component {
           <div>Try dropping some files here, or click to select files to upload.</div>
         </Dropzone>
         <div>
-        {this.state.files.map((file,index) => <img key={index}src={file.preview} width='200' alt={file.name}/> )}
+        {this.state.files.map((file,index) => <img key={index}src={file.preview} width="200" alt={file.name}/> )}
         </div>
       </div>
     )

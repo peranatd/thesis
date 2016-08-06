@@ -23,7 +23,11 @@ app.post('/api/text', function (req, res) {
 });
 app.post('/api/image', function(req, res) {
   let image = Buffer.from(req.body.image.split(',')[1], 'base64');
-  ms(image, res);
-})
+  ms(image)
+    .then(body => {
+      console.log(body);
+      res.status(201).send(body);
+    });
+});
 
 module.exports = app;

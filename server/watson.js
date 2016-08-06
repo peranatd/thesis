@@ -10,13 +10,9 @@ const tone_analyzer = watson.tone_analyzer({
 });
 
 // Tone is a function that receives an object as input with parameter 'text' and a callback
-// tone_analyzer.tone({ text: 'A word is dead when it is said, some say. Emily Dickinson' },
-//   function(err, tone) {
-//     if (err)
-//       console.log(err);
-//     else
-//       console.log(JSON.stringify(tone, null, 2));
-// });
+// tone_analyzer.tone({
+//   text: 'A word is dead when it is said, some say. Emily Dickinson'
+// }, (err, tone) => { });
 
 const textSentiment = function (objText) {
   return new Promise(function(resolve, reject){
@@ -29,7 +25,6 @@ const textSentiment = function (objText) {
       }
     });
   });
-}
+};
 
 module.exports = textSentiment;
-
