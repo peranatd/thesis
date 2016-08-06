@@ -1,5 +1,4 @@
 import React from 'react';
-import $ from 'jquery';
 import Dropzone from 'react-dropzone';
 
 class ImageUpload extends React.Component {
@@ -13,31 +12,16 @@ class ImageUpload extends React.Component {
     this.setState({
       files: files
     })
-    // TODO: do we need this?
-    let data = new FormData();
-    $.each(files, function(key, value){
-        data.append(key, value);
-    });
 
-    // Read and send file as a base64 encoded string
-    const reader = new FileReader();
-    const file = files[0];
-    reader.onloadend = () => {
-      $.ajax({
-        url:'/api/image',
-        type:'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({image: reader.result}),
-        success: function(results) {
-          //maybe redirect to result page
-        },
-        error: function(err) {
-          console.log(err);
-        }
-      });
-    }
-    reader.readAsDataURL(file);
+    let data = new FormData();
+    data.append('image', files[0]);
+
+    const request = new XMLHttpRequest();
+    request.open('POST', "/api/image");
+    request.send(data);
+
   }
+
   render(){
     return (
       <div>
