@@ -11,6 +11,6 @@ const Home = () => (
     </blockquote>
     <button><Link to="/practice">Start Now</Link></button>
   </div>
-  )
+  );
 
 export default Home;

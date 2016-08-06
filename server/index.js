@@ -1,17 +1,20 @@
-const express = require('express');
+const app = require('express')();
 const partials = require('express-partials');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
-const multer  = require('multer');
 
+const multer  = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// const http = require('http').createServer(app);
+// const io = require('socket.io').listen(http);
 
 const textSentiment = require('./watson.js');
 const ms = require('./ms.js');
 
 // App
-const app = express();
+// const app = express();
 
 app.use(partials());
 app.use(bodyParser.json());
@@ -29,5 +32,10 @@ app.post('/api/image', upload.single('image'), function (req, res) {
       res.status(201).send(body);
     });
 });
+
+// io.on('connection', (socket) => {
+//   socket.emit('message', {message: 'you are connected!'});
+//   console.log('user connected');
+// });
 
 module.exports = app;
