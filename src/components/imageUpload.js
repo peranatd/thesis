@@ -14,6 +14,8 @@ class ImageUpload extends React.Component {
       files: files
     });
 
+    console.log(files);
+
     // let data = new FormData();
     // data.append('image', files[0]);
 
@@ -23,8 +25,12 @@ class ImageUpload extends React.Component {
 
     const socket = io();
     socket.on('connect', () => {
-      console.log('CONNECTED');
+
+      // read and send file
+      socket.emit('file', {name: files[0].name, data: files[0]});
     });
+
+    // this is for testing connection only
     socket.on('message', data => {
       console.log(data.message);
     });
