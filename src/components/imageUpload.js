@@ -22,7 +22,10 @@ class ImageUpload extends React.Component {
     // request.send(data);
 
     const socket = io();
-    socket.on('connect', data => {
+    socket.on('connect', () => {
+      console.log('CONNECTED');
+    });
+    socket.on('message', data => {
       console.log(data.message);
     });
 
