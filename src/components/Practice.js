@@ -1,7 +1,7 @@
 import React from 'react';
 import TextBox from './TextBox';
 import ImageUpload from './imageUpload';
-import Webcam from './LiveVideo';
+import Webcam from './Webcam';
 
 const Practice = () => (
   <div>
