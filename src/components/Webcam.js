@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
+//import io from 'socket.io-client';
 
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -42,7 +43,9 @@ export default class Webcam extends Component {
   constructor() {
     super();
     this.state = {
-      hasUserMedia: false
+      hasUserMedia: false,
+      recording: false,
+      recordedBlobs: []
     };
   }
 
@@ -134,7 +137,6 @@ export default class Webcam extends Component {
     }
 
     let src = window.URL.createObjectURL(stream);
-
     this.stream = stream;
     this.setState({
       hasUserMedia: true,
@@ -147,6 +149,7 @@ export default class Webcam extends Component {
   componentWillUnmount() {
     let index = Webcam.mountedInstances.indexOf(this);
     Webcam.mountedInstances.splice(index, 1);
+    console.log("Webcam.mountedInstances is ", Webcam.mountedInstances);
 
     if (Webcam.mountedInstances.length === 0 && this.state.hasUserMedia) {
       if (this.stream.stop) {
@@ -166,6 +169,38 @@ export default class Webcam extends Component {
       Webcam.userMediaRequested = false;
       window.URL.revokeObjectURL(this.state.src);
     }
+  }
+  // method that handle recording when user click the start button
+  handleRecording() {
+    let recordedBlobs = [];
+    let options = {mimeType: 'video/webm;codecs=vp9'};
+
+    if(!window.MediaRecorder.isTypeSupported(options.mimeType)) {
+      console.log(options.mimeType, ' is not supported')
+    }
+    let mediaRecorder = new window.MediaRecorder(this.stream, {mimeType: 'video/webm;codecs=vp9'});
+    console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
+
+    // start recording
+    mediaRecorder.start();
+    this.setState({recording:true});
+
+    // when the recorded video data is available, save it
+    mediaRecorder.ondataavailable = (event) => {
+      if(event.data && event.data.size > 0) {
+        recordedBlobs.push(event.data);
+      }
+    }
+    console.log('recording? ', mediaRecorder.state, this.stream);
+
+    // stop recording 5 seconds later
+    setTimeout(function(){
+      mediaRecorder.stop();
+      this.setState({recordedBlobs:recordedBlobs});
+      this.setState({recording:false});
+      console.log('recording? ', mediaRecorder.state, this.stream);
+      console.log('Recorded Blobs: ', this.state.recordedBlobs);
+    }.bind(this), 5000);
   }
 
   getScreenshot() {
@@ -197,15 +232,20 @@ export default class Webcam extends Component {
   }
 
   render() {
+    const text = this.state.recording ? 'In progress' : 'Start';
     return (
-      <video
-        autoPlay
-        width={this.props.width}
-        height={this.props.height}
-        src={this.state.src}
-        muted={this.props.muted}
-        className={this.props.className}
-      />
+      <div>
+        <h3>video</h3>
+        <video
+          autoPlay
+          width={this.props.width}
+          height={this.props.height}
+          src={this.state.src}
+          muted={this.props.muted}
+          className={this.props.className}
+        />
+        <button onClick={this.handleRecording.bind(this)}>{text}</button>
+      </div>
     );
   }
 }
