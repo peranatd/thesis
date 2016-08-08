@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-//import io from 'socket.io-client';
+import io from 'socket.io-client';
+
+const socket = io();
 
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -45,8 +47,14 @@ export default class Webcam extends Component {
     this.state = {
       hasUserMedia: false,
       recording: false,
-      recordedBlobs: []
+      recordedBlobs: [],
+      response: []
     };
+
+    socket.on('emotion', (response) => {
+      console.log('component did mount ', response);
+      this.setState({response: this.state.response.concat([response])});
+    });
   }
 
   componentDidMount() {
@@ -57,6 +65,7 @@ export default class Webcam extends Component {
     if (!this.state.hasUserMedia && !Webcam.userMediaRequested) {
       this.requestUserMedia();
     }
+
   }
 
   requestUserMedia() {
@@ -214,10 +223,19 @@ export default class Webcam extends Component {
     if (this.state.recording) {
       console.log('callScreenshot true');
       let a = this.getScreenshot();
-      console.log(a);
+
+      socket.on('connect', () => {
+        // read and send file
+        socket.emit('file', {name: Date.now(), data: a});
+      });
+
+      // this is for testing connection only
+      socket.on('message', data => {
+        console.log(data.message);
+      });
       setTimeout(() => {
         this.callScreenshot();
-      }, 1000);
+      }, 3000);
     } else {
       console.log('callScreenshot false');
       mediaRecorder.stop();
@@ -268,6 +286,7 @@ export default class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
+        <div>{this.state.response}</div>
       </div>
     );
   }
