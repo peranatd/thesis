@@ -12,7 +12,7 @@ export default class Webcam extends Component {
     audio: true,
     height: 480,
     width: 640,
-    screenshotFormat: 'image/webp',
+    screenshotFormat: 'image/jpeg',
     onUserMedia: () => {}
   };
 
@@ -175,32 +175,53 @@ export default class Webcam extends Component {
     let recordedBlobs = [];
     let options = {mimeType: 'video/webm;codecs=vp9'};
 
-    if(!window.MediaRecorder.isTypeSupported(options.mimeType)) {
-      console.log(options.mimeType, ' is not supported')
-    }
+    // if(!window.MediaRecorder.isTypeSupported(options.mimeType)) {
+    //   console.log(options.mimeType, ' is not supported')
+    // }
+
     let mediaRecorder = new window.MediaRecorder(this.stream, {mimeType: 'video/webm;codecs=vp9'});
     console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
 
     // start recording
     mediaRecorder.start();
-    this.setState({recording:true});
+    console.log(this.state.recording);
+    this.setState({recording:!this.state.recording}, () => {
+      console.log(this.state.recording);
+      this.callScreenshot(mediaRecorder);
+    });
 
     // when the recorded video data is available, save it
-    mediaRecorder.ondataavailable = (event) => {
-      if(event.data && event.data.size > 0) {
-        recordedBlobs.push(event.data);
-      }
-    }
-    console.log('recording? ', mediaRecorder.state, this.stream);
+    // mediaRecorder.ondataavailable = (event) => {
+    //   if(event.data && event.data.size > 0) {
+    //     recordedBlobs.push(event.data);
+    //   }
+    // }
+    // console.log('recording? ', mediaRecorder.state, this.stream);
 
     // stop recording 5 seconds later
-    setTimeout(function(){
+    // setInterval(() => {
+      // mediaRecorder.stop();
+      // this.setState({recordedBlobs:recordedBlobs});
+      // this.getScreenshot();
+      // console.log(this.getScreenshot());
+      // this.setState({recording:false});
+      // console.log('recording? ', mediaRecorder.state, this.stream);
+      // console.log('Recorded Blobs: ', this.state.recordedBlobs);
+    // }, 1000);
+  }
+
+  callScreenshot(mediaRecorder) {
+    if (this.state.recording) {
+      console.log('callScreenshot true');
+      let a = this.getScreenshot();
+      console.log(a);
+      setTimeout(() => {
+        this.callScreenshot();
+      }, 1000);
+    } else {
+      console.log('callScreenshot false');
       mediaRecorder.stop();
-      this.setState({recordedBlobs:recordedBlobs});
-      this.setState({recording:false});
-      console.log('recording? ', mediaRecorder.state, this.stream);
-      console.log('Recorded Blobs: ', this.state.recordedBlobs);
-    }.bind(this), 5000);
+    }
   }
 
   getScreenshot() {
@@ -214,20 +235,22 @@ export default class Webcam extends Component {
     if (!this.state.hasUserMedia) return null;
 
     const video = findDOMNode(this);
+    const actualVideo = video.getElementsByTagName('video')[0];
+    // console.log(video.getElementsByTagName('video'));
     if (!this.ctx) {
       let canvas = document.createElement('canvas');
-      const aspectRatio = video.videoWidth / video.videoHeight;
-
-      canvas.width = video.clientWidth;
-      canvas.height = video.clientWidth / aspectRatio;
+      const aspectRatio = actualVideo.videoWidth / actualVideo.videoHeight;
+      console.log(actualVideo);
+      canvas.width = actualVideo.clientWidth;
+      canvas.height = actualVideo.clientWidth / aspectRatio;
 
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
     }
-
     const {ctx, canvas} = this;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(actualVideo, 0, 0, canvas.width, canvas.height);
 
+    console.log(canvas);
     return canvas;
   }
 
