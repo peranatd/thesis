@@ -17,8 +17,8 @@ const socketMethods = {
       socket.on('file', (data) => {
         console.log('receiving ', data.name);
         console.log(data.data.length, ' bytes');
-        let dataString = data.data.split(',')[1];
-        let imgBuffer = new Buffer(dataString, 'base64');
+        var dataString = data.data.split(',')[1];
+        var imgBuffer = new Buffer(dataString, 'base64');
 
         ms(imgBuffer)
           .then((response) => {
