@@ -1,5 +1,6 @@
 const sio = require('socket.io');
 const fs = require('fs');
+const ms = require('./ms.js');
 
 const socketMethods = {
   startSocket: (app) => {
@@ -16,12 +17,14 @@ const socketMethods = {
       socket.on('file', (data) => {
         console.log('receiving ', data.name);
         console.log(data.data.length, ' bytes');
-        fs.writeFile(`${__dirname}/temp/${data.name}`, data.data, () => {
-          console.log('file received');
-        });
+        let dataString = data.data.split(',')[1];
+        let imgBuffer = new Buffer(dataString, 'base64');
+
+        ms(imgBuffer)
+          .then((response) => {
+            socket.emit('emotion', {response: response, time: data.name});
+          });
       });
-
-
 
     });
   }
