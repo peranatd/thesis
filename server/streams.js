@@ -22,12 +22,8 @@ const socketMethods = {
 
         ms(imgBuffer)
           .then((response) => {
-            // console.log(response);
             socket.emit('emotion', {response: response, time: data.name});
           });
-        // fs.writeFile(`${__dirname}/temp/${data.name}`, data.data, () => {
-        //   console.log('file received');
-        // });
       });
 
     });

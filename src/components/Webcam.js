@@ -1,3 +1,4 @@
+// https://github.com/cezary/react-webcam
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
@@ -47,11 +48,10 @@ export default class Webcam extends Component {
       hasUserMedia: false,
       recording: false,
       recordedBlobs: [],
-      response: [],
+      response: []
     };
 
     socket.on('emotion', (response) => {
-      console.log(response);
       this.setState({response: this.state.response.concat([response.response])});
     });
 
@@ -65,11 +65,6 @@ export default class Webcam extends Component {
     if (!this.state.hasUserMedia && !Webcam.userMediaRequested) {
       this.requestUserMedia();
     }
-
-    socket.on('emotion', (response) => {
-      console.log('component did mount ', response);
-      this.setState({response: this.state.response.concat([response])});
-    });
 
   }
 
@@ -184,14 +179,11 @@ export default class Webcam extends Component {
       window.URL.revokeObjectURL(this.state.src);
     }
   }
+
   // method that handle recording when user click the start button
   handleRecording() {
     let recordedBlobs = [];
     let options = {mimeType: 'video/webm;codecs=vp9'};
-
-    // if(!window.MediaRecorder.isTypeSupported(options.mimeType)) {
-    //   console.log(options.mimeType, ' is not supported')
-    // }
 
     let mediaRecorder = new window.MediaRecorder(this.stream, {mimeType: 'video/webm;codecs=vp9'});
     console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
@@ -204,24 +196,6 @@ export default class Webcam extends Component {
       this.callScreenshot(mediaRecorder);
     });
 
-    // when the recorded video data is available, save it
-    // mediaRecorder.ondataavailable = (event) => {
-    //   if(event.data && event.data.size > 0) {
-    //     recordedBlobs.push(event.data);
-    //   }
-    // }
-    // console.log('recording? ', mediaRecorder.state, this.stream);
-
-    // stop recording 5 seconds later
-    // setInterval(() => {
-      // mediaRecorder.stop();
-      // this.setState({recordedBlobs:recordedBlobs});
-      // this.getScreenshot();
-      // console.log(this.getScreenshot());
-      // this.setState({recording:false});
-      // console.log('recording? ', mediaRecorder.state, this.stream);
-      // console.log('Recorded Blobs: ', this.state.recordedBlobs);
-    // }, 1000);
   }
 
   callScreenshot(mediaRecorder) {
@@ -251,7 +225,6 @@ export default class Webcam extends Component {
 
     const video = findDOMNode(this);
     const actualVideo = video.getElementsByTagName('video')[0];
-    // console.log(video.getElementsByTagName('video'));
     if (!this.ctx) {
       let canvas = document.createElement('canvas');
       const aspectRatio = actualVideo.videoWidth / actualVideo.videoHeight;
