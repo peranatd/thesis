@@ -49,10 +49,12 @@ export default class Webcam extends Component {
       recordedBlobs: [],
       response: [],
     };
+
     socket.on('emotion', (response) => {
       console.log(response);
       this.setState({response: this.state.response.concat([response.response])});
     });
+
   }
 
   componentDidMount() {
@@ -63,6 +65,11 @@ export default class Webcam extends Component {
     if (!this.state.hasUserMedia && !Webcam.userMediaRequested) {
       this.requestUserMedia();
     }
+
+    socket.on('emotion', (response) => {
+      console.log('component did mount ', response);
+      this.setState({response: this.state.response.concat([response])});
+    });
 
   }
 
