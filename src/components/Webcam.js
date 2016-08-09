@@ -205,7 +205,7 @@ export default class Webcam extends Component {
       socket.emit('file', {name: Date.now(), data: a});
 
       setTimeout(() => {
-        this.callScreenshot();
+        this.callScreenshot(mediaRecorder);
       }, 3000);
     } else {
       console.log('callScreenshot false');

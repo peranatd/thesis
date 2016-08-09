@@ -66,7 +66,7 @@ class Speech extends Component {
         <button onClick={this.say.bind(this)}>Speaking</button>
         <input value={this.state.inputValue} onChange={this.changeValue.bind(this)} placeholder="Type your message" />
       </div>
-    )
+    );
   }
 }
 
