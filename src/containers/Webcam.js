@@ -53,6 +53,7 @@ class Webcam extends Component {
       recording: false,
       recordedBlobs: [],
       response: [],
+      bv: [],
       id: undefined
     };
 
@@ -60,6 +61,9 @@ class Webcam extends Component {
       this.setState({response: this.state.response.concat([response.response])});
 
       this.props.SentimentResponse(response,this.state.response);
+    });
+    socket.on('bv', (response) => {
+      this.setState({bv: this.state.bv.concat([response])});
     });
 
   }
@@ -197,6 +201,7 @@ class Webcam extends Component {
     let mediaRecorder = new MediaStreamRecorder(this.audioStream);
     mediaRecorder.mimeType = 'audio/wav';
     mediaRecorder.audioChannels = 1;
+    mediaRecorder.sampleRate = 8000;
     // console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
 
     if (!this.state.recording) {
@@ -285,7 +290,8 @@ class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
-
+        <div>{JSON.stringify(this.state.bv)}</div>
+        <div>{this.state.response}</div>
       </div>
     );
   }
