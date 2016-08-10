@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
+import MediaStreamRecorder from 'msr';
 const socket = io();
 
 function hasGetUserMedia() {
@@ -188,7 +189,9 @@ export default class Webcam extends Component {
     // let recordedBlobs = [];
     // let options = ;
 
-    let mediaRecorder = new window.MediaRecorder(this.audioStream, {mimeType: 'audio/webm'});
+    let mediaRecorder = new MediaStreamRecorder(this.audioStream);
+    mediaRecorder.mimeType = 'audio/wav';
+    mediaRecorder.audioChannels = 1;
     // console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
 
     if (!this.state.recording) {
@@ -198,12 +201,14 @@ export default class Webcam extends Component {
     }
 
     mediaRecorder.ondataavailable = (e) => {
-      socket.emit('audio', {id:this.state.id, data: e.data, isFinal: false});
+      socket.emit('audio', {id:this.state.id, data: e, isFinal: false});
     };
 
-    mediaRecorder.onstop = (e) => {
-      socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
-    };
+    // msr does not have an onstop listener??
+    // mediaRecorder.onstop = () => {
+    //   console.log('Ive been stopped!!!')
+    //   socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
+    // };
 
     // start recording
     mediaRecorder.start(3000);
@@ -225,8 +230,9 @@ export default class Webcam extends Component {
         this.callScreenshot(mediaRecorder);
       }, 3000);
     } else {
-      // console.log('callScreenshot false');
+      console.log('callScreenshot false');
       mediaRecorder.stop();
+      socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
     }
   }
 

@@ -28,15 +28,15 @@ const socketMethods = {
       });
 
       socket.on('audio', (data) => {
-        // console.log();
-        // TODO
+        // TODO: call 2 separate apis
         if (data.isFinal) {
           console.log(data);
-          fs.writeFile('./server/audio.webm', audio[data.id], (err) => {
+          fs.writeFile('./server/audio', audio[data.id], (err) => {
             if (err) console.log(err);
             console.log('File saved!')
           })
         } else {
+          console.log(data);
           audio[data.id] = audio[data.id] ? Buffer.concat([audio[data.id], data.data]) : Buffer.from(data.data);
         }
       });
