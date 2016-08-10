@@ -1,13 +1,6 @@
-import io from 'socket.io-client';
-const socket = io();
-
-export default function () {
-  let sentiments = [];
-  socket.on('emotion', (data) => {
-      sentiments = sentiments.concat([data.response]);
-    });
+export function SentimentResponse (data,sentiments) {
   return {
     type: 'SENTIMENT_RESPONSE',
-    payload: sentiments
+    payload: sentiments.concat(data.response)
   };
 }

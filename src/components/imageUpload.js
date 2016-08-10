@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import io from 'socket.io-client';
 
-class ImageUpload extends React.Component {
+class ImageUpload extends Component {
   constructor(props){
     super(props);
     this.state = {
