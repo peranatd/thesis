@@ -1,5 +1,8 @@
 // https://github.com/cezary/react-webcam
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { SentimentResponse } from '../actions/action_sentiments';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
 import MediaStreamRecorder from 'msr';
@@ -10,7 +13,7 @@ function hasGetUserMedia() {
             navigator.mozGetUserMedia || navigator.msGetUserMedia);
 }
 
-export default class Webcam extends Component {
+class Webcam extends Component {
   static defaultProps = {
     audio: true,
     height: 480,
@@ -55,6 +58,8 @@ export default class Webcam extends Component {
 
     socket.on('emotion', (response) => {
       this.setState({response: this.state.response.concat([response.response])});
+
+      this.props.SentimentResponse(response,this.state.response);
     });
 
   }
@@ -217,6 +222,7 @@ export default class Webcam extends Component {
       // console.log(this.state.recording);
       this.callScreenshot(mediaRecorder);
     });
+
   }
 
 
@@ -279,8 +285,20 @@ export default class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
-        <div>{this.state.response}</div>
+
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    sentiment: state.sentiments
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({SentimentResponse: SentimentResponse}, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Webcam);

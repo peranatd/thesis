@@ -1,8 +1,9 @@
 import React from 'react';
 import TextBox from './TextBox';
 import ImageUpload from './imageUpload';
-import Webcam from './Webcam';
+import Webcam from '../containers/Webcam';
 import Speech from './SpeechToText';
+import Result from '../containers/Result';
 
 const Practice = () => (
   <div>
@@ -11,6 +12,7 @@ const Practice = () => (
     <ImageUpload />
     <Webcam />
     <Speech />
+    <Result />
   </div>
 );
 
