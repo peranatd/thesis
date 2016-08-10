@@ -2,6 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
+import MediaStreamRecorder from 'msr';
 const socket = io();
 
 function hasGetUserMedia() {
@@ -48,7 +49,8 @@ export default class Webcam extends Component {
       hasUserMedia: false,
       recording: false,
       recordedBlobs: [],
-      response: []
+      response: [],
+      id: undefined
     };
 
     socket.on('emotion', (response) => {
@@ -78,20 +80,18 @@ export default class Webcam extends Component {
       let constraints = {
         video: {
           optional: [{sourceId: videoSource}]
+        },
+        audio: {
+          optional: [{sourceId: audioSource}]
         }
       };
-
-      if (this.props.audio) {
-        constraints.audio = {
-          optional: [{sourceId: audioSource}]
-        };
-      }
 
       navigator.getUserMedia(constraints, (stream) => {
         Webcam.mountedInstances.forEach((instance) => instance.handleUserMedia(null, stream));
       }, (e) => {
         Webcam.mountedInstances.forEach((instance) => instance.handleUserMedia(e));
       });
+
     };
 
     if (this.props.audioSource && this.props.videoSource) {
@@ -145,6 +145,10 @@ export default class Webcam extends Component {
       return;
     }
 
+    navigator.getUserMedia({audio: true}, (audioStream) => {
+        this.audioStream = audioStream;
+    }, (e) => {});
+
     let src = window.URL.createObjectURL(stream);
     this.stream = stream;
     this.setState({
@@ -182,25 +186,43 @@ export default class Webcam extends Component {
 
   // method that handle recording when user click the start button
   handleRecording() {
-    let recordedBlobs = [];
-    let options = {mimeType: 'video/webm;codecs=vp9'};
+    // let recordedBlobs = [];
+    // let options = ;
 
-    let mediaRecorder = new window.MediaRecorder(this.stream, {mimeType: 'video/webm;codecs=vp9'});
-    console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
+    let mediaRecorder = new MediaStreamRecorder(this.audioStream);
+    mediaRecorder.mimeType = 'audio/wav';
+    mediaRecorder.audioChannels = 1;
+    // console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
+
+    if (!this.state.recording) {
+      this.setState({
+        id: Date.now()
+      });
+    }
+
+    mediaRecorder.ondataavailable = (e) => {
+      socket.emit('audio', {id:this.state.id, data: e, isFinal: false});
+    };
+
+    // msr does not have an onstop listener??
+    // mediaRecorder.onstop = () => {
+    //   console.log('Ive been stopped!!!')
+    //   socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
+    // };
 
     // start recording
-    mediaRecorder.start();
-    console.log(this.state.recording);
+    mediaRecorder.start(3000);
+    // console.log(this.state.recording);
     this.setState({recording:!this.state.recording}, () => {
-      console.log(this.state.recording);
+      // console.log(this.state.recording);
       this.callScreenshot(mediaRecorder);
     });
-
   }
+
 
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
-      console.log('callScreenshot true');
+      // console.log('callScreenshot true');
       let a = this.getScreenshot();
       socket.emit('file', {name: Date.now(), data: a});
 
@@ -210,6 +232,7 @@ export default class Webcam extends Component {
     } else {
       console.log('callScreenshot false');
       mediaRecorder.stop();
+      socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
     }
   }
 
