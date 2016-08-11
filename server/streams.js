@@ -31,15 +31,10 @@ const socketMethods = {
       socket.on('audio', (data) => {
         // TODO: call 2 separate apis
         if (data.isFinal) {
-          console.log(data);
-          // fs.writeFile('./server/audio.wav', audio[data.id], (err) => {
-          //   if (err) console.log(err);
-          //   console.log('File saved!');
-          // });
           bv.getToken()
           .then(token => bv.startSession(token))
           .then(res => {
-            console.log(res.token, res.body.recordingId);
+            // console.log(res.token, res.body.recordingId);
             return bv.analyseData(res.token, res.body.recordingId, audio[data.id]);
           }).then(res => {
             socket.emit('bv', res);
