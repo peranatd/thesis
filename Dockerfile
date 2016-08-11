@@ -1,9 +1,5 @@
 FROM node:argon
 
-# Install required packages
-RUN apt-get update && apt-get install -y \
-libresample1-dev
-
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
