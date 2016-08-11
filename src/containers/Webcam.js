@@ -280,8 +280,6 @@ class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
-        <div>{JSON.stringify(this.state.bv)}</div>
-        <div>{this.state.response}</div>
       </div>
     );
   }
