@@ -8,8 +8,10 @@ class Result extends Component {
   render(){
     return(
       <div classname="Result">
-        <h3>Result</h3>
+        <h3>Sentiment Result</h3>
         {this.props.sentiment}
+        <h3>Tone Result</h3>
+        {this.props.tone}
       </div>
     )
   }
@@ -17,7 +19,8 @@ class Result extends Component {
 
 function mapStateToProps(state) {
   return {
-    sentiment: state.sentiments
+    sentiment: state.sentiments,
+    tone: state.tone
   }
 }
 

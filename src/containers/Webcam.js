@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SentimentResponse } from '../actions/action_sentiments';
+import { ToneResponse } from '../actions/action_tone';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
 import MediaStreamRecorder from 'msr';
@@ -65,6 +66,8 @@ class Webcam extends Component {
     });
     socket.on('bv', (response) => {
       this.setState({bv: this.state.bv.concat([response])});
+
+      this.props.ToneResponse(response,this.state.bv);
     });
 
   }
@@ -286,12 +289,16 @@ class Webcam extends Component {
 
 function mapStateToProps(state) {
   return {
-    sentiment: state.sentiments
+    sentiment: state.sentiments,
+    tone: state.tone
   }
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({SentimentResponse: SentimentResponse}, dispatch);
+  return bindActionCreators({
+    SentimentResponse: SentimentResponse,
+    ToneResponse: ToneResponse
+  }, dispatch);
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(Webcam);
