@@ -53,13 +53,18 @@ class Webcam extends Component {
       recording: false,
       recordedBlobs: [],
       response: [],
-      id: undefined
+      bv: [],
+      id: undefined,
+      recorder: undefined
     };
 
     socket.on('emotion', (response) => {
       this.setState({response: this.state.response.concat([response.response])});
 
       this.props.SentimentResponse(response,this.state.response);
+    });
+    socket.on('bv', (response) => {
+      this.setState({bv: this.state.bv.concat([response])});
     });
 
   }
@@ -191,38 +196,29 @@ class Webcam extends Component {
 
   // method that handle recording when user click the start button
   handleRecording() {
-    // let recordedBlobs = [];
-    // let options = ;
-
-    let mediaRecorder = new MediaStreamRecorder(this.audioStream);
-    mediaRecorder.mimeType = 'audio/wav';
-    mediaRecorder.audioChannels = 1;
-    // console.log('Created MediaRecorder', mediaRecorder, 'with options', {mimeType: 'video/webm;codecs=vp9'});
-
     if (!this.state.recording) {
+      let mediaRecorder = new MediaStreamRecorder(this.audioStream);
       this.setState({
-        id: Date.now()
+        id: Date.now(),
+        recorder: mediaRecorder
+      }, () => {
+        mediaRecorder.mimeType = 'audio/wav';
+        mediaRecorder.audioChannels = 1;
+        mediaRecorder.sampleRate = 8000;
+        mediaRecorder.ondataavailable = (e) => {
+          socket.emit('audio', {id:this.state.id, data: e, isFinal: false});
+        };
+        mediaRecorder.start(3000);
+        this.setState({recording:!this.state.recording}, () => {
+          this.callScreenshot(mediaRecorder);
+        });
+      });
+    } else {
+      this.setState({recording:!this.state.recording}, () => {
+        this.state.recorder.stop();
+        socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
       });
     }
-
-    mediaRecorder.ondataavailable = (e) => {
-      socket.emit('audio', {id:this.state.id, data: e, isFinal: false});
-    };
-
-    // msr does not have an onstop listener??
-    // mediaRecorder.onstop = () => {
-    //   console.log('Ive been stopped!!!')
-    //   socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
-    // };
-
-    // start recording
-    mediaRecorder.start(3000);
-    // console.log(this.state.recording);
-    this.setState({recording:!this.state.recording}, () => {
-      // console.log(this.state.recording);
-      this.callScreenshot(mediaRecorder);
-    });
-
   }
 
 
@@ -235,10 +231,6 @@ class Webcam extends Component {
       setTimeout(() => {
         this.callScreenshot(mediaRecorder);
       }, 3000);
-    } else {
-      console.log('callScreenshot false');
-      mediaRecorder.stop();
-      socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
     }
   }
 
@@ -285,7 +277,8 @@ class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
-
+        <div>{JSON.stringify(this.state.bv)}</div>
+        <div>{this.state.response}</div>
       </div>
     );
   }
