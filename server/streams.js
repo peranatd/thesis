@@ -2,7 +2,6 @@ const sio = require('socket.io');
 const fs = require('fs');
 const ms = require('./ms.js');
 const bv = require('./beyondVerbal.js');
-// const Resampler = require('resampler');
 
 const socketMethods = {
   startSocket: (app) => {
@@ -32,15 +31,14 @@ const socketMethods = {
         // TODO: call 2 separate apis
         if (data.isFinal) {
           console.log(data);
-          fs.writeFile('./server/audio', audio[data.id], (err) => {
-            if (err) console.log(err);
-            console.log('File saved!');
-          });
+          // fs.writeFile('./server/audio', audio[data.id], (err) => {
+          //   if (err) console.log(err);
+          //   console.log('File saved!');
+          // });
           bv.getToken()
           .then(token => bv.startSession(token))
           .then(res => {
             console.log(res.token, res.body.recordingId);
-            console.log(typeof(audio[data.id]));
             return bv.analyseData(res.token, res.body.recordingId, audio[data.id]);
           }).then(res => {
             socket.emit('bv', res);

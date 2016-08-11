@@ -72,6 +72,7 @@ function analyseData(token, id, audioFile) {
         reject(err);
       } else {
         console.log(JSON.parse(body));
+        console.log(JSON.stringify(JSON.parse(body), null, 2));
         resolve(JSON.parse(body));
       }
     });
