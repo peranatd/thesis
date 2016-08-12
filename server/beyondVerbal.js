@@ -22,7 +22,7 @@ function getToken() {
         console.log(err);
         reject(err);
       } else {
-        console.log('GOT TOKEN, ') //, JSON.parse(body));
+        console.log('GOT TOKEN, ', JSON.parse(body));
         resolve(JSON.parse(body)['access_token']);
       }
     });
@@ -49,7 +49,7 @@ function startSession(token) {
       if (err) {
         reject(err);
       } else {
-        console.log('GOT SESSION ID ') //, JSON.parse(body));
+        console.log('GOT SESSION ID ', JSON.parse(body));
         resolve({body: JSON.parse(body), token: token});
       }
     });
@@ -71,7 +71,7 @@ function analyseData(token, id, audioFile) {
       if (err) {
         reject(err);
       } else {
-        // console.log(JSON.parse(body));
+        console.log(JSON.parse(body));
         console.log(JSON.stringify(JSON.parse(body), null, 2));
         resolve(JSON.parse(body));
       }
