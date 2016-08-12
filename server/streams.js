@@ -32,10 +32,10 @@ const socketMethods = {
         // TODO: call 2 separate apis
         if (data.isFinal) {
           console.log(data);
-          fs.writeFile('./server/audio.wav', audio[data.id], (err) => {
-            if (err) console.log(err);
-            console.log('File saved!');
-          });
+          // fs.writeFile('./server/audio.wav', audio[data.id], (err) => {
+          //   if (err) console.log(err);
+          //   console.log('File saved!');
+          // });
           bv.getToken()
           .then(token => bv.startSession(token))
           .then(res => {
@@ -47,7 +47,6 @@ const socketMethods = {
         } else {
           console.log(data);
           audio[data.id] = audio[data.id] ? wav.concat(audio[data.id], data.data) : Buffer.from(data.data);
-          // fs.writeFileSync('./server/' + Date.now() + '.wav', Buffer.from(data.data));
         }
       });
 

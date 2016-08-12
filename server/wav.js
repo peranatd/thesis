@@ -1,8 +1,6 @@
 /*
- *  This is a WAV concat module
+ *  This is a module to join WAV files
  */
-
- let fs = require('fs');
 
 function concat(a, b) {
   // requires a and b to have the same audio format, #channels,
@@ -61,17 +59,16 @@ module.exports = {
   concat: concat
 };
 
-let file = fs.readFileSync(__dirname + '/audio.wav');
-let sr = bytesToNum([...file.slice(24, 28)]);
-let br = bytesToNum([...file.slice(28, 32)]);
-let bps = bytesToNum([...file.slice(34, 36)]);
-let fsize = bytesToNum([...file.slice(40, 44)]);
-let channels = bytesToNum([...file.slice(32, 34)]);
-console.log('Sample rate ', sr);
-console.log('Byte rate ', br);
-console.log('Bits per sample ', bps);
-console.log('File size', fsize);
-console.log('no channels ', channels);
-
-
-
+// let fs = require('fs');
+// let file = fs.readFileSync(__dirname + '/audio.wav');
+// let sr = bytesToNum([...file.slice(24, 28)]);
+// let br = bytesToNum([...file.slice(28, 32)]);
+// let bps = bytesToNum([...file.slice(34, 36)]);
+// let fsize = bytesToNum([...file.slice(40, 44)]);
+// let channels = bytesToNum([...file.slice(22, 24)]);
+// console.log('Sample rate ', sr);
+// console.log('Byte rate ', br);
+// console.log('Bits per sample ', bps);
+// console.log('File size', fsize);
+// console.log('no channels ', channels);
+// console.log('calculated duration ', fsize/(sr*bps*channels/8));
