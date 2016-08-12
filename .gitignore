@@ -9,3 +9,4 @@ dist/
 Dockerrun.aws.json
 
 server/credential.js
+src/keys.js
