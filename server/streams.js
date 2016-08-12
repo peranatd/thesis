@@ -1,8 +1,10 @@
 const sio = require('socket.io');
 const fs = require('fs');
+
 const ms = require('./ms.js');
 const bv = require('./beyondVerbal.js');
 const wav = require('./wav.js');
+const watson = require('./watson.js');
 
 const socketMethods = {
   startSocket: (app) => {
@@ -36,8 +38,17 @@ const socketMethods = {
           .then(res => {
             // console.log(res.token, res.body.recordingId);
             return bv.analyseData(res.token, res.body.recordingId, audio[data.id]);
-          }).then(res => {
+          })
+          .then(res => {
             socket.emit('bv', res);
+          });
+
+          watson.speechToText(audio[data.id])
+          .then(res => {
+            socket.emit('stt', res);
+          })
+          .catch(err => {
+            console.log(err);
           });
         } else {
           console.log(data);
