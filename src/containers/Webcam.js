@@ -56,7 +56,6 @@ class Webcam extends Component {
       hasUserMedia: false,
       recording: false,
       recordedBlobs: [],
-      response: [],
       bv: [],
       stt: [],
       id: undefined,
@@ -64,14 +63,12 @@ class Webcam extends Component {
     };
 
     socket.on('emotion', (response) => {
-      this.setState({response: this.state.response.concat([response.response])});
-
-      this.props.SentimentResponse(response,this.state.response);
+      this.props.SentimentResponse(response, this.props.sentiment);
     });
     socket.on('bv', (response) => {
       this.setState({bv: this.state.bv.concat([response])});
 
-      this.props.ToneResponse(response,this.state.bv);
+      this.props.ToneResponse(response, this.state.bv);
     });
 
     socket.on('stt', (response) => {
