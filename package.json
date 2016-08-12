@@ -6,6 +6,8 @@
     "react-scripts": "0.2.1"
   },
   "dependencies": {
+    "audio-resampler": "^1.0.1",
+    "audiobuffer-to-wav": "^1.0.0",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",

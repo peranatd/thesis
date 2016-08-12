@@ -7,6 +7,8 @@ import { ToneResponse } from '../actions/action_tone';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
 import MediaStreamRecorder from 'msr';
+import resampler from 'audio-resampler';
+import toWav from 'audiobuffer-to-wav';
 const socket = io();
 
 function hasGetUserMedia() {
@@ -159,7 +161,7 @@ class Webcam extends Component {
     }
 
     navigator.getUserMedia({audio: true}, (audioStream) => {
-        this.audioStream = audioStream;
+      this.audioStream = audioStream;
     }, (e) => {});
 
     let src = window.URL.createObjectURL(stream);
@@ -207,9 +209,15 @@ class Webcam extends Component {
       }, () => {
         mediaRecorder.mimeType = 'audio/wav';
         mediaRecorder.audioChannels = 1;
-        mediaRecorder.sampleRate = 8000;
         mediaRecorder.ondataavailable = (e) => {
-          socket.emit('audio', {id:this.state.id, data: e, isFinal: false});
+          // resample to 8kHz before sending to server
+          let u = URL.createObjectURL(e);
+          resampler(u, 8000, (event) => {
+            let wav = toWav(event.getAudioBuffer());
+            let wavFile = new Blob([wav]);
+            socket.emit('audio', {id:this.state.id, data: wavFile, isFinal: false});
+            URL.revokeObjectURL(u);
+          });
         };
         mediaRecorder.start(3000);
         this.setState({recording:!this.state.recording}, () => {
@@ -223,7 +231,6 @@ class Webcam extends Component {
       });
     }
   }
-
 
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
@@ -280,8 +287,6 @@ class Webcam extends Component {
           className={this.props.className}
         />
         <button onClick={this.handleRecording.bind(this)}>{text}</button>
-        <div>{JSON.stringify(this.state.bv)}</div>
-        <div>{this.state.response}</div>
       </div>
     );
   }
@@ -291,7 +296,7 @@ function mapStateToProps(state) {
   return {
     sentiment: state.sentiments,
     tone: state.tone
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch){

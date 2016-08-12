@@ -2,6 +2,7 @@ const sio = require('socket.io');
 const fs = require('fs');
 const ms = require('./ms.js');
 const bv = require('./beyondVerbal.js');
+const wav = require('./wav.js');
 
 const socketMethods = {
   startSocket: (app) => {
@@ -31,7 +32,7 @@ const socketMethods = {
         // TODO: call 2 separate apis
         if (data.isFinal) {
           console.log(data);
-          // fs.writeFile('./server/audio', audio[data.id], (err) => {
+          // fs.writeFile('./server/audio.wav', audio[data.id], (err) => {
           //   if (err) console.log(err);
           //   console.log('File saved!');
           // });
@@ -45,7 +46,7 @@ const socketMethods = {
           });
         } else {
           console.log(data);
-          audio[data.id] = audio[data.id] ? Buffer.concat([audio[data.id], data.data]) : Buffer.from(data.data);
+          audio[data.id] = audio[data.id] ? wav.concat(audio[data.id], data.data) : Buffer.from(data.data);
         }
       });
 
