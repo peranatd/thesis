@@ -8,7 +8,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-const textSentiment = require('./watson.js');
+const watson = require('./watson.js');
 const ms = require('./ms.js');
 
 app.use(partials());
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(serveStatic(__dirname + '/../build'));
 
 app.post('/api/text', function (req, res) {
-  textSentiment(req.body)
+  watson.textSentiment(req.body)
     .then(result => res.status(201).send(result))
     .catch(err => res.status(201).send(err));
 });

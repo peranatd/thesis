@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SentimentResponse } from '../actions/action_sentiments';
 import { ToneResponse } from '../actions/action_tone';
+import { SpeechToTextResponse } from '../actions/action_speechtotext';
 import { findDOMNode } from 'react-dom';
 import io from 'socket.io-client';
 import MediaStreamRecorder from 'msr';
@@ -57,6 +58,7 @@ class Webcam extends Component {
       recordedBlobs: [],
       response: [],
       bv: [],
+      stt: [],
       id: undefined,
       recorder: undefined
     };
@@ -72,6 +74,11 @@ class Webcam extends Component {
       this.props.ToneResponse(response,this.state.bv);
     });
 
+    socket.on('stt', (response) => {
+      this.setState({stt: this.state.stt.concat([response])});
+      console.log('INSIDE STT EVENT ', this.state.stt);
+      this.props.SpeechToTextResponse(response, this.state.stt);
+    });
   }
 
   componentDidMount() {
@@ -295,14 +302,16 @@ class Webcam extends Component {
 function mapStateToProps(state) {
   return {
     sentiment: state.sentiments,
-    tone: state.tone
+    tone: state.tone,
+    speechtotext: state.speechtotext
   };
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     SentimentResponse: SentimentResponse,
-    ToneResponse: ToneResponse
+    ToneResponse: ToneResponse,
+    SpeechToTextResponse: SpeechToTextResponse
   }, dispatch);
 }
 
