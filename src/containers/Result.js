@@ -29,7 +29,9 @@ class Result extends Component {
                 <span> Sadness : {(emotion[0].scores.sadness).toFixed(4)} </span>
                 <span> Surprise : {(emotion[0].scores.surprise).toFixed(4)} </span>
               </li>
-              )})}
+            );
+          })
+        }
         </ul>
         <h3>Tone Result</h3>
         {this.props.tone}
