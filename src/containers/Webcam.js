@@ -63,7 +63,10 @@ class Webcam extends Component {
     };
 
     socket.on('emotion', (response) => {
-      this.props.SentimentResponse(response, this.props.sentiment);
+      let data = JSON.parse(response.response);
+      if (data.length) {
+        this.props.SentimentResponse(data, this.props.sentiment);
+      }
     });
     socket.on('bv', (response) => {
       this.setState({bv: this.state.bv.concat([response])});
