@@ -2,9 +2,9 @@ import React from 'react';
 
 const Login = (props) => {
   return (
-    <div>
-      <a > Login </a>
-    </div>
+    <a href='#' onClick={()=> props.onLoginClick()} >
+      Login
+    </a>
   );
 };
 
