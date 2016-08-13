@@ -56,28 +56,24 @@ class Webcam extends Component {
       hasUserMedia: false,
       recording: false,
       recordedBlobs: [],
-      response: [],
-      bv: [],
-      stt: [],
       id: undefined,
       recorder: undefined
     };
 
     socket.on('emotion', (response) => {
-      this.setState({response: this.state.response.concat([response.response])});
-
-      this.props.SentimentResponse(response,this.state.response);
+      let data = JSON.parse(response.response);
+      if (data.length) {
+        this.props.SentimentResponse(data, this.props.sentiment);
+      }
     });
-    socket.on('bv', (response) => {
-      this.setState({bv: this.state.bv.concat([response])});
 
-      this.props.ToneResponse(response,this.state.bv);
+    socket.on('bv', (response) => {
+      this.props.ToneResponse(response, this.props.tone);
     });
 
     socket.on('stt', (response) => {
-      this.setState({stt: this.state.stt.concat([response])});
-      console.log('INSIDE STT EVENT ', this.state.stt);
-      this.props.SpeechToTextResponse(response, this.state.stt);
+      let data = JSON.parse(response).results;
+      this.props.SpeechToTextResponse(data, this.props.speechToText);
     });
   }
 
@@ -303,7 +299,7 @@ function mapStateToProps(state) {
   return {
     sentiment: state.sentiments,
     tone: state.tone,
-    speechtotext: state.speechtotext
+    speechToText: state.speechToText
   };
 }
 

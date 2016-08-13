@@ -21,9 +21,9 @@ function concat(a, b) {
   }
 
   // construct pieces of the new file
-  let chead = [ 82, 73, 70, 70 ].concat(numToBytes(36 + adata.length + bdata.length, 4)).concat([ 87, 65, 86, 69 ]);
+  let chead = [ 82, 73, 70, 70, ...numToBytes(36 + adata.length + bdata.length, 4), 87, 65, 86, 69];
   let csub1 = bsub1;
-  let csub2 = [100, 97, 116, 97].concat(numToBytes(adata.length + bdata.length, 4));
+  let csub2 = [100, 97, 116, 97, ...numToBytes(adata.length + bdata.length, 4)];
   let cdata = [...adata, ...bdata];
 
   return Buffer.from([...chead, ...csub1, ...csub2, ...cdata]);

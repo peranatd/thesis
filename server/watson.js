@@ -60,8 +60,8 @@ const speechToText = function (file) {
         resolve(JSON.stringify(transcript, null, 2));
       }
     });
-  })
-}
+  });
+};
 
 module.exports = {
   textSentiment: textSentiment,

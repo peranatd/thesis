@@ -30,4 +30,5 @@ function mapStateToProps(state) {
     errorMessage: errorMessage
   };
 }
+
 export default connect(mapStateToProps)(App);
