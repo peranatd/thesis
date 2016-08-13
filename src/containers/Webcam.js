@@ -6,11 +6,11 @@ import { SentimentResponse } from '../actions/action_sentiments';
 import { ToneResponse } from '../actions/action_tone';
 import { SpeechToTextResponse } from '../actions/action_speechtotext';
 import { findDOMNode } from 'react-dom';
-import io from 'socket.io-client';
+
 import MediaStreamRecorder from 'msr';
 import resampler from 'audio-resampler';
 import toWav from 'audiobuffer-to-wav';
-const socket = io();
+
 
 function hasGetUserMedia() {
   return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
@@ -50,8 +50,8 @@ class Webcam extends Component {
 
   static userMediaRequested = false;
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hasUserMedia: false,
       recording: false,
@@ -60,18 +60,18 @@ class Webcam extends Component {
       recorder: undefined
     };
 
-    socket.on('emotion', (response) => {
+    this.props.socket.on('emotion', (response) => {
       let data = JSON.parse(response.response);
       if (data.length) {
         this.props.SentimentResponse(data, this.props.sentiment);
       }
     });
 
-    socket.on('bv', (response) => {
+    this.props.socket.on('bv', (response) => {
       this.props.ToneResponse(response, this.props.tone);
     });
 
-    socket.on('stt', (response) => {
+    this.props.socket.on('stt', (response) => {
       let data = JSON.parse(response).results;
       this.props.SpeechToTextResponse(data, this.props.speechToText);
     });
@@ -218,7 +218,7 @@ class Webcam extends Component {
           resampler(u, 8000, (event) => {
             let wav = toWav(event.getAudioBuffer());
             let wavFile = new Blob([wav]);
-            socket.emit('audio', {id:this.state.id, data: wavFile, isFinal: false});
+            this.props.socket.emit('audio', {id:this.state.id, data: wavFile, isFinal: false});
             URL.revokeObjectURL(u);
           });
         };
@@ -230,7 +230,7 @@ class Webcam extends Component {
     } else {
       this.setState({recording:!this.state.recording}, () => {
         this.state.recorder.stop();
-        socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
+        this.props.socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
       });
     }
   }
@@ -239,7 +239,7 @@ class Webcam extends Component {
     if (this.state.recording) {
       // console.log('callScreenshot true');
       let a = this.getScreenshot();
-      socket.emit('file', {name: Date.now(), data: a});
+      this.props.socket.emit('file', {name: Date.now(), data: a});
 
       setTimeout(() => {
         this.callScreenshot(mediaRecorder);
@@ -299,7 +299,8 @@ function mapStateToProps(state) {
   return {
     sentiment: state.sentiments,
     tone: state.tone,
-    speechToText: state.speechToText
+    speechToText: state.speechToText,
+    socket: state.socket
   };
 }
 
@@ -311,4 +312,4 @@ function mapDispatchToProps(dispatch){
   }, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Webcam);
+export default connect(mapStateToProps, mapDispatchToProps)(Webcam);
