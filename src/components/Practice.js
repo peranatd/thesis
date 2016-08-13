@@ -1,18 +1,18 @@
 import React from 'react';
 import TextBox from './TextBox';
-import ImageUpload from './imageUpload';
 import Webcam from '../containers/Webcam';
-import Speech from './SpeechToText';
 import Result from '../containers/Result';
+// import ImageUpload from './imageUpload';
+// import Speech from './SpeechToText';
 
 const Practice = () => (
   <div>
     <h1> Practice </h1>
-    <TextBox />
-    <ImageUpload />
     <Webcam />
-    <Speech />
+    <TextBox />
     <Result />
+    {/*<Speech />*/}
+    {/*<ImageUpload />*/}
   </div>
 );
 
