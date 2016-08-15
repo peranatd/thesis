@@ -3,7 +3,6 @@ import TextBox from './TextBox';
 import Webcam from '../containers/Webcam';
 import Result from '../containers/Result';
 import { connect } from 'react-redux';
-import $ from 'jquery';
 
 // import ImageUpload from './imageUpload';
 // import Speech from './SpeechToText';
@@ -13,24 +12,8 @@ class Practice extends Component {
     super(props);
   }
 
-  // handleChange () {
-  //   let text = this.state.text;
-  //   $.ajax({
-  //     url:'/api/text',
-  //     type:'POST',
-  //     data: JSON.stringify({text: text}),
-  //     contentType: 'application/json',
-  //     success: function () {
-  //       console.log('ajax post request successfully');
-  //     },
-  //     error: function () {
-  //       console.log('ajax post request failed!');
-  //     }
-  //   });
-  // }
-
   handleTextChange (event) {
-    event.target.value
+    event.target.value;
   }
 
   render () {
@@ -46,7 +29,7 @@ class Practice extends Component {
     </div>
     );
   }
-};
+}
 
 function mapStateToProps(state) {
   return {

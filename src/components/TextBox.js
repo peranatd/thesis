@@ -3,10 +3,10 @@ import $ from 'jquery';
 
 class TextBox extends Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       text: ''
-    }
+    };
   }
 
   componentWillReceiveProps(newProps) {
@@ -16,24 +16,25 @@ class TextBox extends Component {
   handleChange() {
     this.setState({
       text: $('textarea').val()
-    })
+    });
   }
 
   handleSubmit() {
-    let text = this.state.text;
-    $.ajax({
-      url:'/api/text',
-      type:'POST',
-      data: JSON.stringify({text: text}),
-      contentType: 'application/json',
-      success: function () {
-        console.log('ajax post request successfully');
-      },
-      error: function () {
-        console.log('ajax post request failed!');
-      }
-    });
-  }
+    let text = this.state.text;
+    $.ajax({
+      url:'/api/text',
+      type:'POST',
+      data: JSON.stringify({text: text}),
+      contentType: 'application/json',
+      success: function () {
+
+        console.log('ajax post request successfully');
+      },
+      error: function () {
+        console.log('ajax post request failed!');
+      }
+    });
+  }
 
   render() {
     return (
