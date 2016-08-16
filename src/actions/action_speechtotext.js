@@ -8,9 +8,9 @@ export function SpeechToTextResponse (data, speechtotext) {
   };
 }
 
-export function ManualInput (newInput, speechtotext) {
-  return {
-    type: 'MANUAL_INPUT',
-    payload: [newInput]
-  }
-}
+// export function ManualInput (newInput, speechtotext) {
+//   return {
+//     type: 'MANUAL_INPUT',
+//     payload: [newInput]
+//   };
+// }

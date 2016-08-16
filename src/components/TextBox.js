@@ -14,6 +14,7 @@ class TextBox extends Component {
 
   componentWillReceiveProps(newProps) {
     $('textarea').val(newProps.speechToText[0]);
+    this.handleChange();
   }
 
   handleChange() {
@@ -24,14 +25,15 @@ class TextBox extends Component {
 
   handleSubmit() {
     let text = this.state.text;
+    let context = this;
     $.ajax({
       url:'/api/text',
       type:'POST',
       data: JSON.stringify({text: text}),
       contentType: 'application/json',
       success: function (data) {
-        this.props.TranscriptionResponse(text, this.props.transcription);
-        console.log('ajax post request successfully');
+        context.props.TranscriptionResponse(text, context.props.transcription);
+        console.log(data);
       },
       error: function () {
         console.log('ajax post request failed!');
