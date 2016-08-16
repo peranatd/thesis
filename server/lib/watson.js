@@ -1,7 +1,7 @@
 const watson = require('watson-developer-cloud');
 const stream = require('stream');
 
-const credential = require('./credential.js');
+const credential = require('../credential.js');
 const Promise = require('bluebird');
 
 const tone_analyzer = watson.tone_analyzer({

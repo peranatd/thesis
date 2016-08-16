@@ -1,4 +1,4 @@
-const credential = require('./credential.js');
+const credential = require('../credential.js');
 const Promise = require('bluebird');
 const request = require('request');
 

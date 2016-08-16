@@ -1,4 +1,4 @@
-const key = require('./credential.js').beyondverbal.key;
+const key = require('../credential.js').beyondverbal.key;
 const Promise = require('bluebird');
 const request = require('request');
 
