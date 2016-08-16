@@ -6,7 +6,7 @@ import { socketAction } from '../actions/action_socket';
 import io from 'socket.io-client';
 
 import '../App.css';
-import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 class App extends Component {
   constructor() {
@@ -20,9 +20,14 @@ class App extends Component {
   }
 
   render() {
+    const { dispatch, isAuthenticated, errorMessage } = this.props;
     return (
       <div className="App">
-        <Header/>
+        <Navbar
+        isAuthenticated={ isAuthenticated }
+        errorMessage={ errorMessage }
+        dispatch={ dispatch }
+        />
         {this.props.children}
         {console.log(this.props.socket)}
       </div>
@@ -31,14 +36,18 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  const { isAuthenticated, errorMessage } = state.auth;
+
   return {
+    isAuthenticated: isAuthenticated,
+    errorMessage: errorMessage,
     socket: state.socket
   };
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    socketAction: socketAction,
+    socketAction: socketAction
   }, dispatch);
 }
 
