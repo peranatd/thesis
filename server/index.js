@@ -11,8 +11,8 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-const watson = require('./watson.js');
-const ms = require('./ms.js');
+const watson = require('./lib/watson.js');
+const ms = require('./lib/ms.js');
 
 app.use(partials());
 app.use(bodyParser.json());

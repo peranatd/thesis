@@ -1,10 +1,10 @@
 const sio = require('socket.io');
 const fs = require('fs');
 
-const ms = require('./ms.js');
-const bv = require('./beyondVerbal.js');
-const wav = require('./wav.js');
-const watson = require('./watson.js');
+const ms = require('./lib/ms.js');
+const bv = require('./lib/beyondVerbal.js');
+const wav = require('./lib/wav.js');
+const watson = require('./lib/watson.js');
 
 const socketMethods = {
   startSocket: (app) => {
