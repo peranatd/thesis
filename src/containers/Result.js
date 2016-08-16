@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Chart from './Chart';
+import Cloud from './Cloud';
 
 class Result extends Component {
   constructor(props){
@@ -11,6 +12,7 @@ class Result extends Component {
       <div classname="Result">
         <h3>Sentiment Result</h3>
         <Chart />
+        <Cloud />
         <ul>
           {this.props.sentiment.map((emotion) => {
             return (
