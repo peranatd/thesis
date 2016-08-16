@@ -52,6 +52,7 @@ const socketMethods = {
           });
         } else {
           console.log(data);
+          watson.streamingSpeechToText(data.data);
           audio[data.id] = audio[data.id] ? wav.concat(audio[data.id], data.data) : Buffer.from(data.data);
         }
       });
