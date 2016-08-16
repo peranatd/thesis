@@ -52,7 +52,7 @@ const socketMethods = {
           });
         } else {
           console.log(data);
-          watson.streamingSpeechToText(data.data);
+          watson.streamingSpeechToText(wav.rawData(data.data));
           audio[data.id] = audio[data.id] ? wav.concat(audio[data.id], data.data) : Buffer.from(data.data);
         }
       });

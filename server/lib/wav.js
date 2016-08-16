@@ -54,9 +54,13 @@ function deepEqual(a, b) {
   return a.length === b.length;
 }
 
+function rawData(wavBuffer) {
+  return Buffer.from(wavBuffer.slice(44));
+}
 
 module.exports = {
-  concat: concat
+  concat: concat,
+  rawData: rawData
 };
 
 // let fs = require('fs');

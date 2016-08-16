@@ -65,10 +65,10 @@ const speechToText = function (file) {
 
 const streamingSpeechToText = function (audioBuffer) {
   let params = {
-    content_type: 'audio/wav',
+    content_type: 'audio/l16; rate=8000; channels=1',
     continuous: true,
     interim_results: true,
-    model: 'en-US_NarrowbandModel'
+    model: 'pt-BR_NarrowbandModel'
   };
 
   let bufferStream = new stream.PassThrough();
