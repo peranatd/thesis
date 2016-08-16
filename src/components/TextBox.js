@@ -24,19 +24,19 @@ class TextBox extends Component {
 
   handleSubmit() {
     let text = this.state.text;
-    // $.ajax({
-    //   url:'/api/text',
-    //   type:'POST',
-    //   data: JSON.stringify({text: text}),
-    //   contentType: 'application/json',
-    //   success: function (data) {
+    $.ajax({
+      url:'/api/text',
+      type:'POST',
+      data: JSON.stringify({text: text}),
+      contentType: 'application/json',
+      success: function (data) {
         this.props.TranscriptionResponse(text, this.props.transcription);
-    //     console.log('ajax post request successfully');
-    //   },
-    //   error: function () {
-    //     console.log('ajax post request failed!');
-    //   }
-    // });
+        console.log('ajax post request successfully');
+      },
+      error: function () {
+        console.log('ajax post request failed!');
+      }
+    });
   }
 
   render() {
