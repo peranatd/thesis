@@ -1,22 +1,22 @@
 import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { LoginForm } from 'react-stormpath';
 
-export default class LoginPage extends React.Component {
+import { RegistrationForm, LoginLink } from 'react-stormpath';
+
+export default class RegisterPage extends React.Component {
   render() {
     return (
-      <DocumentTitle title={`Login`}>
+      <DocumentTitle title={`Registration`}>
         <div className="container">
           <div className="row">
             <div className="col-xs-12">
-              <h3>Login</h3>
+              <h3>Registration</h3>
               <hr />
             </div>
           </div>
-          <LoginForm />
+          <RegistrationForm />
         </div>
       </DocumentTitle>
-
     );
   }
 }
