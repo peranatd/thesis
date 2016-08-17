@@ -9,6 +9,7 @@ import reducers from './reducers';
 import routes from './routes';
 import './index.css';
 import ReactStormpath, { Router, HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath';
+import 'bootstrap/dist/css/bootstrap.css';
 
 const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, promise)(createStore);
 
