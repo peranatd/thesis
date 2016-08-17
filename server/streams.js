@@ -47,13 +47,13 @@ const socketMethods = {
             socket.emit('bv', res);
           });
 
-          watson.speechToText(audio[data.id])
-          .then(res => {
-            socket.emit('stt', res);
-          })
-          .catch(err => {
-            console.log(err);
-          });
+          // watson.speechToText(audio[data.id])
+          // .then(res => {
+          //   socket.emit('stt', res);
+          // })
+          // .catch(err => {
+          //   console.log(err);
+          // });
         } else {
           // console.log(data);
           streamingWatson.audioStream(wav.rawData(data.data));
