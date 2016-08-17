@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TagCloud } from "react-tagcloud";
-import $ from 'jquery';
 
 const options = {
   luminosity: 'light',

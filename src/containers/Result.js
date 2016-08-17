@@ -16,6 +16,7 @@ class Result extends Component {
         <Chart />
         <Cloud />
         <Radar />
+        <Tone_Cloud />
         <ul>
           {this.props.msEmotion.map((emotion) => {
             return (
