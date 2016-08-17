@@ -16,7 +16,7 @@ class Result extends Component {
         <Cloud />
         <Radar />
         <ul>
-          {this.props.sentiment.map((emotion) => {
+          {this.props.msEmotion.map((emotion) => {
             return (
               <li>
                 <span>
@@ -50,7 +50,7 @@ class Result extends Component {
 
 function mapStateToProps(state) {
   return {
-    sentiment: state.sentiments,
+    msEmotion: state.msEmotion,
     tone: state.tone,
     speechToText: state.speechToText
   };

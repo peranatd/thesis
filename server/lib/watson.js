@@ -86,7 +86,7 @@ const streamingSpeechToText = function () {
 
   // logs events on the console, passed to recognizeStream
   function onEvent(name, event) {
-    console.log(name, JSON.stringify(event, null, 3));
+    // console.log(name, JSON.stringify(event, null, 3));
   }
 
   let bufferStream = new stream.PassThrough();

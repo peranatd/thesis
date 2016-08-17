@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TranscriptionResponse } from '../actions/action_transcription.js';
+import { WatsonSentimentResponse } from '../actions/action_watsonsentiment.js';
 import $ from 'jquery';
 
 class TextBox extends Component {
@@ -32,8 +33,9 @@ class TextBox extends Component {
       data: JSON.stringify({text: text}),
       contentType: 'application/json',
       success: function (data) {
+        // console.log(data);
         context.props.TranscriptionResponse(text, context.props.transcription);
-        console.log(data);
+        context.props.WatsonSentimentResponse(data);
       },
       error: function () {
         console.log('ajax post request failed!');
@@ -48,6 +50,7 @@ class TextBox extends Component {
         <p>Please upload your text file</p>
         <textarea rows="4" placeholder="Write down your transcription here..." onChange={this.handleChange.bind(this)} />
         <button onClick={this.handleSubmit.bind(this)}>Upload Text</button>
+        {JSON.stringify(this.props.watsonSentiment)}
       </div>
     );
   }
@@ -55,13 +58,15 @@ class TextBox extends Component {
 
 function mapStateToProps(state) {
   return {
-    transcription: state.transcription
+    transcription: state.transcription,
+    watsonSentiment: state.watsonSentiment
   };
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    TranscriptionResponse: TranscriptionResponse
+    TranscriptionResponse: TranscriptionResponse,
+    WatsonSentimentResponse: WatsonSentimentResponse
   }, dispatch);
 }
 
