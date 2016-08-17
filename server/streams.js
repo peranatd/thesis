@@ -15,7 +15,7 @@ const socketMethods = {
       /*
        *  add more listeners in here
        */
-      let streamingWatson = watson.streamingSpeechToText();
+      let streamingWatson = watson.streamingSpeechToText(socket);
       socket.emit('message', {message: 'you are connected!'});
       console.log('user connected');
 
@@ -35,7 +35,7 @@ const socketMethods = {
         // TODO: call 2 separate apis
         if (data.isFinal) {
           // end the stream
-          streamingWatson.end(Buffer.from([]));
+          streamingWatson.audioStream(Buffer.from([]));
 
           bv.getToken()
           .then(token => bv.startSession(token))

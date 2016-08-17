@@ -63,10 +63,11 @@ const speechToText = function (file) {
   });
 };
 
-const streamingSpeechToText = function () {
-  let streamer = {};
+const streamingSpeechToText = function (socket) {
+  const streamer = {};
+  streamer.socket = socket;
 
-  let params = {
+  const params = {
     content_type: 'audio/l16;rate=8000;channels=1',
     continuous: true,
     interim_results: true,
@@ -79,7 +80,7 @@ const streamingSpeechToText = function () {
   recognizeStream.setEncoding('utf8');
 
   // Listen for events
-  recognizeStream.on('data', function(event) { onEvent('Data:', event); });
+  recognizeStream.on('data', onResults );
   recognizeStream.on('results', function(event) { onEvent('Results:', event); });
   recognizeStream.on('error', function(event) { onEvent('Error:', event); });
   recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
@@ -87,6 +88,11 @@ const streamingSpeechToText = function () {
   // logs events on the console, passed to recognizeStream
   function onEvent(name, event) {
     // console.log(name, JSON.stringify(event, null, 3));
+  }
+
+  function onResults(event) {
+    streamer.socket.emit('streamingSpeechToText', event);
+    console.log(event);
   }
 
   let bufferStream = new stream.PassThrough();
