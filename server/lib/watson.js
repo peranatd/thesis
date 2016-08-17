@@ -63,7 +63,48 @@ const speechToText = function (file) {
   });
 };
 
+const streamingSpeechToText = function () {
+  let streamer = {};
+
+  let params = {
+    content_type: 'audio/l16;rate=8000;channels=1',
+    continuous: true,
+    interim_results: true,
+    model: 'en-US_NarrowbandModel',
+    timestamps: true
+  };
+
+  let recognizeStream = speech_to_text.createRecognizeStream(params);
+  // recognizeStream.pipe(process.stdout);
+  recognizeStream.setEncoding('utf8');
+
+  // Listen for events
+  recognizeStream.on('data', function(event) { onEvent('Data:', event); });
+  recognizeStream.on('results', function(event) { onEvent('Results:', event); });
+  recognizeStream.on('error', function(event) { onEvent('Error:', event); });
+  recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
+
+  // logs events on the console, passed to recognizeStream
+  function onEvent(name, event) {
+    console.log(name, JSON.stringify(event, null, 3));
+  }
+
+  let bufferStream = new stream.PassThrough();
+
+  streamer.recognizeStream = recognizeStream;
+  streamer.audioStream = function(audioBuffer) {
+    bufferStream.write(audioBuffer);
+    bufferStream.pipe(this.recognizeStream);
+  };
+  streamer.end = function(audioBuffer) {
+    bufferStream.end(audioBuffer);
+  };
+
+  return streamer;
+};
+
 module.exports = {
   textSentiment: textSentiment,
-  speechToText: speechToText
+  speechToText: speechToText,
+  streamingSpeechToText: streamingSpeechToText
 };

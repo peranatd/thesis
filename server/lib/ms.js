@@ -17,7 +17,7 @@ function emotion(imgBuffer) {
       if (err) {
         reject(err);
       } else {
-        console.log(body);
+        // console.log(body);
         resolve(body);
       }
     });
