@@ -4,23 +4,6 @@ import { bindActionCreators } from 'redux';
 import { TagCloud } from "react-tagcloud";
 import $ from 'jquery';
 
-const dummyData = [
-  { value: "Angular", count: 38 },
-  { value: "React", count: 30 },
-  { value: "Nodejs", count: 28 },
-  { value: "Express.js", count: 25 },
-  { value: "HTML5", count: 33 },
-  { value: "CSS3", count: 33 },
-  { value: "MongoDB", count: 18 },
-  { value: "MEAN", count: 50 },
-  { value: "JavaScript", count: 70 },
-  { value: "PHP", count: 30 },
-  { value: "JQuery", count: 40 },
-  { value: "MERN", count: 20 },
-  { value: "Vue", count: 10 },
-  { value: "Backbone", count: 10 }
-];
-
 const options = {
   luminosity: 'light',
   hue: 'blue'
@@ -67,7 +50,7 @@ class Tone_Cloud extends React.Component {
     return (
         <TagCloud
           colorOptions={options}
-          minSize={12}
+          minSize={25}
           maxSize={35}
           tags={this.state.mood}
           className="stackCloud" />

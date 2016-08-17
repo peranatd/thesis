@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Chart from './Chart';
 import Cloud from './Cloud';
 import Radar from './Radar';
+import Tone_Cloud from './Tone_Cloud';
 
 class Result extends Component {
   constructor(props){
