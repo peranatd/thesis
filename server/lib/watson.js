@@ -75,7 +75,7 @@ const streamingSpeechToText = function () {
   };
 
   let recognizeStream = speech_to_text.createRecognizeStream(params);
-  recognizeStream.pipe(process.stdout);
+  // recognizeStream.pipe(process.stdout);
   recognizeStream.setEncoding('utf8');
 
   // Listen for events
@@ -84,6 +84,7 @@ const streamingSpeechToText = function () {
   recognizeStream.on('error', function(event) { onEvent('Error:', event); });
   recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
 
+  // logs events on the console, passed to recognizeStream
   function onEvent(name, event) {
     console.log(name, JSON.stringify(event, null, 3));
   }
@@ -101,31 +102,6 @@ const streamingSpeechToText = function () {
 
   return streamer;
 };
-
-/*
-// Create the stream.
-var recognizeStream = speech_to_text.createRecognizeStream(params);
-
-// Pipe in the audio.
-fs.createReadStream('audio-file.wav').pipe(recognizeStream);
-
-// Pipe out the transcription to a file.
-recognizeStream.pipe(fs.createWriteStream('transcription.txt'));
-
-// Get strings instead of buffers from 'data' events.
-recognizeStream.setEncoding('utf8');
-
-// Listen for events.
-recognizeStream.on('data', function(event) { onEvent('Data:', event); });
-recognizeStream.on('results', function(event) { onEvent('Results:', event); });
-recognizeStream.on('error', function(event) { onEvent('Error:', event); });
-recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
-
-// Displays events on the console.
-function onEvent(name, event) {
-    console.log(name, JSON.stringify(event, null, 2));
-};
-*/
 
 module.exports = {
   textSentiment: textSentiment,
