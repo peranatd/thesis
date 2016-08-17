@@ -1,7 +1,7 @@
+// credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-//import d3 from 'd3';
 
 class Radar extends Component {
   constructor(props){
@@ -27,9 +27,9 @@ class Radar extends Component {
       color: d3.scale.category10()
     };
 
-    //updating default value
+    // updating default value
     if(options !== undefined){
-      for(var key in options){
+      for(let key in options){
         if(options[key]){
           cfg[key] = options[key];
         }
@@ -53,8 +53,8 @@ class Radar extends Component {
 
     let tooltip;
 
-    //Circular segments
-    for(var j=0; j<cfg.levels-1; j++){
+    // circular segments
+    for(let j=0; j<cfg.levels-1; j++){
       let levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
       g.selectAll(".levels")
        .data(allAxis)
@@ -71,8 +71,8 @@ class Radar extends Component {
        .attr("transform", "translate(" + (cfg.w/2-levelFactor) + ", " + (cfg.h/2-levelFactor) + ")");
     }
 
-    //Text indicating at what % each level is
-    for(var j=0; j<cfg.levels; j++){
+    // text indicating at what % each level is
+    for(let j=0; j<cfg.levels; j++){
       let levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
       g.selectAll(".levels")
        .data([1]) //dummy data
@@ -134,8 +134,8 @@ class Radar extends Component {
              .style("stroke-width", "2px")
              .style("stroke", cfg.color(series))
              .attr("points",function(d) {
-               var str="";
-               for(var pti=0;pti<d.length;pti++){
+               let str="";
+               for(let pti=0;pti<d.length;pti++){
                  str=str+d[pti][0]+","+d[pti][1]+" ";
                }
                return str;
@@ -143,7 +143,7 @@ class Radar extends Component {
              .style("fill", function(j, i){return cfg.color(series)})
              .style("fill-opacity", cfg.opacityArea)
              .on('mouseover', function (d){
-                      z = "polygon."+d3.select(this).attr("class");
+                      let z = "polygon."+d3.select(this).attr("class");
                       g.selectAll("polygon")
                        .transition(200)
                        .style("fill-opacity", 0.1);
@@ -181,8 +181,8 @@ class Radar extends Component {
       .attr("data-id", function(j){return j.axis})
       .style("fill", cfg.color(series)).style("fill-opacity", .9)
       .on('mouseover', function (d){
-            newX =  parseFloat(d3.select(this).attr('cx')) - 10;
-            newY =  parseFloat(d3.select(this).attr('cy')) - 5;
+            let newX =  parseFloat(d3.select(this).attr('cx')) - 10;
+            let newY =  parseFloat(d3.select(this).attr('cy')) - 5;
 
             tooltip
               .attr('x', newX)
@@ -191,7 +191,7 @@ class Radar extends Component {
               .transition(200)
               .style('opacity', 1);
 
-            z = "polygon."+d3.select(this).attr("class");
+            let z = "polygon."+d3.select(this).attr("class");
             g.selectAll("polygon")
               .transition(200)
               .style("fill-opacity", 0.1);
@@ -223,10 +223,10 @@ class Radar extends Component {
   componentWillReceiveProps (newProps) {
     let result = JSON.parse(newProps.tone)[0].result.analysisSummary.AnalysisResult;
     let data = [];
-    for(var key in result) {
-      data.push({axis: key, value: Number(result[key].Mean)});
+    for(let key in result) {
+      data.push({axis: key, value: Number(result[key].Mean)/100});
     }
-    let mycfg = {w:500, h:500, maxValue:100, levels:10};
+    let mycfg = {w:500, h:500, maxValue:0, levels:10};
     this.drawRadarChart('#radar', [data], mycfg);
     console.log('what is the result',result);
     console.log('what is the data for tone',data);
