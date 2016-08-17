@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Chart from './Chart';
 import Cloud from './Cloud';
-import Radar from './Radar';
 import Tone_Cloud from './Tone_Cloud';
+import Radar from '../components/Radar';
 
 class Result extends Component {
   constructor(props){

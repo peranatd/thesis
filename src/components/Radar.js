@@ -1,7 +1,6 @@
 // credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import SocialTone from '../containers/SocialTone';
 
 class Radar extends Component {
   constructor(props){
@@ -220,30 +219,13 @@ class Radar extends Component {
 
   }
 
-  componentWillReceiveProps (newProps) {
-    let result = JSON.parse(newProps.tone)[0].result.analysisSummary.AnalysisResult;
-    let data = [];
-    for(let key in result) {
-      data.push({axis: key, value: Number(result[key].Mean)/100});
-    }
-    let mycfg = {w:500, h:500, maxValue:0, levels:10};
-    this.drawRadarChart('#radar', [data], mycfg);
-    console.log('what is the result',result);
-    console.log('what is the data for tone',data);
-  }
-
   render () {
     return (
       <div id="radar">
+        <SocialTone drawRadarChart = {this.drawRadarChart} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    tone: state.tone
-  };
-}
-
-export default connect(mapStateToProps)(Radar);
+export default Radar;
