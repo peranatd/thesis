@@ -1,3 +1,4 @@
+// TODO: to be replaced with streaming recognise version
 export function SpeechToTextResponse (data, speechtotext) {
   console.log('SPEECHTOTEXT ACTION ', JSON.stringify(speechtotext, null, 3));
   return {

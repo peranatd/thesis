@@ -6,6 +6,7 @@ import Auth from './reducer_auth';
 import SocketReducer from './reducer_socket';
 import TranscriptReducer from './reducer_transcription';
 import WatsonSentimentReducer from './reducer_watsonsentiment';
+import StreamingSttReducer from './reducer_streamingstt';
 
 const rootReducer = combineReducers({
   msEmotion: msEmotionReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   auth: Auth,
   socket: SocketReducer,
   transcription: TranscriptReducer,
-  watsonSentiment: WatsonSentimentReducer
+  watsonSentiment: WatsonSentimentReducer,
+  streamingStt: StreamingSttReducer
 });
 
 export default rootReducer;
