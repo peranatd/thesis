@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { SentimentResponse } from '../actions/action_sentiments';
+import { msEmotionResponse } from '../actions/action_msEmotion';
 import { ToneResponse } from '../actions/action_tone';
 import { SpeechToTextResponse } from '../actions/action_speechtotext';
 import { findDOMNode } from 'react-dom';
@@ -63,7 +63,7 @@ class Webcam extends Component {
     this.props.socket.on('emotion', (response) => {
       let data = JSON.parse(response.response);
       if (data.length) {
-        this.props.SentimentResponse(data, this.props.sentiment);
+        this.props.msEmotionResponse(data, this.props.msEmotion);
       }
     });
 
@@ -297,7 +297,7 @@ class Webcam extends Component {
 
 function mapStateToProps(state) {
   return {
-    sentiment: state.sentiments,
+    msEmotion: state.msEmotion,
     tone: state.tone,
     speechToText: state.speechToText,
     socket: state.socket
@@ -306,7 +306,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    SentimentResponse: SentimentResponse,
+    msEmotionResponse: msEmotionResponse,
     ToneResponse: ToneResponse,
     SpeechToTextResponse: SpeechToTextResponse
   }, dispatch);

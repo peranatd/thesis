@@ -16,7 +16,7 @@ class Chart extends Component {
     let result = categories.map(name => {return {name: name, values: []};});
 
     result.forEach(cat => {
-      newProps.sentiment.forEach((result, i) => {
+      newProps.msEmotion.forEach((result, i) => {
         cat.values.push({x: i, y:result.scores[cat.name]});
       });
     });
@@ -28,7 +28,7 @@ class Chart extends Component {
   render() {
     let lineChart;
     if (this.state.emotion) {
-      lineChart = <LineChart data={this.state.emotion}/>
+      lineChart = <LineChart data={this.state.emotion}/>;
     }
     return (
       <div>
@@ -40,7 +40,7 @@ class Chart extends Component {
 
 function mapStateToProps(state) {
   return {
-    sentiment: state.sentiments,
+    msEmotion: state.msEmotion,
     tone: state.tone,
     speechToText: state.speechToText
   };
