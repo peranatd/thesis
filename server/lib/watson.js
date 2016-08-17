@@ -80,8 +80,8 @@ const streamingSpeechToText = function (socket) {
   recognizeStream.setEncoding('utf8');
 
   // Listen for events
-  recognizeStream.on('data', onResults );
-  recognizeStream.on('results', function(event) { onEvent('Results:', event); });
+  recognizeStream.on('data', (event) => { onEvent('data:', event); } );
+  recognizeStream.on('results', onResults );
   recognizeStream.on('error', function(event) { onEvent('Error:', event); });
   recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
 
@@ -96,11 +96,11 @@ const streamingSpeechToText = function (socket) {
   }
 
   let bufferStream = new stream.PassThrough();
-
   streamer.recognizeStream = recognizeStream;
+  bufferStream.pipe(streamer.recognizeStream);
+
   streamer.audioStream = function(audioBuffer) {
     bufferStream.write(audioBuffer);
-    bufferStream.pipe(this.recognizeStream);
   };
   streamer.end = function(audioBuffer) {
     bufferStream.end(audioBuffer);

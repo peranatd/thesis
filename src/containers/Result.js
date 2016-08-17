@@ -8,6 +8,7 @@ import Radar from '../components/Radar';
 class Result extends Component {
   constructor(props){
     super(props);
+    this.props.socket.on('streamingSpeechToText', (data) => console.log('streamingSpeechToText ', data));
   }
   render(){
     return(
@@ -54,7 +55,8 @@ function mapStateToProps(state) {
   return {
     msEmotion: state.msEmotion,
     tone: state.tone,
-    speechToText: state.speechToText
+    speechToText: state.speechToText,
+    socket: state.socket
   };
 }
 
