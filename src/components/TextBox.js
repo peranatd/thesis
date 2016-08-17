@@ -53,7 +53,6 @@ class TextBox extends Component {
         <p>Please upload your text file</p>
         <textarea rows="4" placeholder="Write down your transcription here..." onChange={this.handleChange.bind(this)} />
         <button onClick={this.handleSubmit.bind(this)}>Upload Text</button>
-        {JSON.stringify(this.props.watsonSentiment)}
       </div>
     );
   }

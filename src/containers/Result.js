@@ -40,8 +40,6 @@ class Result extends Component {
           })
         }
         </ul>
-        <h3>Tone Result</h3>
-        {this.props.tone}
       </div>
     );
   }
