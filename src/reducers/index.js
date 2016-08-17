@@ -5,6 +5,7 @@ import SpeechToTextReducer from './reducer_speechtotext';
 import Auth from './reducer_auth';
 import SocketReducer from './reducer_socket';
 import TranscriptReducer from './reducer_transcription';
+import WatsonSentimentReducer from './reducer_watsonsentiment';
 
 const rootReducer = combineReducers({
   msEmotion: msEmotionReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   speechToText: SpeechToTextReducer,
   auth: Auth,
   socket: SocketReducer,
-  transcription: TranscriptReducer
+  transcription: TranscriptReducer,
+  watsonSentiment: WatsonSentimentReducer
 });
 
 export default rootReducer;
