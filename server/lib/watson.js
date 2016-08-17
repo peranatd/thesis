@@ -63,19 +63,18 @@ const speechToText = function (file) {
   });
 };
 
-const streamingSpeechToText = function (audioBuffer) {
+const streamingSpeechToText = function () {
+  let streamer = {};
+
   let params = {
-    content_type: 'audio/l16; rate=8000; channels=1',
+    content_type: 'audio/l16;rate=8000;channels=1',
     continuous: true,
     interim_results: true,
-    model: 'pt-BR_NarrowbandModel'
+    model: 'en-US_NarrowbandModel',
+    timestamps: true
   };
 
-  let bufferStream = new stream.PassThrough();
-  bufferStream.end(audioBuffer);
-
   let recognizeStream = speech_to_text.createRecognizeStream(params);
-  bufferStream.pipe(recognizeStream);
   recognizeStream.pipe(process.stdout);
   recognizeStream.setEncoding('utf8');
 
@@ -89,6 +88,18 @@ const streamingSpeechToText = function (audioBuffer) {
     console.log(name, JSON.stringify(event, null, 3));
   }
 
+  let bufferStream = new stream.PassThrough();
+
+  streamer.recognizeStream = recognizeStream;
+  streamer.audioStream = function(audioBuffer) {
+    bufferStream.write(audioBuffer);
+    bufferStream.pipe(this.recognizeStream);
+  };
+  streamer.end = function(audioBuffer) {
+    bufferStream.end(audioBuffer);
+  };
+
+  return streamer;
 };
 
 /*

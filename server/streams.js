@@ -15,12 +15,13 @@ const socketMethods = {
       /*
        *  add more listeners in here
        */
+      let streamingWatson = watson.streamingSpeechToText();
       socket.emit('message', {message: 'you are connected!'});
       console.log('user connected');
 
       socket.on('file', (data) => {
-        console.log('receiving ', data.name);
-        console.log(data.data.length, ' bytes');
+        // console.log('receiving ', data.name);
+        // console.log(data.data.length, ' bytes');
         var dataString = data.data.split(',')[1];
         var imgBuffer = Buffer.from(dataString, 'base64');
 
@@ -33,6 +34,9 @@ const socketMethods = {
       socket.on('audio', (data) => {
         // TODO: call 2 separate apis
         if (data.isFinal) {
+          // end the stream
+          streamingWatson.end(Buffer.from([]));
+
           bv.getToken()
           .then(token => bv.startSession(token))
           .then(res => {
@@ -51,8 +55,8 @@ const socketMethods = {
             console.log(err);
           });
         } else {
-          console.log(data);
-          watson.streamingSpeechToText(wav.rawData(data.data));
+          // console.log(data);
+          streamingWatson.audioStream(wav.rawData(data.data));
           audio[data.id] = audio[data.id] ? wav.concat(audio[data.id], data.data) : Buffer.from(data.data);
         }
       });
