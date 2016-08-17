@@ -1,3 +1,4 @@
+// TODO: this is about to be replaced by streaming version
 export default function(state = [], action) {
   console.log('SPEECH TO TEXT REDUCER ', action);
   switch(action.type) {

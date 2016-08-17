@@ -10,13 +10,13 @@ import Header from '../components/Header';
 
 class App extends Component {
   constructor() {
-    super()
+    super();
   }
 
   componentDidMount() {
     const socket = io();
     console.log(socket);
-    this.props.socketAction(socket)
+    this.props.socketAction(socket);
   }
 
   render() {

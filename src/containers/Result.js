@@ -42,9 +42,6 @@ class Result extends Component {
         </ul>
         <h3>Tone Result</h3>
         {this.props.tone}
-
-        <h3>Speech to Text</h3>
-        {JSON.stringify(this.props.speechToText)}
       </div>
     );
   }
@@ -53,8 +50,7 @@ class Result extends Component {
 function mapStateToProps(state) {
   return {
     msEmotion: state.msEmotion,
-    tone: state.tone,
-    speechToText: state.speechToText
+    tone: state.tone
   };
 }
 

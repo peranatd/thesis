@@ -35,8 +35,9 @@ var speech_to_text = watson.speech_to_text({
   version_date: '2016-08-05'
 });
 
+// This is now replaced by the streaming version
+// No longer used
 const speechToText = function (file) {
-  console.log('SPEECH TO TEXT');
 
   let bufferStream = new stream.PassThrough();
   bufferStream.end(file);
@@ -63,10 +64,14 @@ const speechToText = function (file) {
   });
 };
 
-const streamingSpeechToText = function () {
-  let streamer = {};
+// This is a constructor for the streaming speech to text handler object.
+// Takes a socket that should be used to emit a 'streamingSpeechToText'
+// event on getting responses from Watson.
+const streamingSpeechToText = function (socket) {
+  const self = {};
+  self.socket = socket;
 
-  let params = {
+  const params = {
     content_type: 'audio/l16;rate=8000;channels=1',
     continuous: true,
     interim_results: true,
@@ -75,32 +80,39 @@ const streamingSpeechToText = function () {
   };
 
   let recognizeStream = speech_to_text.createRecognizeStream(params);
-  // recognizeStream.pipe(process.stdout);
   recognizeStream.setEncoding('utf8');
 
   // Listen for events
-  recognizeStream.on('data', function(event) { onEvent('Data:', event); });
-  recognizeStream.on('results', function(event) { onEvent('Results:', event); });
+  recognizeStream.on('results', onResults );
+  recognizeStream.on('data', (event) => { onEvent('data:', event); } );
   recognizeStream.on('error', function(event) { onEvent('Error:', event); });
   recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
 
   // logs events on the console, passed to recognizeStream
   function onEvent(name, event) {
     // console.log(name, JSON.stringify(event, null, 3));
+    return;
   }
 
-  let bufferStream = new stream.PassThrough();
+  function onResults(event) {
+    self.socket.emit('streamingSpeechToText', event);
+    console.log(event);
+  }
 
-  streamer.recognizeStream = recognizeStream;
-  streamer.audioStream = function(audioBuffer) {
+  // create a passthrough stream (duplex stream) from an audio buffer
+  // passed into the functions below
+  let bufferStream = new stream.PassThrough();
+  self.recognizeStream = recognizeStream;
+  bufferStream.pipe(self.recognizeStream);
+
+  self.audioStream = function(audioBuffer) {
     bufferStream.write(audioBuffer);
-    bufferStream.pipe(this.recognizeStream);
   };
-  streamer.end = function(audioBuffer) {
+  self.end = function(audioBuffer) {
     bufferStream.end(audioBuffer);
   };
 
-  return streamer;
+  return self;
 };
 
 module.exports = {
