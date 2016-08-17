@@ -1,6 +1,8 @@
 // credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
 import SocialTone from '../containers/SocialTone';
+import EmotionTone from '../containers/EmotionTone';
+import LanguageTone from '../containers/LanguageTone';
 
 class Radar extends Component {
   constructor(props){
@@ -223,6 +225,8 @@ class Radar extends Component {
     return (
       <div id="radar">
         <SocialTone drawRadarChart = {this.drawRadarChart} />
+        <EmotionTone drawRadarChart = {this.drawRadarChart} />
+        <LanguageTone drawRadarChart = {this.drawRadarChart} />
       </div>
     );
   }
