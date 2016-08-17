@@ -224,6 +224,7 @@ class Radar extends Component {
   render () {
     return (
       <div id="radar">
+        <SocialTone drawRadarChart = {this.drawRadarChart} />
         <EmotionTone drawRadarChart = {this.drawRadarChart} />
         <LanguageTone drawRadarChart = {this.drawRadarChart} />
       </div>
