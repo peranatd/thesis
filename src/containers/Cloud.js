@@ -10,7 +10,7 @@ class Cloud extends Component {
   }
 
   componentWillReceiveProps (newProps) {
-    console.log('COMPONENTWILLRECEIVEPROPS', newProps);
+    // console.log('COMPONENTWILLRECEIVEPROPS', newProps);
     if (newProps.transcription.length) {
       let wordList = newProps.transcription[0].split(' ').reduce((memo, item)=>{
         item = item.toLowerCase();
@@ -24,7 +24,7 @@ class Cloud extends Component {
       let wordArray = Object.keys(wordList).map((word)=>{
         return {text: word, size: wordList[word] * 10};
       });
-      console.log('INSIDE COMPONENTWILLRECEIVEPROPS', wordArray);
+      // console.log('INSIDE COMPONENTWILLRECEIVEPROPS', wordArray);
       let fill = scaleOrdinal(schemeCategory20);
 
       let layout = cloud()
