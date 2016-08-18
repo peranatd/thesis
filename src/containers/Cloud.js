@@ -66,8 +66,7 @@ class Cloud extends Component {
   render () {
     return (
       <div>
-        <svg id='cloud'></svg>
-        {JSON.stringify(this.props.transcription)}
+        <svg id="cloud"></svg>
       </div>
     );
   }
