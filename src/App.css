@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: 'Lato', sans-serif;
 }
 
 .App-logo {
@@ -16,6 +17,20 @@
 
 .App-intro {
   font-size: large;
+}
+
+.carousel {
+  margin-top: -20px;
+}
+.carouselImg {
+  width: 100%;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>.carouselImg, .img-responsive, .thumbnail>img, .thumbnail a>img {
+  height: 500px;
+}
+.techlogos{
+  width: 25%;
+  height: 10%;
 }
 
 @keyframes App-logo-spin {
