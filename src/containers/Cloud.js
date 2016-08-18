@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import cloud from 'd3-cloud';
 import { scaleOrdinal, schemeCategory20 } from 'd3-scale';
+import keyword from 'keyword-extractor';
 
 class Cloud extends Component {
   constructor(props){
@@ -12,7 +13,14 @@ class Cloud extends Component {
   componentWillReceiveProps (newProps) {
     // console.log('COMPONENTWILLRECEIVEPROPS', newProps);
     if (newProps.transcription.length) {
-      let wordList = newProps.transcription[0].split(' ').reduce((memo, item)=>{
+      const options = {
+        language:"english",
+        remove_digits: true,
+        return_changed_case:true,
+        remove_duplicates: false
+      };
+
+      let wordList = keyword.extract(newProps.transcription[0], options).reduce((memo, item)=>{
         item = item.toLowerCase();
         if (item in memo) {
           memo[item] += 1;
@@ -21,6 +29,8 @@ class Cloud extends Component {
         }
         return memo;
       },{});
+
+
       let wordArray = Object.keys(wordList).map((word)=>{
         return {text: word, size: wordList[word] * 10};
       });
