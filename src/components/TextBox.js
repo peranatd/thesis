@@ -64,7 +64,6 @@ class TextBox extends Component {
 function mapStateToProps(state) {
   return {
     socket: state.socket,
-    watsonSentiment: state.watsonSentiment,
     streamingStt: state.streamingStt
   };
 }
