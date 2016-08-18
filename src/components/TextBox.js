@@ -15,6 +15,10 @@ class TextBox extends Component {
     this.props.socket.on('streamingSpeechToText', (data) => this.props.StreamingSttResponse(data, this.props.streamingStt));
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    this.props.TranscriptionResponse(nextState.text);
+  }
+
   componentWillReceiveProps(newProps) {
     // $('textarea').val(newProps.speechToText[0]);
     $('textarea').val(newProps.streamingStt.join(''));
@@ -37,7 +41,6 @@ class TextBox extends Component {
       contentType: 'application/json',
       success: function (data) {
         // console.log(data);
-        context.props.TranscriptionResponse(text, context.props.transcription);
         context.props.WatsonSentimentResponse(data);
       },
       error: function () {
@@ -61,7 +64,6 @@ class TextBox extends Component {
 function mapStateToProps(state) {
   return {
     socket: state.socket,
-    transcription: state.transcription,
     watsonSentiment: state.watsonSentiment,
     streamingStt: state.streamingStt
   };
