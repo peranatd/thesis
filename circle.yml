@@ -1,18 +1,22 @@
 machine:
-  node:
-    version: 6.3.1
-
-  npm:
-    version: 3.10.5
-
+  python:
+    version: 2.7.3
   services:
     - docker
 
 dependencies:
-  override:
+  pre:
+    - pip install awscli
     - docker info
-    - docker build -t peranat/littlebigplanet .
+    - docker build -t $DOCKER_REPO .
 
 test:
   override:
-    - docker run peranat/littlebigplanet exec npm test
+    - docker run $DOCKER_REPO node ./server/lib/wav.js
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push $DOCKER_REPO
