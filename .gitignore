@@ -12,3 +12,7 @@ server/credential.js
 src/keys.js
 
 stormpath.yml
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
