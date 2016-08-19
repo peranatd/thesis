@@ -19,31 +19,33 @@ class Cloud extends Component {
         return_changed_case:true,
         remove_duplicates: false
       };
-
+      let max = 0;
       let wordList = keyword.extract(newProps.transcription[0], options).reduce((memo, item)=>{
         item = item.toLowerCase();
         if (item in memo) {
           memo[item] += 1;
+          if (memo[item] > max) { max = memo[item]; }
         } else {
           memo[item] = 1;
         }
         return memo;
       },{});
 
-
       let wordArray = Object.keys(wordList).map((word)=>{
-        return {text: word, size: wordList[word] * 10};
+        return {text: word, size: wordList[word]};
       });
+
       // console.log('INSIDE COMPONENTWILLRECEIVEPROPS', wordArray);
       let fill = scaleOrdinal(schemeCategory20);
 
       let layout = cloud()
           .size([500, 500])
           .words(wordArray)
-          .padding(5)
-          .rotate(function() { return ~~(Math.random() * 2) * 90; })
+          // .padding(3)
+          // .rotate(function() { return Math.random() < 0.5 ? 90 : 0; })
+          .spiral('archimedean')
           .font('Impact')
-          .fontSize(function(d) { return d.size; })
+          .fontSize(function(d) { return 10 + 60*Math.pow(d.size/max, 1); })
           .on('end', draw);
 
       layout.start();

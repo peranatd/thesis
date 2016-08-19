@@ -5,7 +5,7 @@ import SpeechToTextReducer from './reducer_speechtotext';
 import Auth from './reducer_auth';
 import SocketReducer from './reducer_socket';
 import TranscriptReducer from './reducer_transcription';
-import WatsonSentimentReducer from './reducer_watsonsentiment';
+import WatsonSentimentReducer from './reducer_watsonSentiment';
 import StreamingSttReducer from './reducer_streamingstt';
 
 const rootReducer = combineReducers({

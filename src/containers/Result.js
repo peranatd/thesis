@@ -18,7 +18,7 @@ class Result extends Component {
         <Radar />
         <Tone_Cloud />
         <ul>
-          {this.props.msEmotion.map((emotion) => {
+          {/*this.props.msEmotion.map((emotion) => {
             return (
               <li>
                 <span>
@@ -38,7 +38,7 @@ class Result extends Component {
               </li>
             );
           })
-        }
+        */}
         </ul>
       </div>
     );
