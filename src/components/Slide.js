@@ -28,7 +28,7 @@ const Slide = () => (
         <h2>Little Big Planet</h2>
          <div className="row">
           <div className="col-md-3">
-            <img className="img-circle" src="https://s3.postimg.org/ym02uxrqb/49195030775_918629b625018b405a63_72.jpg" alt="Felipe Matsumoto" />
+            <img className="img-circle" src="https://s3.postimg.org/4b5s5i21v/10687021_1513080458908601_2030217230142341681_n.jpg" alt="Felipe Matsumoto" />
             <p>Felipe Matsumoto</p>
           </div>
           <div className="col-md-3">
