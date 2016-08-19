@@ -89,66 +89,30 @@ class Webcam extends Component {
   }
 
   requestUserMedia() {
-    navigator.getUserMedia = navigator.getUserMedia ||
-                          navigator.webkitGetUserMedia ||
-                          navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia;
+    navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-    let sourceSelected = (audioSource, videoSource) => {
-      let constraints = {
+    const sourceSelected = (videoSource) => {
+      const constraints = {
         video: {
           optional: [{sourceId: videoSource}]
         },
-        audio: {
-          optional: [{sourceId: audioSource}]
-        }
+        audio: false
       };
 
       navigator.getUserMedia(constraints, (stream) => {
-        Webcam.mountedInstances.forEach((instance) => instance.handleUserMedia(null, stream));
+        Webcam.mountedInstances.forEach((instance) => {
+          return instance.handleUserMedia(null, stream);
+        });
       }, (e) => {
         Webcam.mountedInstances.forEach((instance) => instance.handleUserMedia(e));
       });
-
     };
 
-    if (this.props.audioSource && this.props.videoSource) {
-      sourceSelected(this.props.audioSource, this.props.videoSource);
+    if (this.props.videoSource) {
+      sourceSelected(this.props.videoSource);
     } else {
-      if ('mediaDevices' in navigator) {
-        navigator.mediaDevices.enumerateDevices().then((devices) => {
-          let audioSource = null;
-          let videoSource = null;
-
-          devices.forEach((device) => {
-            if (device.kind === 'audio') {
-              audioSource = device.id;
-            } else if (device.kind === 'video') {
-              videoSource = device.id;
-            }
-          });
-
-          sourceSelected(audioSource, videoSource);
-        })
-        .catch((error) => {
-          console.log(`${error.name}: ${error.message}`); // eslint-disable-line no-console
-        });
-      } else {
-        MediaStreamTrack.getSources((sources) => {
-          let audioSource = null;
-          let videoSource = null;
-
-          sources.forEach((source) => {
-            if (source.kind === 'audio') {
-              audioSource = source.id;
-            } else if (source.kind === 'video') {
-              videoSource = source.id;
-            }
-          });
-
-          sourceSelected(audioSource, videoSource);
-        });
-      }
+      sourceSelected();
     }
 
     Webcam.userMediaRequested = true;
@@ -237,7 +201,6 @@ class Webcam extends Component {
 
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
-      // console.log('callScreenshot true');
       let a = this.getScreenshot();
       this.props.socket.emit('file', {name: Date.now(), data: a});
 
@@ -262,7 +225,6 @@ class Webcam extends Component {
     if (!this.ctx) {
       let canvas = document.createElement('canvas');
       const aspectRatio = actualVideo.videoWidth / actualVideo.videoHeight;
-      console.log(actualVideo);
       canvas.width = actualVideo.clientWidth;
       canvas.height = actualVideo.clientWidth / aspectRatio;
 
@@ -271,8 +233,6 @@ class Webcam extends Component {
     }
     const {ctx, canvas} = this;
     ctx.drawImage(actualVideo, 0, 0, canvas.width, canvas.height);
-
-    console.log(canvas);
     return canvas;
   }
 
