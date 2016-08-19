@@ -32,7 +32,10 @@
   width: 25%;
   height: 10%;
 }
-
+.icon{
+  width: 125px !important;
+  height: 125px !important;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
