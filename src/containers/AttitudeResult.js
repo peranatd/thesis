@@ -1,69 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TagCloud } from "react-tagcloud";
+import attitudeData from '../attitudeData';
 
-// const description = {
-//   temper: {
-//     low: {
-//       src: "https://s26.postimg.org/umuufj815/temper_low.png",
-//       info: "Low temper occur when the speaker experiences and expresses depressive emotions in an inhibited fashion, such as sadness, pain, suffering, insult, inferiority, self-blame, self-criticism, regret, fear, anxiety and concern (can also be interpreted as fatigued). It is as though the speaker is waning, growing smaller or pulling back."
-//     },
-//     medium: {
-//       src: "https://s26.postimg.org/uo4s8y9ux/temper_med.png",
-//       info: ""
-//     }
-//   }
-// }
 class AttitudeResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      temper: '',
-      valence: '',
-      arousal: ''
+      temper: {src:'', info: '', displayInfo:false},
+      valence: {src:'', info: '', displayInfo:false},
+      arousal: {src:'', info: '', displayInfo:false}
     };
   }
-  showinfo(){
-    console.log('apple')
+
+  showinfo(attitude){
+    console.log('what is attitude',attitude);
+    this.setState({attitude:Object.assign(this.state[attitude],{displayInfo:!this.state[attitude].displayInfo})});
+    console.log('what is state temper', this.state[attitude]);
   }
+
   componentWillReceiveProps(newProps){
     let result = JSON.parse(newProps.tone)[0].result.analysisSummary.AnalysisResult;
-    let self = this;
+
     if(result.Temper.Mode === 'low'){
-      this.setState({temper:'https://s26.postimg.org/umuufj815/temper_low.png'})
+      this.setState({temper:{src:attitudeData.temper.low.src, info:attitudeData.temper.low.info}});
     }
     if(result.Temper.Mode === 'medium'){
-      this.setState({temper:'https://s26.postimg.org/uo4s8y9ux/temper_med.png'})
+      this.setState({temper:{src:attitudeData.temper.medium.src, info:attitudeData.temper.medium.info}});
     }
     if(result.Temper.Mode === 'high'){
-      this.setState({temper:'https://s26.postimg.org/52sk93mnd/temper_high.png'})
+      this.setState({temper:{src:attitudeData.temper.high.src, info:attitudeData.temper.high.info}});
     }
     if(result.Valence.Mode === 'negative'){
-      this.setState({valence:'https://s26.postimg.org/5w561pso9/valence_negative.png'})
+      this.setState({valence:{src:attitudeData.valence.negative.src, info:attitudeData.valence.negative.info}});
     }
     if(result.Valence.Mode === 'neutral'){
-      this.setState({valence:'https://s26.postimg.org/ktdn2q5wp/valence_neutral.png'})
+      this.setState({valence:{src:attitudeData.valence.neutral.src, info:attitudeData.valence.neutral.info}});
     }
     if(result.Valence.Mode === 'positive'){
-      this.setState({valence:'https://s26.postimg.org/ybkjf0i21/valence_positive.png'})
+      this.setState({valence:{src:attitudeData.valence.positive.src, info:attitudeData.valence.positive.info}});
     }
     if(result.Arousal.Mode === 'high'){
-      this.setState({arousal:'https://s26.postimg.org/ifvpbprhl/arousal_high.png'})
+      this.setState({arousal:{src:attitudeData.arousal.high.src, info:attitudeData.arousal.high.info}});
     }
     if(result.Arousal.Mode === 'neutral'){
-      this.setState({arousal:'https://s26.postimg.org/lciqbzxbd/arousal_mid.png'})
+      this.setState({arousal:{src:attitudeData.arousal.neutral.src, info:attitudeData.arousal.neutral.info}});
     }
     if(result.Arousal.Mode === 'low'){
-      this.setState({arousal:'https://s26.postimg.org/j6ofhhtux/arousal_low.png'})
+      this.setState({arousal:{src:attitudeData.arousal.low.src, info:attitudeData.arousal.low.info}});
     }
   }
 
   render() {
     return (
       <div>
-        <div><span>Temper:</span><img className="icon" src={this.state.temper} onClick={this.showinfo.bind(this)}/></div>
-        <div><span>Valence:</span><img className="icon" src={this.state.valence} onClick={this.showinfo.bind(this)} /></div>
-        <div><span>Arousal:</span><img className="icon" src={this.state.arousal} onClick={this.showinfo.bind(this)} /></div>
+        <div><span>Temper:</span><img className="icon" src={this.state.temper.src} onClick={this.showinfo.bind(this,'temper')}/></div>
+        {this.state.temper.displayInfo ? <div>{this.state.temper.info}</div> : null}
+        <div><span>Valence:</span><img className="icon" src={this.state.valence.src} onClick={this.showinfo.bind(this,'valence')} /></div>
+        {this.state.valence.displayInfo ? <div>{this.state.valence.info}</div> : null}
+        <div><span>Arousal:</span><img className="icon" src={this.state.arousal.src} onClick={this.showinfo.bind(this,'arousal')} /></div>
+        {this.state.arousal.displayInfo ? <div>{this.state.arousal.info}</div> : null}
       </div>
     );
   }
