@@ -36,6 +36,13 @@
   width: 125px !important;
   height: 125px !important;
 }
+.loader {
+  position: relative;
+  left: 20%;
+  margin-bottom: 10%;
+  background: white;
+  z-index: 9999;
+}
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
