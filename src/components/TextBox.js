@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TranscriptionResponse } from '../actions/action_transcription.js';
-import { WatsonSentimentResponse } from '../actions/action_watsonsentiment.js';
+import { WatsonSentimentResponse } from '../actions/action_watsonSentiment.js';
 import { StreamingSttResponse } from '../actions/action_streamingstt.js';
 import $ from 'jquery';
 
