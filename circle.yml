@@ -1,18 +1,16 @@
 machine:
-  python:
-    version: 2.7.12
   services:
     - docker
 
 dependencies:
   override:
-    - pip install awscli
+    - pip install awsebcli
     - docker info
     - docker build -t $DOCKER_REPO .
 
 test:
   override:
-    - docker run $DOCKER_REPO npm run build
+    - docker run $DOCKER_REPO node ./server/lib/wav.js
 
 deployment:
   hub:
