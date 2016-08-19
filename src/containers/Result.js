@@ -4,6 +4,7 @@ import Chart from './Chart';
 import Cloud from './Cloud';
 import Tone_Cloud from './Tone_Cloud';
 import Radar from './Radar';
+import ToneSummary from './ToneSummary';
 
 class Result extends Component {
   constructor(props){
@@ -17,6 +18,7 @@ class Result extends Component {
         <Cloud />
         <Radar />
         <Tone_Cloud />
+        <ToneSummary />
         <ul>
           {/*this.props.msEmotion.map((emotion) => {
             return (
