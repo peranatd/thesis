@@ -1,6 +1,16 @@
-const credential = require('../credential.js');
 const Promise = require('bluebird');
 const request = require('request');
+let credential;
+
+if (process.env.MS_KEY) {
+  credential = {
+    microsoft: {
+      key: process.env.MS_KEY
+    }
+  }
+} else {
+  credential = require('../credential.js');
+}
 
 function emotion(imgBuffer) {
   const options = {

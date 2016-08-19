@@ -1,8 +1,24 @@
 const watson = require('watson-developer-cloud');
 const stream = require('stream');
-
-const credential = require('../credential.js');
 const Promise = require('bluebird');
+let credential;
+
+if (process.env.WATSON_TONE_URL) {
+  credential = {
+    watson: {
+      url: process.env.WATSON_TONE_URL,
+      username: process.env.WATSON_TONE_USERNAME,
+      password: process.env.WATSON_TONE_PASSWORD
+    },
+    speechToText: {
+      url: process.env.WATSON_STT_URL,
+      username: process.env.WATSON_STT_USERNAME,
+      password: process.env.WATSON_STT_PASSWORD
+    }
+  };
+} else {
+  credential = require('../credential.js');
+}
 
 const tone_analyzer = watson.tone_analyzer({
   username: credential.watson.username,
