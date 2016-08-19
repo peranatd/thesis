@@ -8,7 +8,8 @@ import LoginPage from './components/Login';
 import VerifyEmailPage from './components/VerifyEmailPage';
 import RegisterPage from './components/RegisterPage';
 import ResetPasswordPage from './components/ResetPasswordPage';
-import ProfilePage from './components/ProfilePage'
+import ProfilePage from './components/ProfilePage';
+import Team from './components/Team';
 
 export default (
   <Route path="/" component={App}>
@@ -23,5 +24,6 @@ export default (
     <AuthenticatedRoute>
       <Route path="/practice" component={Practice} />
     </AuthenticatedRoute>
+    <Route path="/team" component={Team} />
   </Route>
 );
