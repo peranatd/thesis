@@ -10,7 +10,7 @@ const attitudeData = {
     },
     high: {
       src: "https://s26.postimg.org/uo4s8y9ux/temper_high.png",
-      info: "Low temper occur when the speaker experiences and expresses depressive emotions in an inhibited fashion, such as sadness, pain, suffering, insult, inferiority, self-blame, self-criticism, regret, fear, anxiety and concern (can also be interpreted as fatigued). It is as though the speaker is waning, growing smaller or pulling back."
+      info: "High temper occur when the speaker experiences and expresses aggressive emotions, such as active resistance, anger, hatred, hostility, aggressiveness, forceful commandment and/or arrogance."
     }
   },
   valence: {
