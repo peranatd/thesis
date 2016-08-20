@@ -6,8 +6,6 @@ dependencies:
   override:
     - pip install awsebcli
     - docker info
-    - pwd
-    - ls
     - docker build -t $DOCKER_REPO:$CIRCLE_BUILD_NUM .
 
 test:
