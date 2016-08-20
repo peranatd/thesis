@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Team = () => (
-  <div>
+  <div className="container">
     <h1>Team Little Big Planet</h1>
     <div className="media">
       <div className="media-left media-middle">
