@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from './containers/App';
 import Home from './components/Home';
-import Practice from './components/Practice';
+import Practice from './containers/Practice';
 import ReactStormpath, { Router, HomeRoute, LoginRoute, AuthenticatedRoute } from 'react-stormpath';
 import LoginPage from './components/Login';
 import VerifyEmailPage from './components/VerifyEmailPage';
