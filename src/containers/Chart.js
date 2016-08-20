@@ -31,7 +31,7 @@ class Chart extends Component {
       lineChart = <LineChart data={this.state.emotion}/>;
     }
     return (
-      <div>
+      <div className="col-md-8">
         {lineChart}
       </div>
     );

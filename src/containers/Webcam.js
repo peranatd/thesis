@@ -239,17 +239,20 @@ class Webcam extends Component {
   render() {
     const text = this.state.recording ? 'In progress' : 'Start';
     return (
-      <div>
-        <h3>video</h3>
-        <video
-          autoPlay
-          width={this.props.width}
-          height={this.props.height}
-          src={this.state.src}
-          muted={this.props.muted}
-          className={this.props.className}
-        />
-        <button onClick={this.handleRecording.bind(this)}>{text}</button>
+      <div className="col-md-8">
+        <div className="row">
+          <video
+            autoPlay
+            width={this.props.width}
+            height={this.props.height}
+            src={this.state.src}
+            muted={this.props.muted}
+            className={this.props.className}
+          />
+        </div>
+        <div className="row">
+          <button onClick={this.handleRecording.bind(this)} className="btn btn-default">{text}</button>
+        </div>
       </div>
     );
   }
