@@ -10,39 +10,37 @@ import AttitudeResult from './AttitudeResult';
 class Result extends Component {
   constructor(props){
     super(props);
-    this.state = {};
   }
-  componentWillReceiveProps(newprops){
-    let test = JSON.parse(newprops.tone)[0].result
-    this.setState({
-      result: {
-        toneRes: test,
-        emotionRes: newprops.msEmotion,
-        transRes: newprops.transcription.length,
-        watsonRes: newprops.watsonSentiment.document_tone
-      }
-    })
-  }
+
   render(){
-    if(this.state.result){
-      return(
-        <div classname="Result">
-          <h3>Sentiment Result</h3>
-          <Chart />
-          <Cloud />
-          <Radar />
-          <Tone_Cloud />
-          <AttitudeResult />
-          <ToneSummary />
-        </div>
-      );
-    }else{
-      return(
-        <div>
-          <p>Sorry you don't have any result yet. Please go to practice page practice first. Thank you!</p>
-        </div>
-      );
-    }
+    return(
+      <div classname="Result">
+        <h3>Sentiment Result</h3>
+        {
+          this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!</p>
+        }
+        <h3>Speech Word Cloud</h3>
+        {
+          this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!</p>
+        }
+        <h3>Speech Content Sentiment Result</h3>
+        {
+          Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+        }
+        <h3>Speech Tone Sentiment Result</h3>
+        {
+          this.props.tone ? <Tone_Cloud tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+        }
+
+        {
+          this.props.tone ? <AttitudeResult tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+        }
+
+        {
+          this.props.tone ? <ToneSummary tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+        }
+      </div>
+    )
   }
 }
 

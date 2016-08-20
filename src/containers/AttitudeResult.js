@@ -1,6 +1,5 @@
 import React from 'react';
 import Loader from "react-loader";
-import { connect } from 'react-redux';
 import attitudeData from '../attitudeData';
 
 class AttitudeResult extends React.Component {
@@ -18,9 +17,9 @@ class AttitudeResult extends React.Component {
     this.setState({attitude:Object.assign(this.state[attitude],{displayInfo:!this.state[attitude].displayInfo})});
   }
 
-  componentWillReceiveProps(newProps){
-    if(JSON.parse(newProps.tone)[0].result.analysisSummary){
-      let result = JSON.parse(newProps.tone)[0].result.analysisSummary.AnalysisResult;
+  componentDidMount(){
+    if(this.props.tone[0]){
+      let result = this.props.tone[0].result.analysisSummary.AnalysisResult;
       if(result.Temper.Mode === 'low'){
         this.setState({
           temper: {
@@ -134,11 +133,4 @@ class AttitudeResult extends React.Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    tone: state.tone
-  };
-}
-
-export default connect(mapStateToProps)(AttitudeResult);
+export default AttitudeResult;

@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { TagCloud } from "react-tagcloud";
 
 const options = {
@@ -15,9 +13,9 @@ class Tone_Cloud extends React.Component {
       mood: []
     }
   }
-  componentWillReceiveProps(newProps){
-    if(JSON.parse(newProps.tone)[0].result){
-      let result = JSON.parse(newProps.tone)[0].result.analysisSegments || [];
+  componentWillMount(){
+    if(this.props.tone[0]){
+      let result = this.props.tone[0].result.analysisSegments || [];
       let self = this;
       let mood=[];
       let data=[];
@@ -61,11 +59,4 @@ class Tone_Cloud extends React.Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    tone: state.tone
-  };
-}
-
-export default connect(mapStateToProps)(Tone_Cloud);
+export default Tone_Cloud;
