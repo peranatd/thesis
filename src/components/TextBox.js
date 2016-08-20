@@ -51,11 +51,11 @@ class TextBox extends Component {
 
   render() {
     return (
-      <div >
-        <h2>TextBox</h2>
-        <p>Please upload your text file</p>
-        <textarea rows="4" placeholder="Write down your transcription here..." onChange={this.handleChange.bind(this)} />
-        <button onClick={this.handleSubmit.bind(this)}>Upload Text</button>
+      <div className="col-md-4">
+        <div className="form-group">
+          <textarea className="form-control" rows="23" placeholder="We will transform your speech into text in this box but you can also write down your transcription here..." onChange={this.handleChange.bind(this)} />
+        </div>
+        <button onClick={this.handleSubmit.bind(this)} className="btn btn-default">Upload Text</button>
       </div>
     );
   }
