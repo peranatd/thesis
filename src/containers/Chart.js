@@ -9,7 +9,22 @@ class Chart extends Component {
     super(props);
     this.state = {};
   }
+  componentWillMount(){
+    if(this.props.emotion.length){
+      let categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 
+      let result = categories.map(name => {return {name: name, values: []};});
+
+      result.forEach(cat => {
+        this.props.emotion.forEach((result, i) => {
+          cat.values.push({x: i, y:result.scores[cat.name]});
+        });
+      });
+      this.setState({
+        emotion: result
+      })
+    }
+  }
   componentWillReceiveProps(newProps) {
     let categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 
@@ -40,9 +55,7 @@ class Chart extends Component {
 
 function mapStateToProps(state) {
   return {
-    msEmotion: state.msEmotion,
-    tone: state.tone,
-    speechToText: state.speechToText
+    msEmotion: state.msEmotion
   };
 }
 

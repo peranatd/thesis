@@ -11,48 +11,45 @@ class Result extends Component {
   constructor(props){
     super(props);
   }
+
   render(){
     return(
       <div classname="Result">
         <h3>Sentiment Result</h3>
-        <Chart />
-        <Cloud />
-        <Radar />
-        <Tone_Cloud />
-        <AttitudeResult />
-        <ToneSummary />
-        <ul>
-          {/*this.props.msEmotion.map((emotion) => {
-            return (
-              <li>
-                <span>
-                  <img src="http://www.pic4ever.com/images/145fs78038.gif" border="0" />
-                  Anger : {(emotion.scores.anger).toFixed(4)}
-                </span>
-                <span> Contempt : {(emotion.scores.contempt).toFixed(4)} </span>
-                <span> Disgust : {(emotion.scores.disgust).toFixed(4)} </span>
-                <span> Fear : {(emotion.scores.fear).toFixed(4)} </span>
-                <span>
-                  <img src="http://www.pic4ever.com/images/Banane21.gif" border="0" />
-                  Happiness : {(emotion.scores.happiness).toFixed(4)}
-                </span>
-                <span> Neutral : {(emotion.scores.neutral).toFixed(4)} </span>
-                <span> Sadness : {(emotion.scores.sadness).toFixed(4)} </span>
-                <span> Surprise : {(emotion.scores.surprise).toFixed(4)} </span>
-              </li>
-            );
-          })
-        */}
-        </ul>
+        {
+          this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
+        }
+        <h3>Speech Word Cloud</h3>
+        {
+          this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
+        }
+        <h3>Speech Content Sentiment Result</h3>
+        {
+          Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
+        }
+        <h3>Speech Tone Sentiment Result</h3>
+        {
+          this.props.tone.length ? <Tone_Cloud tone={this.props.tone}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
+        }
+
+        {
+          this.props.tone.length ? <AttitudeResult tone={this.props.tone}/> : null
+        }
+
+        {
+          this.props.tone.length ? <ToneSummary tone={this.props.tone}/> : null
+        }
       </div>
-    );
+    )
   }
 }
 
 function mapStateToProps(state) {
   return {
     msEmotion: state.msEmotion,
-    tone: state.tone
+    tone: state.tone,
+    transcription: state.transcription,
+    watsonSentiment: state.watsonSentiment
   };
 }
 

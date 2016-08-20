@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 class ToneSummary extends Component {
   constructor(props){
@@ -7,22 +6,23 @@ class ToneSummary extends Component {
     this.state = {primary: '?', secondary: '?'};
   }
 
-  componentWillReceiveProps(newProps) {
-    let result = JSON.parse(newProps.tone)[0].result.analysisSegments;
-    let primary = [];
-    let secondary = [];
-    console.log('what is the result for summary', result);
-    result.forEach(function(segment){
-      let primaryPhrase = segment.analysis.Mood["Composite"].Primary.Phrase;
-      if(primaryPhrase){
-        primary.push(primaryPhrase);
-      }
-      let secondaryPhrase = segment.analysis.Mood["Composite"].Secondary.Phrase;
-      if(secondaryPhrase){
-        secondary.push(secondaryPhrase);
-      }
-    });
-    this.setState({primary:primary.join(), secondary:secondary.join()});
+  componentWillMount() {
+    if(this.props.tone[0]){
+      let result = this.props.tone[0].result.analysisSegments;
+      let primary = [];
+      let secondary = [];
+      result.forEach(function(segment){
+        let primaryPhrase = segment.analysis.Mood["Composite"].Primary.Phrase;
+        if(primaryPhrase){
+          primary.push(primaryPhrase);
+        }
+        let secondaryPhrase = segment.analysis.Mood["Composite"].Secondary.Phrase;
+        if(secondaryPhrase){
+          secondary.push(secondaryPhrase);
+        }
+      });
+      this.setState({primary:primary.join(), secondary:secondary.join()});
+    }
   }
 
   render(){
@@ -36,10 +36,4 @@ class ToneSummary extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    tone: state.tone
-  };
-}
-
-export default connect(mapStateToProps)(ToneSummary);
+export default ToneSummary;

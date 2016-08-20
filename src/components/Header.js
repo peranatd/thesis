@@ -18,6 +18,11 @@ export default class Header extends React.Component {
               </Authenticated>
               <Authenticated>
                 <li>
+                  <Link to="/result">Result</Link>
+                </li>
+              </Authenticated>
+              <Authenticated>
+                <li>
                   <Link to="/profile">Profile</Link>
                 </li>
               </Authenticated>

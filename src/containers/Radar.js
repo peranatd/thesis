@@ -1,6 +1,5 @@
 // credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 class Radar extends Component {
   constructor(props){
@@ -218,10 +217,10 @@ class Radar extends Component {
            .style('font-size', '13px');
 
   }
-  componentWillReceiveProps (newProps) {
-    if(newProps.watsonSentiment.document_tone){
+  componentDidMount () {
+    if(this.props.watson.document_tone){
       let emotionTone;
-      let result = newProps.watsonSentiment.document_tone.tone_categories;
+      let result = this.props.watson.document_tone.tone_categories;
       let self = this;
       let mycfg = {w:500, h:500, maxValue:0, levels:10};
       result.forEach(function(emotion){
@@ -245,10 +244,4 @@ class Radar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    watsonSentiment: state.watsonSentiment
-  };
-}
-
-export default connect(mapStateToProps)(Radar);
+export default Radar;
