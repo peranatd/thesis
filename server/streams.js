@@ -45,6 +45,7 @@ const socketMethods = {
           })
           .then(res => {
             socket.emit('bv', res);
+            delete audio[data.id];
           });
 
           // watson.speechToText(audio[data.id])

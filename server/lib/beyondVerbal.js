@@ -1,6 +1,13 @@
-const key = require('../credential.js').beyondverbal.key;
 const Promise = require('bluebird');
 const request = require('request');
+let key;
+
+if (process.env.BV_KEY) {
+  key = process.env.BV_KEY;
+} else {
+  key = require('../credential.js').beyondverbal.key;
+}
+
 
 // function to get access_token, returns a promise with the
 // object {'access_token': ,'token_type': ,'expires_in': }

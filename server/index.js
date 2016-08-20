@@ -3,13 +3,11 @@ const partials = require('express-partials');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
 
-var stormpath = require('express-stormpath');
-var path = require('path');
+const path = require('path');
 
 const multer  = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
 
 const watson = require('./lib/watson.js');
 const ms = require('./lib/ms.js');
@@ -17,6 +15,8 @@ const ms = require('./lib/ms.js');
 app.use(partials());
 app.use(bodyParser.json());
 app.use(serveStatic(__dirname + '/../build'));
+
+const stormpath = require('express-stormpath');
 
 app.use(stormpath.init(app, {
   // Disable logging until startup, so that we can catch errors
