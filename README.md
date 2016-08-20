@@ -1,4 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/hrr17-littlebigplanet/thesis.png?label=ready&title=Ready)](http://waffle.io/hrr17-littlebigplanet/thesis)
+[![CircleCI](https://circleci.com/gh/hrr17-littlebigplanet/thesis/tree/master.svg?style=svg)](https://circleci.com/gh/hrr17-littlebigplanet/thesis/tree/master)
 
 # Project Name
 
