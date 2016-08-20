@@ -16,33 +16,37 @@ class Tone_Cloud extends React.Component {
     }
   }
   componentWillReceiveProps(newProps){
-    let result = JSON.parse(newProps.tone)[0].result.analysisSegments;
-    let self = this;
-    let mood=[];
-    let data=[];
-    let obj={};
-    result.forEach(function(segment){
-      let primaryPhrase = segment.analysis.Mood["Group11"].Primary.Phrase.split(',');
-      let secondaryPhrase = segment.analysis.Mood["Group11"].Secondary.Phrase.split(',');
-      primaryPhrase.forEach(function(keyword){
-        mood.push(keyword);
-      });
-      secondaryPhrase.forEach(function(keyword){
-        mood.push(keyword);
-      })
-      mood.forEach(function(keyword){
-        let count=1;
-        if(obj[keyword]){
-          obj[keyword] = ++count;
-        }else{
-          obj[keyword] = count;
-        }
-      })
-      for(let key in obj){
-        data.push({value:key,count:obj[key]})
+    if(JSON.parse(newProps.tone)[0].result){
+      let result = JSON.parse(newProps.tone)[0].result.analysisSegments || [];
+      let self = this;
+      let mood=[];
+      let data=[];
+      let obj={};
+      if(result.length !== 0){
+        result.forEach(function(segment){
+          let primaryPhrase = segment.analysis.Mood["Group11"].Primary.Phrase.split(',');
+          let secondaryPhrase = segment.analysis.Mood["Group11"].Secondary.Phrase.split(',');
+          primaryPhrase.forEach(function(keyword){
+            mood.push(keyword);
+          });
+          secondaryPhrase.forEach(function(keyword){
+            mood.push(keyword);
+          })
+          mood.forEach(function(keyword){
+            let count=1;
+            if(obj[keyword]){
+              obj[keyword] = ++count;
+            }else{
+              obj[keyword] = count;
+            }
+          })
+          for(let key in obj){
+            data.push({value:key,count:obj[key]})
+          }
+          self.setState({mood:data});
+        })
       }
-      self.setState({mood:data});
-    })
+    }
   }
 
   render() {
