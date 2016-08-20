@@ -26,7 +26,6 @@ class Chart extends Component {
     }
   }
   componentWillReceiveProps(newProps) {
-    console.log('pineapple',newProps)
     let categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 
     let result = categories.map(name => {return {name: name, values: []};});

@@ -24,8 +24,8 @@ class Practice extends Component {
         <TextBox speechToText={this.props.speechToText}/>
       </div>
       <div className="row">
-        <Chart />
-        <Cloud />
+        <Chart emotion={this.props.msEmotion}/>
+        <Cloud trans={this.props.transcription}/>
         <div className="col-md-2">
           <Link to="/result" className="btn btn-lg btn-primary" role="button">See Result</Link>
         </div>
@@ -37,7 +37,9 @@ class Practice extends Component {
 
 function mapStateToProps(state) {
   return {
-    speechToText: state.speechToText
+    speechToText: state.speechToText,
+    msEmotion: state.msEmotion,
+    transcription: state.transcription
   };
 }
 

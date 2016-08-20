@@ -29,15 +29,15 @@ class Result extends Component {
         }
         <h3>Speech Tone Sentiment Result</h3>
         {
-          this.props.tone ? <Tone_Cloud tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+          this.props.tone.length ? <Tone_Cloud tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
         }
 
         {
-          this.props.tone ? <AttitudeResult tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+          this.props.tone.length ? <AttitudeResult tone={this.props.tone}/> : null
         }
 
         {
-          this.props.tone ? <ToneSummary tone={this.props.tone}/> : <p>Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!</p>
+          this.props.tone.length ? <ToneSummary tone={this.props.tone}/> : null
         }
       </div>
     )
