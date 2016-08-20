@@ -10,6 +10,7 @@ import RegisterPage from './components/RegisterPage';
 import ResetPasswordPage from './components/ResetPasswordPage';
 import ProfilePage from './components/ProfilePage';
 import Team from './components/Team';
+import Result from './containers/Result';
 
 export default (
   <Route path="/" component={App}>
@@ -23,6 +24,9 @@ export default (
     </AuthenticatedRoute>
     <AuthenticatedRoute>
       <Route path="/practice" component={Practice} />
+    </AuthenticatedRoute>
+    <AuthenticatedRoute>
+      <Route path="/result" component={Result} />
     </AuthenticatedRoute>
     <Route path="/team" component={Team} />
   </Route>
