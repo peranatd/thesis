@@ -5,10 +5,6 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Set environment variables
-ENV DOCKER_EMAIL $DOCKER_EMAIL
-ENV DOCKER_PASS $DOCKER_PASS
-ENV DOCKER_REPO $DOCKER_REPO
-ENV DOCKER_USER $DOCKER_USER
 ENV BV_KEY $BV_KEY
 ENV MS_KEY $MS_KEY
 ENV WATSON_TONE_URL $WATSON_TONE_URL
@@ -31,6 +27,8 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
+# Build
+RUN npm run build
+
 EXPOSE 8128
-CMD [ "npm", "build" ]
 CMD [ "node", "server.js" ]

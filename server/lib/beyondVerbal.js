@@ -3,7 +3,7 @@ const request = require('request');
 let key;
 
 if (process.env.BV_KEY) {
-  key = process.env.BV_KEY
+  key = process.env.BV_KEY;
 } else {
   key = require('../credential.js').beyondverbal.key;
 }

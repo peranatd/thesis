@@ -1,6 +1,4 @@
 machine:
-  python:
-    version: 2.7.12
   services:
     - docker
 
@@ -8,19 +6,21 @@ dependencies:
   override:
     - pip install awsebcli
     - docker info
-    - docker build -t $DOCKER_REPO .
+    - pwd
+    - ls
+    - docker build -t $DOCKER_REPO:$CIRCLE_BUILD_NUM .
 
 test:
   override:
-    - docker run $DOCKER_REPO node ./server/lib/wav.js
+    - docker run $DOCKER_REPO:$CIRCLE_BUILD_NUM npm test
 
 deployment:
   hub:
     branch: /.*deploy/
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push $DOCKER_REPO
-      - sed -i -e "s;%DOCKER_REPO%;$DOCKER_REPO;g" ./Dockerrun.aws.json
-      - sed -i -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" ./Dockerrun.aws.json
-      - eb init -r $EB_REGION $EB_APPNAME
-      - eb deploy -l $CIRCLE_BUILD_NUM
+      - docker push $DOCKER_REPO:$CIRCLE_BUILD_NUM
+      - sed -i -e "s;%DOCKER_REPO%;$DOCKER_REPO;g" .eb/Dockerrun.aws.json
+      - sed -i -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" .eb/Dockerrun.aws.json
+      - cd .eb/ && eb init -r $EB_REGION $EB_APPNAME
+      - cd .eb/ && eb deploy
