@@ -77,7 +77,7 @@ class Cloud extends Component {
 
   render () {
     return (
-      <div>
+      <div className="col-md-5">
         <svg id="cloud"></svg>
       </div>
     );

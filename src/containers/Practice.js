@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import TextBox from './TextBox';
-import Webcam from '../containers/Webcam';
-import Chart from '../containers/Chart';
-
+import TextBox from '../components/TextBox';
+import Webcam from './Webcam';
+import Chart from './Chart';
+import Cloud from './Cloud';
 
 class Practice extends Component {
   constructor(props) {
@@ -25,7 +25,10 @@ class Practice extends Component {
       </div>
       <div className="row">
         <Chart />
-        <Link to="/result" className="btn btn-lg btn-primary" role="button">See Result</Link>
+        <Cloud />
+        <div className="col-md-2">
+          <Link to="/result" className="btn btn-lg btn-primary" role="button">See Result</Link>
+        </div>
       </div>
     </div>
     );
