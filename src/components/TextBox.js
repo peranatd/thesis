@@ -12,7 +12,9 @@ class TextBox extends Component {
     this.state = {
       text: ''
     };
-    this.props.socket.on('streamingSpeechToText', (data) => this.props.StreamingSttResponse(data, this.props.streamingStt));
+    this.props.socket.on('streamingSpeechToText',
+      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
+    );
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -20,7 +22,6 @@ class TextBox extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // $('textarea').val(newProps.speechToText[0]);
     $('textarea').val(newProps.streamingStt.join(''));
     this.handleChange();
   }
@@ -32,16 +33,17 @@ class TextBox extends Component {
   }
 
   handleSubmit() {
-    let text = this.state.text;
-    let context = this;
+    let self = this;
     $.ajax({
       url:'/api/text',
       type:'POST',
-      data: JSON.stringify({text: text}),
+      data: JSON.stringify({
+        text: self.state.text,
+        sessionId: self.props.sessionId
+      }),
       contentType: 'application/json',
       success: function (data) {
-        // console.log(data);
-        context.props.WatsonSentimentResponse(data);
+        self.props.WatsonSentimentResponse(data);
       },
       error: function () {
         console.log('ajax post request failed!');

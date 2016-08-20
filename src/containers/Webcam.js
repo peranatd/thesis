@@ -182,7 +182,12 @@ class Webcam extends Component {
           resampler(u, 8000, (event) => {
             let wav = toWav(event.getAudioBuffer());
             let wavFile = new Blob([wav]);
-            this.props.socket.emit('audio', {id:this.state.id, data: wavFile, isFinal: false});
+            this.props.socket.emit('audio', {
+              id:this.state.id,
+              data: wavFile,
+              isFinal: false,
+              sessionId: this.props.sessionId
+            });
             URL.revokeObjectURL(u);
           });
         };
@@ -194,16 +199,23 @@ class Webcam extends Component {
     } else {
       this.setState({recording:!this.state.recording}, () => {
         this.state.recorder.stop();
-        this.props.socket.emit('audio', {id:this.state.id, data: '', isFinal: true});
+        this.props.socket.emit('audio', {
+          id:this.state.id,
+          data: '',
+          isFinal: true,
+          sessionId:this.props.sessionId
+        });
       });
     }
   }
 
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
-      let a = this.getScreenshot();
-      this.props.socket.emit('file', {name: Date.now(), data: a});
-
+      this.props.socket.emit('file', {
+        name: Date.now(),
+        data: this.getScreenshot(),
+        sessionId: this.props.sessionId
+      });
       setTimeout(() => {
         this.callScreenshot(mediaRecorder);
       }, 3000);
@@ -251,7 +263,10 @@ class Webcam extends Component {
           />
         </div>
         <div className="row">
-          <button onClick={this.handleRecording.bind(this)} className="btn btn-default">{text}</button>
+          <button
+            onClick={this.handleRecording.bind(this)}
+            className="btn btn-default">{text}
+          </button>
         </div>
       </div>
     );
