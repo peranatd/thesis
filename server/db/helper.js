@@ -7,7 +7,8 @@ module.exports = {
     get: getUser
   },
   session: {
-    add: addSession
+    add: addSession,
+    get: getSession
   }
 };
 
@@ -39,5 +40,36 @@ function getUser(username) {
   });
 }
 
+// Adds a session for the user, where sessionTimestamp
+// is in Unix epoch
+function addSession(username, sessionTimestamp) {
+  return new Promise((resolve, reject) => {
+    db.query(`INSERT INTO session (session_timestamp, user_id)
+      VALUES (FROM_UNIXTIME(${sessionTimestamp}),
+      (SELECT id FROM user WHERE username='${username}'))`,
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+}
 
-
+// Returns all sessions for a given user
+function getSession(username) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT id, session_timestamp FROM session
+      WHERE user_id=(SELECT id FROM user WHERE username='${username}')`,
+      (err, results) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(results);
+        }
+      }
+    );
+  });
+}
