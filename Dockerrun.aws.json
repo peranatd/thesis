@@ -1,0 +1,12 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "ftmatsumoto/speakmirror",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "8128"
+    }
+  ]
+}
