@@ -7,10 +7,11 @@ import io from 'socket.io-client';
 
 import '../App.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
@@ -22,9 +23,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header/>
+        <Header />
         {this.props.children}
         {console.log(this.props.socket)}
+        <Footer />
       </div>
     );
   }
