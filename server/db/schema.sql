@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS session;
 
 CREATE TABLE session (
   id INTEGER AUTO_INCREMENT,
-  session_timestamp TIMESTAMP,
+  session_timestamp BIGINT UNSIGNED,
   user_id INTEGER,
   PRIMARY KEY (id)
 );
@@ -49,7 +49,7 @@ DROP TABLE IF EXISTS microsoft;
 CREATE TABLE microsoft (
   id INTEGER AUTO_INCREMENT,
   ms_datapoint VARCHAR(300) NULL DEFAULT NULL,
-  ms_timestamp TIMESTAMP,
+  ms_timestamp BIGINT UNSIGNED,
   session_id INTEGER,
   PRIMARY KEY (id)
 );
