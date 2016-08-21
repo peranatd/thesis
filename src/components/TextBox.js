@@ -12,7 +12,9 @@ class TextBox extends Component {
     this.state = {
       text: ''
     };
-    this.props.socket.on('streamingSpeechToText', (data) => this.props.StreamingSttResponse(data, this.props.streamingStt));
+    this.props.socket.on('streamingSpeechToText',
+      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
+    );
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -20,7 +22,6 @@ class TextBox extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // $('textarea').val(newProps.speechToText[0]);
     $('textarea').val(newProps.streamingStt.join(''));
     this.handleChange();
   }
@@ -32,16 +33,18 @@ class TextBox extends Component {
   }
 
   handleSubmit() {
-    let text = this.state.text;
-    let context = this;
+    let self = this;
     $.ajax({
       url:'/api/text',
       type:'POST',
-      data: JSON.stringify({text: text}),
+      data: JSON.stringify({
+        text: self.state.text,
+        sessionId: self.props.sessionId,
+        user: self.props.user.username
+      }),
       contentType: 'application/json',
       success: function (data) {
-        // console.log(data);
-        context.props.WatsonSentimentResponse(data);
+        self.props.WatsonSentimentResponse(data);
       },
       error: function () {
         console.log('ajax post request failed!');
@@ -53,9 +56,18 @@ class TextBox extends Component {
     return (
       <div className="col-md-4">
         <div className="form-group">
-          <textarea className="form-control" rows="23" placeholder="We will transform your speech into text in this box but you can also write down your transcription here..." onChange={this.handleChange.bind(this)} />
+          <textarea
+            className="form-control"
+            rows="23"
+            placeholder="We will transform your speech into text in this box but you can also write down your transcription here..."
+            onChange={this.handleChange.bind(this)}
+          />
         </div>
-        <button onClick={this.handleSubmit.bind(this)} className="btn btn-default">Upload Text</button>
+        <button
+          onClick={this.handleSubmit.bind(this)}
+          className="btn btn-default">
+          Upload Text
+        </button>
       </div>
     );
   }

@@ -7,8 +7,15 @@ import Chart from './Chart';
 import Cloud from './Cloud';
 
 class Practice extends Component {
+  static contextTypes = {
+    user: React.PropTypes.object
+  };
+
   constructor(props) {
     super(props);
+    this.state = {
+      sessionId: Date.now()
+    };
   }
 
   handleTextChange (event) {
@@ -20,8 +27,15 @@ class Practice extends Component {
     <div className="container">
       <h1> Practice </h1>
       <div className="row">
-        <Webcam />
-        <TextBox speechToText={this.props.speechToText}/>
+        <Webcam
+          sessionId={this.state.sessionId}
+          user={this.context.user}
+        />
+        <TextBox
+          speechToText={this.props.speechToText}
+          sessionId={this.state.sessionId}
+          user={this.context.user}
+        />
       </div>
       <div className="row">
         <Chart emotion={this.props.msEmotion}/>
