@@ -18,15 +18,7 @@ deployment:
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push $DOCKER_REPO:$CIRCLE_BUILD_NUM
-      # - sed -i -e "s;%DOCKER_REPO%;$DOCKER_REPO;g" .eb/Dockerrun.aws.json
-      # - sed -i -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" .eb/Dockerrun.aws.json
-      # - cd .eb/ && eb init -r $EB_REGION $EB_APPNAME
-      # - cd .eb/ && eb deploy
-      # Create new Elastic Beanstalk version
-      - EB_BUCKET=elasticbeanstalk-us-west-2-497713528052
-      - DOCKERRUN_FILE=Dockerrun.aws.json
-      # - sed "s/<TAG>/$SHA1/" < Dockerrun.aws.json.template > $DOCKERRUN_FILE
-      - aws s3 cp $DOCKERRUN_FILE s3://$EB_BUCKET/$DOCKERRUN_FILE
-      - aws elasticbeanstalk create-application-version --application-name hello --version-label $SHA1 --source-bundle S3Bucket=$EB_BUCKET,S3Key=$DOCKERRUN_FILE
-      # Update Elastic Beanstalk environment to new version
-      - aws elasticbeanstalk update-environment --environment-name hello-env --version-label $SHA1
+      - sed -i -e "s;%DOCKER_REPO%;$DOCKER_REPO;g" .eb/Dockerrun.aws.json
+      - sed -i -e "s;%BUILD_NUM%;$CIRCLE_BUILD_NUM;g" .eb/Dockerrun.aws.json
+      - cd .eb/ && eb init -r $EB_REGION $EB_APPNAME
+      - cd .eb/ && eb deploy
