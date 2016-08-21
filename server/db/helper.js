@@ -12,7 +12,15 @@ module.exports = {
   },                        //
   ms: {                     //
     add: addMsDatapoint,    // (datapoint, dataTimestamp, sessionTimestamp)
-    get: getMsDatapoint     // (sessionTimestamp)
+    get: getMsDatapoint     // (sessionId)
+  },                        //
+  bv: {                     //
+    add: addBvData,         // (summary, mood, sessionTimestamp)
+    get: getBvData          // (sessionId)
+  },                        //
+  watson: {                 //
+    add: addWatsonData,     // (emotion, language, social, transcript, sessionTimestamp)
+    get: getWatsonData      // (sessionId)
   }
 };
 
@@ -92,9 +100,7 @@ function getSession(username) {
 }
 
 function addMsDatapoint(datapoint, dataTimestamp, sessionTimestamp) {
-  if (typeof(datapoint) !== 'string') {
-    datapoint = JSON.stringify(datapoint);
-  }
+  if (typeof(datapoint) !== 'string') { datapoint = JSON.stringify(datapoint); }
   return new Promise((resolve, reject) => {
     db.query(`INSERT INTO microsoft (ms_datapoint, ms_timestamp, session_id)
       VALUES ('${datapoint}', '${dataTimestamp}',
@@ -110,10 +116,78 @@ function addMsDatapoint(datapoint, dataTimestamp, sessionTimestamp) {
   });
 }
 
-function getMsDatapoint(sessionTimestamp) {
+function getMsDatapoint(sessionId) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT ms_datapoint, ms_timestamp FROM microsoft WHERE session_id=
-      (SELECT id FROM session WHERE session_timestamp='${sessionTimestamp}')`,
+    db.query(`SELECT ms_datapoint, ms_timestamp FROM microsoft WHERE
+      session_id='${sessionId}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+}
+
+function addBvData(summary, mood, sessionTimestamp) {
+  if (typeof(summary) !== 'string') { summary = JSON.stringify(summary); }
+  if (typeof(mood) !== 'string') { mood = JSON.stringify(mood); }
+  return new Promise((resolve, reject) => {
+    db.query(`INSERT INTO bv (bv_summary, bv_mood, session_id)
+      VALUES ('${summary}', '${mood}', (SELECT id FROM session
+      WHERE session_timestamp='${sessionTimestamp}'))`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+}
+
+function getBvData(sessionId) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT bv_summary, bv_mood FROM bv WHERE session_id='${sessionId}'`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+}
+
+function addWatsonData(emotion, language, social, transcript, sessionTimestamp) {
+  if (typeof(emotion) !== 'string') { emotion = JSON.stringify(emotion); }
+  if (typeof(language) !== 'string') { language = JSON.stringify(language); }
+  if (typeof(social) !== 'string') { social = JSON.stringify(social); }
+  if (typeof(transcript) !== 'string') { transcript = JSON.stringify(transcript); }
+  return new Promise((resolve, reject) => {
+    db.query(`INSERT INTO watson
+      (wn_emotion, wn_language, wn_social, wn_transcription, session_id)
+      VALUES ('${emotion}', '${language}', '${social}', '${transcript}',
+      (SELECT id FROM session WHERE session_timestamp='${sessionTimestamp}'))`,
+      (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+}
+
+function getWatsonData(sessionId) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT wn_emotion, wn_language, wn_social, wn_transcription
+      FROM watson WHERE session_id='${sessionId}'`,
       (err, result) => {
         if (err) {
           reject(err);
