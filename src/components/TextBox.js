@@ -39,7 +39,8 @@ class TextBox extends Component {
       type:'POST',
       data: JSON.stringify({
         text: self.state.text,
-        sessionId: self.props.sessionId
+        sessionId: self.props.sessionId,
+        user: self.props.user.username
       }),
       contentType: 'application/json',
       success: function (data) {
@@ -55,9 +56,18 @@ class TextBox extends Component {
     return (
       <div className="col-md-4">
         <div className="form-group">
-          <textarea className="form-control" rows="23" placeholder="We will transform your speech into text in this box but you can also write down your transcription here..." onChange={this.handleChange.bind(this)} />
+          <textarea
+            className="form-control"
+            rows="23"
+            placeholder="We will transform your speech into text in this box but you can also write down your transcription here..."
+            onChange={this.handleChange.bind(this)}
+          />
         </div>
-        <button onClick={this.handleSubmit.bind(this)} className="btn btn-default">Upload Text</button>
+        <button
+          onClick={this.handleSubmit.bind(this)}
+          className="btn btn-default">
+          Upload Text
+        </button>
       </div>
     );
   }
