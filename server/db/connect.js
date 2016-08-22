@@ -12,9 +12,9 @@ if (process.env.RDS_HOSTNAME) {
   params = {
     host: 'localhost',
     user: 'root',
-    password: '1234',
-    database: 'speakmirror',
-    socketPath: '/opt/local/var/run/mysql57/mysqld.sock'
+    password: '123',
+    database: 'speakmirror'
+    // socketPath: '/opt/local/var/run/mysql57/mysqld.sock'
   };
 }
 
