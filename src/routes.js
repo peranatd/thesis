@@ -8,7 +8,7 @@ import LoginPage from './components/Login';
 import VerifyEmailPage from './components/VerifyEmailPage';
 import RegisterPage from './components/RegisterPage';
 import ResetPasswordPage from './components/ResetPasswordPage';
-import ProfilePage from './components/ProfilePage';
+import ProfilePage from './containers/ProfilePage';
 import Team from './components/Team';
 import Result from './containers/Result';
 
