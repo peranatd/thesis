@@ -75,5 +75,3 @@ function watsonFormatFromDB(data) {
   };
   return result;
 }
-
-// console.log(bvFormatToDB());
