@@ -58,7 +58,7 @@ function watsonFormatFromDB(data) {
     return {
       tones: categories[category].data.map((tone, i) => {
         return {
-          score: JSON.parse(data[tone.key])[i],
+          score: JSON.parse(data[categories[category].key])[i],
           tone_id: tone.toLowerCase(),
           tone_name: tone
         };
