@@ -38,6 +38,29 @@ const socketMethods = {
         });
       });
 
+      socket.on('getSession', (data) => {
+        db.session.get(data).then(r => socket.emit('allSessions', r));
+      });
+
+      socket.on('getResults', (data) => {
+        let result = {};
+        db.ms.get(data)
+        .then(r => {
+          let msFormatted = r.sort((a, b) => +a.ms_timestamp > +b.ms_timestamp)
+          .map(i => format.msFormatFromDB(JSON.parse(i.ms_datapoint)));
+          result.msEmotion = msFormatted;
+          return db.bv.get(data);
+        })
+        .then(r => {
+          result.bv = format.bvFormatFromDB(r[0]);
+          return db.watson.get(data);
+        })
+        .then(r => {
+          result.watson = format.watsonFormatFromDB(r[0]);
+          socket.emit('allResults', result);
+        });
+      });
+
       socket.on('file', (data) => {
         var dataString = data.data.split(',')[1];
         var imgBuffer = Buffer.from(dataString, 'base64');

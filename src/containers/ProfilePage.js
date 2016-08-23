@@ -16,23 +16,45 @@ class ProfilePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessions:['2016-07-09','2016-08-22'],
-      currentSession:{}
+      sessions: [],
+      currentSession: undefined,
+      result: {
+        msEmotion: undefined,
+        transcription: undefined,
+        tone: undefined,
+        watsonSentiment: undefined
+      },
+      sessionId: {}
     }
+
+    this.props.socket.on('allSessions', (data) => {
+      this.setState({
+        sessions: data.map(session => session.session_timestamp),
+        sessionId: data.reduce((memo, item) => {
+          memo[item.session_timestamp] = item.id;
+          return memo;
+        }, {})
+      });
+    });
+
+    this.props.socket.on('allResults', (data) => {
+      console.log(JSON.stringify(data, null, 3));
+    });
   }
 
   componentWillMount() {
-    //getSessions();
-  }
-
-  getSessions() {
-
+    this.props.socket.emit('getSession', this.context.user.username);
   }
 
   handleChange() {
-    this.setState({
-      currentSession: event.target.value
-    },() => console.log('what is this target value of current session', this.state.currentSession));
+    // console.log(event.target.value);
+    if (event.target.value !== 'null') {
+      this.setState({
+        currentSession: event.target.value
+      }, () => {
+        this.props.socket.emit('getResults', this.state.sessionId[this.state.currentSession]);
+      });
+    }
   }
 
   render() {
@@ -50,48 +72,49 @@ class ProfilePage extends Component {
             </div>
             <div className="col-xs-6">
               <select className="form-control" onChange={this.handleChange.bind(this)}>
-                {this.state.sessions.map((session) => (
-                  <option value={session}>
-                    {session}
-                  </option>
-                ))}
+                <option value='null'>Please select sessions</option>
+                {this.state.sessions.map((session) => {
+                  let time = new Date(session);
+                    return <option value={session}>{time.toLocaleString()}</option>
+                  }
+                )}
               </select>
             </div>
           </div>
-          { Object.keys(this.state.currentSession).length ? (
+          { this.state.currentSession ? (
           <div>
             <div className="row">
               <h3>Sentiment Result</h3>
               {
-                this.state.currentSession.msEmotion.length ?
-                <Chart emotion={this.state.currentSession.msEmotion}/> :
+                this.state.result.msEmotion ?
+                <Chart emotion={this.state.result.msEmotion}/> :
                 <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
               }
             </div>
             <div className="row">
               <h3>Speech Word Cloud</h3>
               {
-                this.state.currentSession.length ?
-                <Cloud trans={this.state.currentSession.transcription}/> :
+                this.state.result.transcription ?
+                <Cloud trans={this.state.result.transcription}/> :
                 <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
               }
             </div>
             <div className="row">
               <h3>Speech Content Sentiment Result</h3>
               {
-                Object.keys(this.state.currentSession.watsonSentiment).length ?
-                <Radar watson={this.state.currentSession.watsonSentiment}/> :
+                this.state.result.watsonSentiment ?
+                <Radar watson={this.state.result.watsonSentiment}/> :
                 <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
               }
             </div>
             <div className="row">
               <h3>Speech Tone Sentiment Result</h3>
               {
-                this.state.currentSession.tone.length ? (
+                this.state.result.tone ? (
                 <div>
-                  <Tone_Cloud tone={this.state.currentSession.tone}/>
-                  <AttitudeResult tone={this.state.currentSession.tone}/>
-                  <ToneSummary tone={this.state.currentSession.tone}/>
+                  <Tone_Cloud tone={this.state.result.tone}/>
+                  <AttitudeResult tone={this.state.result.tone}/>
+                  <ToneSummary tone={this.state.result.tone}/>
                 </div>
                 ): <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
               }
