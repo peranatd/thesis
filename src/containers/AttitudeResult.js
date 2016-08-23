@@ -100,13 +100,13 @@ class AttitudeResult extends React.Component {
           },
           loaded:true
         });
-      };
-    };
+      }
+    }
   }
 
   render() {
     return (
-      <div>
+      <div className="col-md-6">
         <div>
           <span>Temper:</span>
           <Loader loaded={this.state.loaded}>

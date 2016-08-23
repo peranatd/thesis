@@ -9,8 +9,8 @@ class Radar extends Component {
   drawRadarChart(id, d, options) {
     let cfg = {
       radius: 5,
-      w: 600,
-      h: 600,
+      w: 350,
+      h: 300,
       factor: 1,
       factorLegend: .85,
       levels: 3,
@@ -47,7 +47,6 @@ class Radar extends Component {
         .attr("height", cfg.h+cfg.ExtraWidthY)
         .append("g")
         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
-        ;
 
     let tooltip;
 
@@ -222,7 +221,7 @@ class Radar extends Component {
       let emotionTone;
       let result = this.props.watson.document_tone.tone_categories;
       let self = this;
-      let mycfg = {w:500, h:500, maxValue:0, levels:10};
+      let mycfg = {maxValue:0, levels:5};
       result.forEach(function(emotion){
         const data = [];
         const category = emotion.category_id;
@@ -231,14 +230,20 @@ class Radar extends Component {
         });
         self.drawRadarChart(`#${category}`, [data], mycfg);
       });
-    };
+    }
   }
   render () {
     return (
-      <div id="radar">
-        <div id="emotion_tone"></div>
-        <div id="language_tone"></div>
-        <div id="social_tone"></div>
+      <div id="radar" className ="row">
+        <div id="emotion_tone" className="col-md-4 col-lg-4 radarChart">
+          <h4 className="radarTitle">Emotion Tone</h4>
+        </div>
+        <div id="language_tone" className="col-md-4 col-lg-4 radarChart">
+          <h4 className="radarTitle">Language Tone</h4>
+        </div>
+        <div id="social_tone" className="col-md-4 col-lg-4 radarChart">
+          <h4 className="radarTitle">Social Tone</h4>
+        </div>
       </div>
     );
   }

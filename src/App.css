@@ -55,6 +55,31 @@
   text-align: center;
 
 }
+.Result {
+  margin: 50px;
+  padding: 30px;
+}
+
+.resultSection {
+  margin-bottom: 50px;
+}
+.radarTitle {
+  padding-left: 50px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.toneTitle {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+
+@media (min-width: 1500px) {
+  .container {
+    width: 1700px;
+  }
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

@@ -8,7 +8,7 @@ class ToneSummary extends Component {
 
   componentWillMount() {
     if(this.props.tone[0]){
-      let result = this.props.tone[0].result.analysisSegments;
+      let result = this.props.tone[0].result.analysisSegments || [];
       let primary = [];
       let secondary = [];
       result.forEach(function(segment){
