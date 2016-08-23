@@ -9,21 +9,23 @@ const Home = () => (
       <div className="row">
         <div className="col-md-7">
           <h2 className="featurette-heading"><span className="glyphicon glyphicon-cloud-download"></span>Powerful APIs</h2>
-          <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+          <p className="lead">
+            We use Microsoft API for facial expression analysis, Watson API for speech to text functionality and verbal contents analysis, and BeyondVerbal API for voice tone.
           </p>
         </div>
         <div className="col-md-5">
-          <img src="https://placekitten.com/500/300" className="img-responsive" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Motion_capture_facial.jpg" className="img-responsive" />
         </div>
       </div>
       <hr className="featurette-divider" />
       <div className="row">
         <div className="col-md-5">
-          <img src="https://placekitten.com/500/300" className="img-responsive" />
+          <img src="https://s4.postimg.org/tu03mkdot/Screen_Shot_2016_08_23_at_2_05_49_PM.png" className="img-responsive" />
         </div>
         <div className="col-md-7">
-          <h2 className="featurette-heading"><span className="glyphicon glyphicon-stats"></span>Live D3 Charts</h2>
-          <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+          <h2 className="featurette-heading"><span className="glyphicon glyphicon-stats"></span>Informative Insights</h2>
+          <p className="lead">
+            You will enjoy our honest feedback on how others perceive the way you speak with various charts.
           </p>
         </div>
       </div>
