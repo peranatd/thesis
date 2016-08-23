@@ -213,7 +213,7 @@ class Webcam extends Component {
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
       this.props.socket.emit('file', {
-        name: Date.now(),
+        dataTimestamp: Date.now(),
         data: this.getScreenshot(),
         sessionId: this.props.sessionId,
         user: this.props.user.username

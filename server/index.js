@@ -11,6 +11,8 @@ const upload = multer({ storage: storage });
 
 const watson = require('./lib/watson.js');
 const ms = require('./lib/ms.js');
+const db = require('./db/helper.js');
+const format = require('./db/formatHelper.js');
 
 app.use(partials());
 app.use(bodyParser.json());
@@ -76,7 +78,13 @@ app.get('*', function (req, res) {
 
 app.post('/api/text', function (req, res) {
   watson.textSentiment(req.body)
-    .then(result => res.status(201).send(result))
+    .then(result => {
+      res.status(201).send(result);
+      console.log(req.body);
+      const data = format.watsonFormatToDB(result);
+      console.log('Adding to watson: ', data);
+      // db.watson.add(...data, req.body.sessionId);
+    })
     .catch(err => res.status(201).send(err));
 });
 

@@ -9,6 +9,7 @@ module.exports = {
 
 const msScores = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 function msFormatToDB(data) {
+  data = JSON.parse(data);
   return msScores.map(emotion => data[0].scores[emotion].toPrecision(3));
 }
 
@@ -19,6 +20,7 @@ function msFormatFromDB(data) {
 }
 
 function bvFormatToDB(data) {
+  data = JSON.parse(data);
   let analysisSummary = JSON.stringify(data.result.analysisSummary.AnalysisResult);
   let mood = JSON.stringify(data.result.analysisSegments.map(segment => segment.analysis.Mood));
   return [analysisSummary, mood];
