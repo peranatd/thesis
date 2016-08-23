@@ -58,7 +58,6 @@
 
 }
 .Result {
-  margin: 50px;
   padding: 30px;
 }
 
@@ -84,9 +83,17 @@
 .featurette-heading{
   margin-top: 7rem;
 }
-@media (min-width: 1500px) {
+.rd3-legend-chart {
+  width:750px !important;
+}
+.rd3-legend {
+  padding-left: 10px !important;
+  list-style-position: outside !important;
+}
+
+@media (min-width: 750px) {
   .container {
-    width: 1700px;
+    width: 1000px !important;
   }
 }
 
