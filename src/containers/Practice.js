@@ -14,8 +14,15 @@ class Practice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sessionId: Date.now()
+      sessionTimestamp: Date.now()
     };
+  }
+
+  componentDidMount() {
+    this.props.socket.emit('sessionStart', {
+      sessionTimestamp: this.state.sessionTimestamp,
+      username: this.context.user.username
+    });
   }
 
   handleTextChange (event) {
@@ -28,12 +35,12 @@ class Practice extends Component {
       <h1> Practice </h1>
       <div className="row">
         <Webcam
-          sessionId={this.state.sessionId}
+          sessionTimestamp={this.state.sessionTimestamp}
           user={this.context.user}
         />
         <TextBox
           speechToText={this.props.speechToText}
-          sessionId={this.state.sessionId}
+          sessionTimestamp={this.state.sessionTimestamp}
           user={this.context.user}
         />
       </div>
@@ -51,6 +58,7 @@ class Practice extends Component {
 
 function mapStateToProps(state) {
   return {
+    socket: state.socket,
     speechToText: state.speechToText,
     msEmotion: state.msEmotion,
     transcription: state.transcription

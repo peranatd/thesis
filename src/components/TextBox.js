@@ -39,7 +39,7 @@ class TextBox extends Component {
       type:'POST',
       data: JSON.stringify({
         text: self.state.text,
-        sessionId: self.props.sessionId,
+        sessionTimestamp: self.props.sessionTimestamp,
         user: self.props.user.username
       }),
       contentType: 'application/json',

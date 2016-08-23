@@ -9,6 +9,7 @@ module.exports = {
 
 const msScores = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 function msFormatToDB(data) {
+  data = JSON.parse(data);
   return msScores.map(emotion => data[0].scores[emotion].toPrecision(3));
 }
 
@@ -19,9 +20,11 @@ function msFormatFromDB(data) {
 }
 
 function bvFormatToDB(data) {
-  let analysisSummary = JSON.stringify(data.result.analysisSummary.AnalysisResult);
-  let mood = JSON.stringify(data.result.analysisSegments.map(segment => segment.analysis.Mood));
-  return [analysisSummary, mood];
+  if (data.result.analysisSummary) {
+    let analysisSummary = JSON.stringify(data.result.analysisSummary.AnalysisResult);
+    let mood = JSON.stringify(data.result.analysisSegments.map(segment => segment.analysis.Mood));
+    return [analysisSummary, mood];
+  }
 }
 
 function bvFormatFromDB(data) {
@@ -50,6 +53,7 @@ function watsonFormatToDB(data, transcription) {
   let emotion = data.document_tone.tone_categories[0].tones.map(item => item.score);
   let language = data.document_tone.tone_categories[1].tones.map(item => item.score);
   let social = data.document_tone.tone_categories[2].tones.map(item => item.score);
+  transcription = Buffer.from(transcription).toString('base64');
   return [emotion, language, social, transcription];
 }
 
@@ -71,7 +75,8 @@ function watsonFormatFromDB(data) {
   let result = {
     document_tone: {
       tone_categories: toneCategories
-    }
+    },
+    transcript: Buffer.from(data.wn_transcription, 'base64').toString('utf-8')
   };
   return result;
 }

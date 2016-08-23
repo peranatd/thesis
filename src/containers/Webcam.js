@@ -186,7 +186,7 @@ class Webcam extends Component {
               id:this.state.id,
               data: wavFile,
               isFinal: false,
-              sessionId: this.props.sessionId
+              sessionTimestamp: this.props.sessionTimestamp
             });
             URL.revokeObjectURL(u);
           });
@@ -203,7 +203,7 @@ class Webcam extends Component {
           id:this.state.id,
           data: '',
           isFinal: true,
-          sessionId:this.props.sessionId,
+          sessionTimestamp:this.props.sessionTimestamp,
           user: this.props.user.username
         });
       });
@@ -213,9 +213,9 @@ class Webcam extends Component {
   callScreenshot(mediaRecorder) {
     if (this.state.recording) {
       this.props.socket.emit('file', {
-        name: Date.now(),
+        dataTimestamp: Date.now(),
         data: this.getScreenshot(),
-        sessionId: this.props.sessionId,
+        sessionTimestamp: this.props.sessionTimestamp,
         user: this.props.user.username
       });
       setTimeout(() => {
