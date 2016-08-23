@@ -25,7 +25,7 @@ class ProfilePage extends Component {
         watson: undefined
       },
       sessionId: {}
-    }
+    };
 
     this.props.socket.on('allSessions', (data) => {
       this.setState({
@@ -39,8 +39,15 @@ class ProfilePage extends Component {
 
     this.props.socket.on('allResults', (data) => {
       this.setState({
+        result: {
+          msEmotion: undefined,
+          transcript: undefined,
+          bv: undefined,
+          watson: undefined
+        }
+      }, () => this.setState({
         result: data
-      })
+      }));
     });
   }
 
@@ -76,9 +83,8 @@ class ProfilePage extends Component {
                 <option value='null'>Please select sessions</option>
                 {this.state.sessions.map((session) => {
                   let time = new Date(session);
-                    return <option value={session}>{time.toLocaleString()}</option>
-                  }
-                )}
+                  return <option value={session}>{time.toLocaleString()}</option>;
+                })}
               </select>
             </div>
           </div>
