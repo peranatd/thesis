@@ -46,10 +46,9 @@ class Practice extends Component {
       </div>
       <div className="row">
         <Chart emotion={this.props.msEmotion}/>
+      </div>
+      <div className="row">
         <Cloud trans={this.props.transcription}/>
-        <div className="col-md-2">
-          <Link to="/result" className="btn btn-lg btn-primary" role="button">See Result</Link>
-        </div>
       </div>
     </div>
     );

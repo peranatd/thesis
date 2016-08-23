@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { TranscriptionResponse } from '../actions/action_transcription.js';
 import { WatsonSentimentResponse } from '../actions/action_watsonSentiment.js';
 import { StreamingSttResponse } from '../actions/action_streamingstt.js';
+import { browserHistory } from 'react-router';
 import $ from 'jquery';
 
 class TextBox extends Component {
@@ -45,6 +46,7 @@ class TextBox extends Component {
       contentType: 'application/json',
       success: function (data) {
         self.props.WatsonSentimentResponse(data);
+        browserHistory.push('/result');
       },
       error: function () {
         console.log('ajax post request failed!');
@@ -66,7 +68,8 @@ class TextBox extends Component {
         <button
           onClick={this.handleSubmit.bind(this)}
           className="btn btn-default">
-          Upload Text
+           Submit
+           <span className="glyphicon glyphicon-send"></span>
         </button>
       </div>
     );
