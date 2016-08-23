@@ -137,13 +137,8 @@ class Cloud extends Component {
 
   render () {
     return (
-      <div className="row">
-        <div className="col-md-7">
-          <svg id="cloud"></svg>
-        </div>
-        <div className="col-md-5">
-          <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p>
-        </div>
+      <div>
+        <svg id="cloud"></svg>
       </div>
     );
   }
