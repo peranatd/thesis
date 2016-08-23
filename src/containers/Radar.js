@@ -13,7 +13,7 @@ class Radar extends Component {
       h: 200,
       factor: 1,
       factorLegend: .85,
-      levels: 3,
+      levels: 5,
       maxValue: 0,
       radians: 2 * Math.PI,
       opacityArea: 0.5,
@@ -45,7 +45,7 @@ class Radar extends Component {
         .append("svg")
         .attr("width", cfg.w+cfg.ExtraWidthX)
         .attr("height", cfg.h+cfg.ExtraWidthY)
-        .attr("viewBox","30 0 420 420")
+        .attr("viewBox","30 0 380 380")
         .attr("preserveAspectRatio","xMidYMid meet")
         .append("g")
         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
