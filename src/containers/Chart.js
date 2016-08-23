@@ -17,7 +17,7 @@ class Chart extends Component {
 
       result.forEach(cat => {
         this.props.emotion.forEach((result, i) => {
-          cat.values.push({x: i, y:result.scores[cat.name]});
+          cat.values.push({x: i, y:+result.scores[cat.name]});
         });
       });
       this.setState({
@@ -32,7 +32,7 @@ class Chart extends Component {
 
     result.forEach(cat => {
       newProps.msEmotion.forEach((result, i) => {
-        cat.values.push({x: i, y:result.scores[cat.name]});
+        cat.values.push({x: i, y:+result.scores[cat.name]});
       });
     });
     this.setState({
