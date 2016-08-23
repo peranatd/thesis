@@ -14,33 +14,53 @@ class Result extends Component {
 
   render(){
     return(
-      <div classname="Result">
-        <h3>Sentiment Result</h3>
-        {
-          this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
-        }
-        <h3>Speech Word Cloud</h3>
-        {
-          this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
-        }
-        <h3>Speech Content Sentiment Result</h3>
-        {
-          Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
-        }
-        <h3>Speech Tone Sentiment Result</h3>
-        {
-          this.props.tone.length ? <Tone_Cloud tone={this.props.tone}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
-        }
+      <div className="container">
+        <div className="Result">
+          <h3 className="resultSection">Sentiment Result</h3>
+          {
+            this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
+          }
+        </div>
 
-        {
-          this.props.tone.length ? <AttitudeResult tone={this.props.tone}/> : null
-        }
+        <div className="Result">
+          <h3 className="resultSection">Speech Word Cloud</h3>
+          {
+            this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
+          }
+        </div>
 
-        {
-          this.props.tone.length ? <ToneSummary tone={this.props.tone}/> : null
-        }
+        <div className="Result">
+          <h3 className="resultSection">Speech Content Sentiment Result</h3>
+          {
+            Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
+          }
+        </div>
+
+        <div className="Result">
+          <h3 className="resultSection">Speech Tone Sentiment Result</h3>
+          <div className="row">
+            <div className="col-md-3">
+              <h4 className="toneTitle">Tone Cloud</h4>
+              {
+                this.props.tone.length ? <Tone_Cloud tone={this.props.tone}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
+              }
+            </div>
+            <div className="col-md-6">
+              <h4 className="toneTitle">Attitude Result</h4>
+              {
+                this.props.tone.length ? <AttitudeResult tone={this.props.tone}/> : null
+              }
+            </div>
+            <div className="col-md-3">
+              <h4 className="toneTitle">Tone Summary</h4>
+              {
+                this.props.tone.length ? <ToneSummary tone={this.props.tone}/> : null
+              }
+            </div>
+          </div>
+        </div>
       </div>
-    )
+    );
   }
 }
 

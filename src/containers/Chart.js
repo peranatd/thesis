@@ -46,8 +46,13 @@ class Chart extends Component {
       lineChart = <LineChart data={this.state.emotion}/>;
     }
     return (
-      <div className="col-md-5">
-        {lineChart}
+      <div className="row">
+        <div className="col-md-8">
+          {lineChart}
+        </div>
+        <div className='col-md-4'>
+          <p>{"The emotions detected are happiness, sadness, surprise, anger, fear, contempt, disgust or neutral."}</p>
+        </div>
       </div>
     );
   }

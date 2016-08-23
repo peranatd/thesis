@@ -29,7 +29,7 @@ class Tone_Cloud extends React.Component {
           });
           secondaryPhrase.forEach(function(keyword){
             mood.push(keyword);
-          })
+          });
           mood.forEach(function(keyword){
             let count=1;
             if(obj[keyword]){
@@ -37,24 +37,26 @@ class Tone_Cloud extends React.Component {
             }else{
               obj[keyword] = count;
             }
-          })
+          });
           for(let key in obj){
-            data.push({value:key,count:obj[key]})
+            data.push({value:key,count:obj[key]});
           }
           self.setState({mood:data});
-        })
+        });
       }
     }
   }
 
   render() {
     return (
+      <div className="col-md-3">
         <TagCloud
           colorOptions={options}
           minSize={25}
           maxSize={35}
           tags={this.state.mood}
           className="stackCloud" />
+      </div>
     );
   }
 }
