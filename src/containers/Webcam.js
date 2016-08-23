@@ -251,7 +251,7 @@ class Webcam extends Component {
   }
 
   render() {
-    const text = this.state.recording ? 'In progress' : 'Start';
+    const text = this.state.recording ? 'Stop' : 'Start';
     return (
       <div className="col-md-8">
         <div className="row">
@@ -268,6 +268,7 @@ class Webcam extends Component {
           <button
             onClick={this.handleRecording.bind(this)}
             className="btn btn-default">{text}
+            {this.state.recording ? <span className="glyphicon glyphicon-stop"></span> : <span className="glyphicon glyphicon-play"></span>}
           </button>
         </div>
       </div>
