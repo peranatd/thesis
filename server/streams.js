@@ -52,7 +52,7 @@ const socketMethods = {
           return db.bv.get(data);
         })
         .then(r => {
-          result.bv = format.bvFormatFromDB(r[0]);
+          result.bv = [format.bvFormatFromDB(r[0])];
           return db.watson.get(data);
         })
         .then(r => {
