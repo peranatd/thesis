@@ -9,8 +9,8 @@ class Radar extends Component {
   drawRadarChart(id, d, options) {
     let cfg = {
       radius: 5,
-      w: 350,
-      h: 300,
+      w: 250,
+      h: 200,
       factor: 1,
       factorLegend: .85,
       levels: 3,
@@ -45,6 +45,8 @@ class Radar extends Component {
         .append("svg")
         .attr("width", cfg.w+cfg.ExtraWidthX)
         .attr("height", cfg.h+cfg.ExtraWidthY)
+        .attr("viewBox","30 0 420 420")
+        .attr("preserveAspectRatio","xMidYMid meet")
         .append("g")
         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
 
@@ -213,9 +215,10 @@ class Radar extends Component {
     tooltip = g.append('text')
            .style('opacity', 0)
            .style('font-family', 'sans-serif')
-           .style('font-size', '13px');
+           .style('font-size', '18px');
 
   }
+
   componentDidMount () {
     if(this.props.watson.document_tone){
       let emotionTone;
