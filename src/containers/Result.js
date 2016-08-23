@@ -17,25 +17,43 @@ class Result extends Component {
       <div className="container">
         <div className="Result">
           <h3 className="resultSection">Sentiment Result</h3>
-          {
-            this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
-          }
+          <div className="row">
+            <div>
+              {
+                this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
+              }
+            </div>
+            <div>
+              {
+                this.props.msEmotion.length ? <p>{"The emotions detected are happiness, sadness, surprise, anger, fear, contempt, disgust or neutral."}</p> : null
+              }
+            </div>
+          </div>
         </div>
-
+        <hr/>
         <div className="Result">
           <h3 className="resultSection">Speech Word Cloud</h3>
-          {
-            this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
-          }
+          <div className="row">
+            <div className="col-md-9">
+              {
+                this.props.transcription.length ? <Cloud trans={this.props.transcription}/> : <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
+              }
+            </div>
+            <div className='col-md-3'>
+              {
+                this.props.transcription.length ? <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p> : null
+              }
+            </div>
+          </div>
         </div>
-
+        <hr/>
         <div className="Result">
           <h3 className="resultSection">Speech Content Sentiment Result</h3>
           {
             Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
           }
         </div>
-
+        <hr/>
         <div className="Result">
           <h3 className="resultSection">Speech Tone Sentiment Result</h3>
           <div className="row">
