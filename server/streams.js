@@ -23,6 +23,21 @@ const socketMethods = {
       // Make a connection to Watson speech to text
       let streamingWatson = watson.streamingSpeechToText(socket);
 
+      // Start a new session, add a session entry to the database
+      // Check whether or not a user is in our database, add if not in
+      // data = { sessionTimestamp: UNIXTIME, username: STRING }
+      socket.on('sessionStart', (data) => {
+        db.user.get(data.username).then(r => {
+          if (!r.length) {
+            return db.user.add(data.username);
+          } else {
+            return r;
+          }
+        }).then(() => {
+          return db.session.add(data.sessionTimestamp, data.username);
+        });
+      });
+
       socket.on('file', (data) => {
         var dataString = data.data.split(',')[1];
         var imgBuffer = Buffer.from(dataString, 'base64');
@@ -32,8 +47,8 @@ const socketMethods = {
             socket.emit('emotion', {response: response, time: data.dataTimestamp});
             console.log(response);
             const datapoint = format.msFormatToDB(response);
-            console.log('Adding to ms: ', datapoint, data.dataTimestamp, data.sessionId);
-            // db.ms.add(datapoint, data.dataTimestamp, data.sessionId);
+            console.log('Adding to ms: ', datapoint, data.dataTimestamp, data.sessionTimestamp);
+            db.ms.add(datapoint, data.dataTimestamp, data.sessionTimestamp);
           });
       });
 
@@ -50,8 +65,8 @@ const socketMethods = {
           .then(res => {
             socket.emit('bv', res);
             const bvData = format.bvFormatToDB(res);
-            console.log('Adding to bv: ', bvData, data.sessionId);
-            // db.bv.add(...bvData, data.sessionId);
+            console.log('Adding to bv: ', bvData, data.sessionTimestamp);
+            db.bv.add(...bvData, data.sessionTimestamp);
             delete audio[data.id];
           });
         } else {

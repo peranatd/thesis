@@ -81,9 +81,9 @@ app.post('/api/text', function (req, res) {
     .then(result => {
       res.status(201).send(result);
       console.log(req.body);
-      const data = format.watsonFormatToDB(result);
+      const data = format.watsonFormatToDB(result, req.body.text);
       console.log('Adding to watson: ', data);
-      // db.watson.add(...data, req.body.sessionId);
+      db.watson.add(...data, req.body.sessionTimestamp);
     })
     .catch(err => res.status(201).send(err));
 });
