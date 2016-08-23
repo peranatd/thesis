@@ -38,7 +38,6 @@ class ProfilePage extends Component {
     });
 
     this.props.socket.on('allResults', (data) => {
-      console.log(JSON.stringify(data, null, 3));
       this.setState({
         result: data
       })
@@ -50,7 +49,6 @@ class ProfilePage extends Component {
   }
 
   handleChange() {
-    // console.log(event.target.value);
     if (event.target.value !== 'null') {
       this.setState({
         currentSession: event.target.value
@@ -97,8 +95,8 @@ class ProfilePage extends Component {
             <div className="row">
               <h3>Speech Word Cloud</h3>
               {
-                this.state.result.transcript ?
-                <Cloud trans={this.state.result.transcript}/> :
+                this.state.result.watson ?
+                <Cloud trans={[this.state.result.watson.transcript]}/> :
                 <p>{"Sorry you don't have any word cloud yet. Please go to practice page adding text in the textbox first. Thank you!"}</p>
               }
             </div>
@@ -115,9 +113,9 @@ class ProfilePage extends Component {
               {
                 this.state.result.bv ? (
                 <div>
-                  <Tone_Cloud tone={this.state.result.bv}/>
-                  <AttitudeResult tone={this.state.result.bv}/>
-                  <ToneSummary tone={this.state.result.bv}/>
+                  <Tone_Cloud tone={[this.state.result.bv]}/>
+                  <AttitudeResult tone={[this.state.result.bv]}/>
+                  <ToneSummary tone={[this.state.result.bv]}/>
                 </div>
                 ): <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
               }
