@@ -22,7 +22,7 @@ class Chart extends Component {
       });
       this.setState({
         emotion: result
-      })
+      });
     }
   }
   componentWillReceiveProps(newProps) {

@@ -16,7 +16,6 @@ class App extends Component {
 
   componentDidMount() {
     const socket = io();
-    console.log(socket);
     this.props.socketAction(socket);
   }
 
@@ -25,7 +24,6 @@ class App extends Component {
       <div className="App">
         <Header />
         {this.props.children}
-        {console.log(this.props.socket)}
         <Footer />
       </div>
     );

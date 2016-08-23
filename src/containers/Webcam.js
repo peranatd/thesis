@@ -144,7 +144,6 @@ class Webcam extends Component {
   componentWillUnmount() {
     let index = Webcam.mountedInstances.indexOf(this);
     Webcam.mountedInstances.splice(index, 1);
-    console.log("Webcam.mountedInstances is ", Webcam.mountedInstances);
 
     if (Webcam.mountedInstances.length === 0 && this.state.hasUserMedia) {
       if (this.stream.stop) {
