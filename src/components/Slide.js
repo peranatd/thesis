@@ -1,6 +1,20 @@
 import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router';
+import nodeLogo from '../logos/nodejs-icon.svg';
+import expressLogo from '../logos/express.svg';
+import reactLogo from '../logos/logo.svg';
+import dockerLogo from '../logos/docker.svg';
+import reduxLogo from '../logos/redux.svg';
+import mysqlLogo from '../logos/mysql.svg';
+import circleLogo from '../logos/circleci.svg';
+import awsLogo from '../logos/aws.svg';
+import d3Logo from '../logos/d3.svg';
+import socketLogo from '../logos/socket.io.svg';
+import webpackLogo from '../logos/webpack.svg';
+import stormpathLogo from '../logos/stormpath.svg';
+
+const logos = [nodeLogo, expressLogo, reactLogo, dockerLogo, reduxLogo, mysqlLogo, circleLogo, awsLogo, d3Logo, socketLogo, webpackLogo, stormpathLogo];
 
 const Slide = () => (
   <Carousel className="carousel">
@@ -15,11 +29,10 @@ const Slide = () => (
     <Carousel.Item>
       <img className="carouselImg" alt="900x500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrxxFoV6wXlBdKRq016G1Z9NcFrw7aA7x2cd4KPGvK3PUh70X4"/>
       <Carousel.Caption>
-        <h2>Tech Stacks</h2>
-          <img className="techlogos" alt="node" src="https://s4.postimg.org/9g8sbwkul/node_logo.png" />
-          <img className="techlogos" alt="express" src="https://s3.postimg.org/gz48fmlkj/expressjs_logo.png" />
-          <img className="techlogos" alt="react" src="https://s4.postimg.org/697apdxhp/react_logo.png" />
-          <img className="techlogos" alt="redux" src="https://s3.postimg.org/8koyzzx3n/redux_logo.png" />
+        <h2>Tech Stack</h2>
+        {
+          logos.map(logo => <img className="techlogos" src={logo} />)
+        }
       </Carousel.Caption>
     </Carousel.Item>
     <Carousel.Item>

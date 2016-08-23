@@ -32,9 +32,10 @@
 .carousel-inner>.item>a>img, .carousel-inner>.item>.carouselImg, .img-responsive, .thumbnail>img, .thumbnail a>img {
   height: 500px;
 }
-.techlogos{
-  width: 25%;
+.techlogos {
+  width: 14%;
   height: 10%;
+  margin: 5px;
 }
 .icon{
   width: 125px !important;
