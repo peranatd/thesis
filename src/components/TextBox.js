@@ -42,7 +42,7 @@ class TextBox extends Component {
       contentType: 'application/json',
       success: function (data) {
         self.props.WatsonSentimentResponse(data);
-        browserHistory.push('/result');
+        browserHistory.push('/profile');
       },
       error: function () {
         console.log('ajax post request failed!');
