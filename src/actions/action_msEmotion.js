@@ -4,3 +4,10 @@ export function msEmotionResponse (data, msEmotion) {
     payload: msEmotion.concat(data)
   };
 }
+
+export function msEmotionReset () {
+  return {
+    type: 'MSEMOTION_RESET',
+    payload: []
+  };
+}

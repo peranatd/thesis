@@ -95,7 +95,9 @@ const socketMethods = {
             socket.emit('bv', res);
             const bvData = format.bvFormatToDB(res);
             console.log('Adding to bv: ', bvData, data.sessionTimestamp);
-            db.bv.add(...bvData, data.sessionTimestamp);
+            if (bvData) {
+              db.bv.add(...bvData, data.sessionTimestamp);
+            }
             delete audio[data.id];
           });
         } else {
