@@ -43,7 +43,7 @@ class Chart extends Component {
       lineChart = <LineChart legend={true} width={600} height={300} data={this.state.emotion}/>;
     }
     return (
-      <div>
+      <div className="linechart">
         {lineChart}
       </div>
     );
