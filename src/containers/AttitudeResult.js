@@ -34,7 +34,7 @@ class AttitudeResult extends React.Component {
         },
         valence: {
           src: attitudeData.valence[valenceMode].src,
-          info: attitudeData.valence[valenceMode].src
+          info: attitudeData.valence[valenceMode].info
         },
         arousal: {
           src: attitudeData.arousal[arousalMode].src,
