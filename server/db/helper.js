@@ -85,11 +85,12 @@ function addSession(sessionTimestamp, username) {
   });
 }
 
+// select distinct session.id,session.session_timestamp from session inner join microsoft on session.id=microsoft.session_id;
 // Returns all sessions for a given user
 function getSession(username) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT id, session_timestamp FROM session
-      WHERE user_id=(SELECT id FROM user WHERE username='${username}')`,
+    db.query(`SELECT DISTINCT session.id, session.session_timestamp FROM session
+      INNER JOIN microsoft on session.id=microsoft.session_id WHERE session.user_id=(SELECT id FROM user WHERE username='${username}')`,
       (err, result) => {
         if (err) {
           reject(err);

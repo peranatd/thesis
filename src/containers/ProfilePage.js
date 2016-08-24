@@ -8,6 +8,13 @@ import Radar from './Radar';
 import ToneSummary from './ToneSummary';
 import AttitudeResult from './AttitudeResult';
 
+const initialResult = {
+  msEmotion: undefined,
+  transcript: undefined,
+  bv: undefined,
+  watson: undefined
+};
+
 class ProfilePage extends Component {
   static contextTypes = {
     user: React.PropTypes.object
@@ -18,14 +25,9 @@ class ProfilePage extends Component {
     this.state = {
       sessions: [],
       currentSession: undefined,
-      result: {
-        msEmotion: undefined,
-        transcript: undefined,
-        bv: undefined,
-        watson: undefined
-      },
+      result: initialResult,
       sessionId: {}
-    }
+    };
 
     this.props.socket.on('allSessions', (data) => {
       this.setState({
@@ -39,8 +41,10 @@ class ProfilePage extends Component {
 
     this.props.socket.on('allResults', (data) => {
       this.setState({
-        result: data
-      })
+        result: initialResult
+      }, () => this.setState({
+        result: Object.assign({}, initialResult, data)
+      }));
     });
   }
 
@@ -76,9 +80,8 @@ class ProfilePage extends Component {
                 <option value='null'>Please select sessions</option>
                 {this.state.sessions.map((session) => {
                   let time = new Date(session);
-                    return <option value={session}>{time.toLocaleString()}</option>
-                  }
-                )}
+                  return <option value={session}>{time.toLocaleString()}</option>;
+                })}
               </select>
             </div>
           </div>
