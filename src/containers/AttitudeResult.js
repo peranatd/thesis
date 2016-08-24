@@ -14,93 +14,34 @@ class AttitudeResult extends React.Component {
   }
 
   showinfo(attitude){
-    this.setState({attitude:Object.assign(this.state[attitude],{displayInfo:!this.state[attitude].displayInfo})});
+    this.setState({
+      attitude: Object.assign(this.state[attitude],
+        { displayInfo: !this.state[attitude].displayInfo }
+      )
+    });
   }
 
   componentDidMount(){
     if(this.props.tone[0]){
-      let result = this.props.tone[0].result.analysisSummary.AnalysisResult;
-      if(result.Temper.Mode === 'low'){
-        this.setState({
-          temper: {
-            src:attitudeData.temper.low.src,
-            info:attitudeData.temper.low.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Temper.Mode === 'medium'){
-        this.setState({
-          temper: {
-            src:attitudeData.temper.medium.src,
-            info:attitudeData.temper.medium.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Temper.Mode === 'high'){
-        this.setState({
-          temper: {
-            src:attitudeData.temper.high.src,
-            info:attitudeData.temper.high.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Valence.Mode === 'negative'){
-        this.setState({
-          valence: {
-            src:attitudeData.valence.negative.src,
-            info:attitudeData.valence.negative.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Valence.Mode === 'neutral'){
-        this.setState({
-          valence:{
-            src:attitudeData.valence.neutral.src,
-            info:attitudeData.valence.neutral.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Valence.Mode === 'positive'){
-        this.setState({
-          valence:{
-            src:attitudeData.valence.positive.src,
-            info:attitudeData.valence.positive.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Arousal.Mode === 'high'){
-        this.setState({
-          arousal:{
-            src:attitudeData.arousal.high.src,
-            info:attitudeData.arousal.high.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Arousal.Mode === 'neutral'){
-        this.setState({
-          arousal:{
-            src:attitudeData.arousal.neutral.src,
-            info:attitudeData.arousal.neutral.info
-          },
-          loaded:true
-        });
-      };
-      if(result.Arousal.Mode === 'low'){
-        this.setState({
-          arousal:{
-            src:attitudeData.arousal.low.src,
-            info:attitudeData.arousal.low.info
-          },
-          loaded:true
-        });
-      }
+      const result = this.props.tone[0].result.analysisSummary.AnalysisResult;
+      const temperMode = result.Temper.Mode;
+      const valenceMode = result.Valence.Mode;
+      const arousalMode = result.Arousal.Mode;
+      this.setState({
+        temper: {
+          src: attitudeData.temper[temperMode].src,
+          info: attitudeData.temper[temperMode].info
+        },
+        valence: {
+          src: attitudeData.valence[valenceMode].src,
+          info: attitudeData.valence[valenceMode].src
+        },
+        arousal: {
+          src: attitudeData.arousal[arousalMode].src,
+          info: attitudeData.arousal[arousalMode].info
+        },
+        loaded: true
+      });
     }
   }
 
