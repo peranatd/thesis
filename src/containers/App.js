@@ -38,9 +38,6 @@ class App extends Component {
     socket.on('bv', (response) => {
       this.props.ToneResponse(response, this.props.tone);
     });
-    socket.on('streamingSpeechToText',
-      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
-    );
     socket.on('allSessions', (data) => {
       this.props.getAllSessions(data);
     });

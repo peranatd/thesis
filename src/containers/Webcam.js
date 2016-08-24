@@ -161,7 +161,7 @@ class Webcam extends Component {
           resampler(u, 8000, (event) => {
             let wav = toWav(event.getAudioBuffer());
             let wavFile = new Blob([wav]);
-            this.props.socket.emit('audio', {
+            this.props.sttSocket.emit('audio', {
               id:this.state.id,
               data: wavFile,
               isFinal: false,
@@ -178,7 +178,7 @@ class Webcam extends Component {
     } else {
       this.setState({recording:!this.state.recording}, () => {
         this.state.recorder.stop();
-        this.props.socket.emit('audio', {
+        this.props.sttSocket.emit('audio', {
           id:this.state.id,
           data: '',
           isFinal: true,

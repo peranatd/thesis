@@ -5,11 +5,13 @@ import { Link } from 'react-router';
 import { msEmotionReset }  from '../actions/action_msEmotion';
 import { sttReset }  from '../actions/action_streamingstt';
 import { transcriptionReset }  from '../actions/action_transcription';
+import { StreamingSttResponse } from '../actions/action_streamingstt.js';
 import { toneReset }  from '../actions/action_tone';
 import TextBox from '../components/TextBox';
 import Webcam from './Webcam';
 import Chart from './Chart';
 import Cloud from './Cloud';
+import io from 'socket.io-client';
 
 class Practice extends Component {
   static contextTypes = {
@@ -18,8 +20,13 @@ class Practice extends Component {
 
   constructor(props) {
     super(props);
+    const socket = io();
+    socket.on('streamingSpeechToText',
+      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
+    );
     this.state = {
-      sessionTimestamp: Date.now()
+      sessionTimestamp: Date.now(),
+      sttSocket: socket
     };
   }
 
@@ -50,6 +57,7 @@ class Practice extends Component {
         <Webcam
           sessionTimestamp={this.state.sessionTimestamp}
           user={this.context.user}
+          sttSocket={this.state.sttSocket}
         />
         <TextBox
           speechToText={this.props.speechToText}
@@ -91,7 +99,8 @@ function mapStateToProps(state) {
   return {
     socket: state.socket,
     msEmotion: state.msEmotion,
-    transcription: state.transcription
+    transcription: state.transcription,
+    streamingStt: state.streamingStt
   };
 }
 
@@ -100,7 +109,8 @@ function mapDispatchToProps(dispatch){
     msEmotionReset: msEmotionReset,
     sttReset: sttReset,
     transcriptionReset: transcriptionReset,
-    toneReset: toneReset
+    toneReset: toneReset,
+    StreamingSttResponse: StreamingSttResponse,
   }, dispatch);
 }
 
