@@ -63,7 +63,7 @@
 }
 
 .Result {
-  padding: 30px;
+  padding: 10px;
 }
 
 .resultSection {
@@ -100,6 +100,10 @@
 }
 .stackCloud span {
   margin-left: 50px !important;
+}
+.selecting {
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 @media (min-width: 750px) {

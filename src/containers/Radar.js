@@ -13,8 +13,8 @@ class Radar extends Component {
       h: 200,
       factor: 1,
       factorLegend: .85,
-      levels: 5,
-      maxValue: 0,
+      levels: 6,
+      maxValue: 0.6,
       radians: 2 * Math.PI,
       opacityArea: 0.5,
       ToRight: 5,
@@ -45,7 +45,7 @@ class Radar extends Component {
         .append("svg")
         .attr("width", cfg.w+cfg.ExtraWidthX)
         .attr("height", cfg.h+cfg.ExtraWidthY)
-        .attr("viewBox","30 0 380 380")
+        .attr("viewBox","30 -40 350 350")
         .attr("preserveAspectRatio","xMidYMid meet")
         .append("g")
         .attr("transform", "translate(" + cfg.TranslateX + "," + cfg.TranslateY + ")");
@@ -224,7 +224,7 @@ class Radar extends Component {
       let emotionTone;
       let result = this.props.watson.document_tone.tone_categories;
       let self = this;
-      let mycfg = {maxValue:0, levels:5};
+      let mycfg = {maxValue:0.6, levels:6};
       result.forEach(function(emotion){
         const data = [];
         const category = emotion.category_id;

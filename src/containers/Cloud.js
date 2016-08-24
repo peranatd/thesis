@@ -36,7 +36,7 @@ class Cloud extends Component {
     let fill = scaleOrdinal(schemeCategory20);
 
     let layout = cloud()
-        .size([500, 500])
+        .size([400, 400])
         .words(wordArray)
         .spiral('archimedean')
         .font('Impact')
@@ -51,6 +51,8 @@ class Cloud extends Component {
       d3.select('#cloud')
           .attr('width', layout.size()[0])
           .attr('height', layout.size()[1])
+          .attr('viewBox','0 0 500 500')
+          .attr('preserveAspectRatio','xMidYMid meet')
         .append('g')
           .attr('transform', 'translate(' + layout.size()[0] / 2 + ',' + layout.size()[1] / 2 + ')')
           .attr('class', 'wordCloud')
