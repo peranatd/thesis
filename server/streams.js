@@ -39,6 +39,7 @@ const socketMethods = {
       });
 
       socket.on('getSession', (data) => {
+        console.log('GET SESSION');
         db.session.get(data).then(r => socket.emit('allSessions', r));
       });
 
@@ -63,6 +64,7 @@ const socketMethods = {
           if (r.length) {
             result.watson = format.watsonFormatFromDB(r[0]);
           }
+          console.log(result);
           socket.emit('allResults', result);
         });
       });

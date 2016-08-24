@@ -92,7 +92,8 @@ const streamingSpeechToText = function (socket) {
     continuous: true,
     interim_results: true,
     model: 'en-US_NarrowbandModel',
-    timestamps: true
+    timestamps: true,
+    inactivity_timeout: 600
   };
 
   let recognizeStream = speech_to_text.createRecognizeStream(params);

@@ -6,6 +6,13 @@ export function StreamingSttResponse (data, previous) {
   };
 }
 
+export function sttReset () {
+  return {
+    type: 'STT_RESET',
+    payload: []
+  };
+}
+
 // function _streaming (data) {
 //   const result = [];
 //   if (data.results[0].final) {

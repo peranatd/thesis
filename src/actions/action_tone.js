@@ -4,3 +4,10 @@ export function ToneResponse (data,tone) {
     payload: tone.concat([data])
   };
 }
+
+export function toneReset () {
+  return {
+    type: 'TONE_RESET',
+    payload: []
+  };
+}

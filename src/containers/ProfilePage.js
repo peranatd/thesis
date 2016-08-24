@@ -28,28 +28,21 @@ class ProfilePage extends Component {
       result: initialResult,
       sessionId: {}
     };
-
-    this.props.socket.on('allSessions', (data) => {
-      this.setState({
-        sessions: data.map(session => session.session_timestamp),
-        sessionId: data.reduce((memo, item) => {
-          memo[item.session_timestamp] = item.id;
-          return memo;
-        }, {})
-      });
-    });
-
-    this.props.socket.on('allResults', (data) => {
-      this.setState({
-        result: initialResult
-      }, () => this.setState({
-        result: Object.assign({}, initialResult, data)
-      }));
-    });
   }
 
   componentWillMount() {
     this.props.socket.emit('getSession', this.context.user.username);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+        result: initialResult
+      }, () => this.setState({
+        result: Object.assign({}, initialResult, newProps.result.result),
+        sessions: newProps.sessions,
+        sessionId: newProps.sessionId
+      })
+    );
   }
 
   handleChange() {
@@ -136,7 +129,10 @@ class ProfilePage extends Component {
 
 function mapStateToProps(state) {
   return {
-    socket: state.socket
+    socket: state.socket,
+    sessions: state.allSessions.sessions,
+    result: state.allResults,
+    sessionId: state.allSessions.sessionId
   };
 }
 

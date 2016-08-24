@@ -3,6 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { msEmotionReset }  from '../actions/action_msEmotion';
+import { sttReset }  from '../actions/action_streamingstt';
+import { transcriptionReset }  from '../actions/action_transcription';
+import { toneReset }  from '../actions/action_tone';
 import TextBox from '../components/TextBox';
 import Webcam from './Webcam';
 import Chart from './Chart';
@@ -21,11 +24,17 @@ class Practice extends Component {
   }
 
   componentWillMount() {
-    this.props.msEmotionReset(null, this.props.msEmotion);
     this.props.socket.emit('sessionStart', {
       sessionTimestamp: this.state.sessionTimestamp,
       username: this.context.user.username
     });
+  }
+
+  componentWillUnmount() {
+    this.props.msEmotionReset(null, this.props.msEmotion);
+    this.props.sttReset();
+    this.props.transcriptionReset();
+    this.props.toneReset();
   }
 
   handleTextChange (event) {
@@ -87,7 +96,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    msEmotionReset: msEmotionReset
+    msEmotionReset: msEmotionReset,
+    sttReset: sttReset,
+    transcriptionReset: transcriptionReset,
+    toneReset: toneReset
   }, dispatch);
 }
 
