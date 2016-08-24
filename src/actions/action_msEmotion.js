@@ -5,9 +5,9 @@ export function msEmotionResponse (data, msEmotion) {
   };
 }
 
-export function msEmotionReset () {
+export function msEmotionReset (data, msEmotion) {
   return {
     type: 'MSEMOTION_RESET',
-    payload: []
+    payload: msEmotion.slice(0, 0)
   };
 }

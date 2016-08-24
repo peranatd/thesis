@@ -1,9 +1,6 @@
 // https://github.com/cezary/react-webcam
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { msEmotionResponse } from '../actions/action_msEmotion';
-import { ToneResponse } from '../actions/action_tone';
 import { findDOMNode } from 'react-dom';
 
 import MediaStreamRecorder from 'msr';
@@ -58,17 +55,6 @@ class Webcam extends Component {
       id: undefined,
       recorder: undefined
     };
-
-    this.props.socket.on('emotion', (response) => {
-      let data = JSON.parse(response.response);
-      if (data.length) {
-        this.props.msEmotionResponse(data, this.props.msEmotion);
-      }
-    });
-
-    this.props.socket.on('bv', (response) => {
-      this.props.ToneResponse(response, this.props.tone);
-    });
   }
 
   componentDidMount() {
@@ -271,17 +257,8 @@ class Webcam extends Component {
 
 function mapStateToProps(state) {
   return {
-    msEmotion: state.msEmotion,
-    tone: state.tone,
     socket: state.socket
   };
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    msEmotionResponse: msEmotionResponse,
-    ToneResponse: ToneResponse
-  }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Webcam);
+export default connect(mapStateToProps)(Webcam);

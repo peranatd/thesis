@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { socketAction } from '../actions/action_socket';
+import { msEmotionResponse } from '../actions/action_msEmotion';
+import { StreamingSttResponse } from '../actions/action_streamingstt.js';
+import { ToneResponse } from '../actions/action_tone';
 
 import io from 'socket.io-client';
 
@@ -16,6 +19,20 @@ class App extends Component {
 
   componentDidMount() {
     const socket = io();
+
+    socket.on('emotion', (response) => {
+      let data = JSON.parse(response.response);
+      if (data.length) {
+        this.props.msEmotionResponse(data, this.props.msEmotion);
+      }
+    });
+    socket.on('bv', (response) => {
+      this.props.ToneResponse(response, this.props.tone);
+    });
+    socket.on('streamingSpeechToText',
+      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
+    );
+
     this.props.socketAction(socket);
   }
 
@@ -32,13 +49,19 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    socket: state.socket
+    socket: state.socket,
+    msEmotion: state.msEmotion,
+    tone: state.tone,
+    streamingStt: state.streamingStt
   };
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     socketAction: socketAction,
+    msEmotionResponse: msEmotionResponse,
+    ToneResponse: ToneResponse,
+    StreamingSttResponse: StreamingSttResponse
   }, dispatch);
 }
 

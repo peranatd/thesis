@@ -20,8 +20,8 @@ class Practice extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.msEmotionReset();
+  componentWillMount() {
+    this.props.msEmotionReset(null, this.props.msEmotion);
     this.props.socket.emit('sessionStart', {
       sessionTimestamp: this.state.sessionTimestamp,
       username: this.context.user.username
@@ -47,7 +47,7 @@ class Practice extends Component {
         />
       </div>
       <div className="row">
-        {this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : null}
+        <Chart emotion={this.props.msEmotion}/>
       </div>
       <div className="row">
         <Cloud trans={this.props.transcription}/>
