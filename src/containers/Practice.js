@@ -80,13 +80,9 @@ class Practice extends Component {
           </div>
           <hr className="featurette-divider" />
           <div className="row">
-            <div className="col-md-9">
-              <h3 className="resultSection">Speech Word Cloud</h3>
-              <Cloud trans={this.props.transcription}/>
-            </div>
-            <div className="col-md-3">
-              <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p>
-            </div>
+            <h3 className="resultSection">Speech Word Cloud</h3>
+            <Cloud trans={this.props.transcription}/>
+            <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p>
           </div>
         </div>
       }
