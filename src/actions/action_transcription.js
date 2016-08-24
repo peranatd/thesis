@@ -4,3 +4,10 @@ export function TranscriptionResponse (transcription, data) {
     payload: [transcription]
   };
 }
+
+export function transcriptionReset () {
+  return {
+    type: 'TRANSCRIPTION_RESET',
+    payload: []
+  };
+}

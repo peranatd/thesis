@@ -5,12 +5,21 @@ import { socketAction } from '../actions/action_socket';
 import { msEmotionResponse } from '../actions/action_msEmotion';
 import { StreamingSttResponse } from '../actions/action_streamingstt.js';
 import { ToneResponse } from '../actions/action_tone';
+import { getAllSessions } from '../actions/action_getAllSessions';
+import { getAllResults } from '../actions/action_getAllResults';
 
 import io from 'socket.io-client';
 
 import '../App.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
+const initialResult = {
+  msEmotion: undefined,
+  transcript: undefined,
+  bv: undefined,
+  watson: undefined
+};
 
 class App extends Component {
   constructor(props) {
@@ -29,9 +38,13 @@ class App extends Component {
     socket.on('bv', (response) => {
       this.props.ToneResponse(response, this.props.tone);
     });
-    socket.on('streamingSpeechToText',
-      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
-    );
+    socket.on('allSessions', (data) => {
+      this.props.getAllSessions(data);
+    });
+
+    socket.on('allResults', (data) => {
+      this.props.getAllResults(data, initialResult);
+    });
 
     this.props.socketAction(socket);
   }
@@ -61,7 +74,9 @@ function mapDispatchToProps(dispatch){
     socketAction: socketAction,
     msEmotionResponse: msEmotionResponse,
     ToneResponse: ToneResponse,
-    StreamingSttResponse: StreamingSttResponse
+    StreamingSttResponse: StreamingSttResponse,
+    getAllSessions: getAllSessions,
+    getAllResults: getAllResults
   }, dispatch);
 }
 
