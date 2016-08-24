@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { msEmotionReset }  from '../actions/action_msEmotion';
 import { sttReset }  from '../actions/action_streamingstt';
@@ -24,6 +24,7 @@ class Practice extends Component {
   }
 
   componentWillMount() {
+    this.props.msEmotionReset(null, this.props.msEmotion);
     this.props.socket.emit('sessionStart', {
       sessionTimestamp: this.state.sessionTimestamp,
       username: this.context.user.username
@@ -89,7 +90,6 @@ class Practice extends Component {
 function mapStateToProps(state) {
   return {
     socket: state.socket,
-    speechToText: state.speechToText,
     msEmotion: state.msEmotion,
     transcription: state.transcription
   };
