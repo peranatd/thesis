@@ -28,6 +28,7 @@ class ProfilePage extends Component {
       result: initialResult,
       sessionId: {}
     };
+    this.loadOnce = this.initialLoad();
   }
 
   componentWillMount() {
@@ -36,23 +37,34 @@ class ProfilePage extends Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({
-        result: initialResult
-      }, () => this.setState({
-        result: Object.assign({}, initialResult, newProps.result.result),
-        sessions: newProps.sessions,
-        sessionId: newProps.sessionId
-      })
-    );
+      result: initialResult
+    }, () => this.setState({
+      result: Object.assign({}, initialResult, newProps.result.result),
+      sessions: newProps.sessions,
+      sessionId: newProps.sessionId,
+    }, this.loadOnce));
+  }
+
+  initialLoad() {
+    let alreadyCalled = false;
+    return () => {
+      if (!alreadyCalled) {
+        alreadyCalled = true;
+        this.handleChange();
+      }
+    };
   }
 
   handleChange() {
-    if (event.target.value !== 'null') {
+    if (document.getElementById('sessionSelect').value !== '') {
       this.setState({
-        currentSession: event.target.value
-      }, () => {
-        this.props.socket.emit('getResults', this.state.sessionId[this.state.currentSession]);
-      });
+        currentSession: document.getElementById('sessionSelect').value
+      }, this.getResults);
     }
+  }
+
+  getResults() {
+    this.props.socket.emit('getResults', this.state.sessionId[this.state.currentSession]);
   }
 
   render() {
@@ -70,8 +82,10 @@ class ProfilePage extends Component {
               <label className="selecting">Please select sessions</label>
             </div>
             <div className="col-md-8">
-              <select className="form-control" onChange={this.handleChange.bind(this)}>
-                <option value='null'>Please select sessions</option>
+              <select
+                className="form-control"
+                onChange={this.handleChange.bind(this)}
+                id="sessionSelect">
                 {this.state.sessions.map((session) => {
                   let time = new Date(session);
                   return <option value={session}>{time.toLocaleString()}</option>;
