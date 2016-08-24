@@ -61,7 +61,7 @@ class ProfilePage extends Component {
         <div className="container">
           <div className="row">
             <div className="col-xs-12">
-              <h3 className="resultSection">My Profile</h3>
+              <h2>My Profile</h2>
             </div>
           </div>
 

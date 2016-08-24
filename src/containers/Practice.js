@@ -52,7 +52,7 @@ class Practice extends Component {
   render () {
     return (
     <div className="container">
-      <h1> Practice </h1>
+      <h2> Practice </h2>
       <div className="row practice">
         <Webcam
           sessionTimestamp={this.state.sessionTimestamp}
