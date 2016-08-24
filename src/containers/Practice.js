@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { msEmotionReset }  from '../actions/action_msEmotion';
 import TextBox from '../components/TextBox';
 import Webcam from './Webcam';
 import Chart from './Chart';
@@ -19,6 +21,7 @@ class Practice extends Component {
   }
 
   componentDidMount() {
+    this.props.msEmotionReset();
     this.props.socket.emit('sessionStart', {
       sessionTimestamp: this.state.sessionTimestamp,
       username: this.context.user.username
@@ -44,7 +47,7 @@ class Practice extends Component {
         />
       </div>
       <div className="row">
-        <Chart emotion={this.props.msEmotion}/>
+        {this.props.msEmotion.length ? <Chart emotion={this.props.msEmotion}/> : null}
       </div>
       <div className="row">
         <Cloud trans={this.props.transcription}/>
@@ -62,4 +65,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Practice);
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    msEmotionReset: msEmotionReset
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Practice);
