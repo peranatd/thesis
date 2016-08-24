@@ -2,15 +2,9 @@ const app = require('express')();
 const partials = require('express-partials');
 const serveStatic = require('serve-static');
 const bodyParser = require('body-parser');
-
 const path = require('path');
 
-const multer  = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 const watson = require('./lib/watson.js');
-const ms = require('./lib/ms.js');
 const db = require('./db/helper.js');
 const format = require('./db/formatHelper.js');
 
@@ -80,19 +74,10 @@ app.post('/api/text', function (req, res) {
   watson.textSentiment(req.body)
     .then(result => {
       res.status(201).send(result);
-      console.log(req.body);
       const data = format.watsonFormatToDB(result, req.body.text);
-      console.log('Adding to watson: ', data);
       db.watson.add(...data, req.body.sessionTimestamp);
     })
     .catch(err => res.status(201).send(err));
-});
-
-app.post('/api/image', upload.single('image'), function (req, res) {
-  ms(req.file.buffer)
-    .then(body => {
-      res.status(201).send(body);
-    });
 });
 
 module.exports = app;

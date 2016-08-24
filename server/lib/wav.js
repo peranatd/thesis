@@ -62,17 +62,3 @@ module.exports = {
   concat: concat,
   rawData: rawData
 };
-
-// let fs = require('fs');
-// let file = fs.readFileSync(__dirname + '/audio.wav');
-// let sr = bytesToNum([...file.slice(24, 28)]);
-// let br = bytesToNum([...file.slice(28, 32)]);
-// let bps = bytesToNum([...file.slice(34, 36)]);
-// let fsize = bytesToNum([...file.slice(40, 44)]);
-// let channels = bytesToNum([...file.slice(22, 24)]);
-// console.log('Sample rate ', sr);
-// console.log('Byte rate ', br);
-// console.log('Bits per sample ', bps);
-// console.log('File size', fsize);
-// console.log('no channels ', channels);
-// console.log('calculated duration ', fsize/(sr*bps*channels/8));
