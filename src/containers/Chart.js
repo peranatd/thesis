@@ -37,10 +37,6 @@ class Chart extends Component {
     this.formatData(newProps);
   }
 
-  componentWillUnmount() {
-    // this.props.msEmotionReset(null, this.props.msEmotion);
-  }
-
   render() {
     let lineChart;
     if (this.state.emotion) {

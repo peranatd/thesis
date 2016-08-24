@@ -64,7 +64,6 @@ const socketMethods = {
           if (r.length) {
             result.watson = format.watsonFormatFromDB(r[0]);
           }
-          console.log(result);
           socket.emit('allResults', result);
         });
       });
@@ -76,9 +75,7 @@ const socketMethods = {
         ms(imgBuffer)
           .then((response) => {
             socket.emit('emotion', {response: response, time: data.dataTimestamp});
-            console.log(response);
             const datapoint = format.msFormatToDB(response);
-            console.log('Adding to ms: ', datapoint, data.dataTimestamp, data.sessionTimestamp);
             db.ms.add(datapoint, data.dataTimestamp, data.sessionTimestamp);
           });
       });
@@ -96,7 +93,6 @@ const socketMethods = {
           .then(res => {
             socket.emit('bv', res);
             const bvData = format.bvFormatToDB(res);
-            console.log('Adding to bv: ', bvData, data.sessionTimestamp);
             if (bvData) {
               db.bv.add(...bvData, data.sessionTimestamp);
             }
