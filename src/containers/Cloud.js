@@ -33,14 +33,11 @@ class Cloud extends Component {
         return {text: word, size: wordList[word]};
       });
 
-      // console.log('INSIDE COMPONENTWILLRECEIVEPROPS', wordArray);
       let fill = scaleOrdinal(schemeCategory20);
 
       let layout = cloud()
           .size([500, 500])
           .words(wordArray)
-          // .padding(3)
-          // .rotate(function() { return Math.random() < 0.5 ? 90 : 0; })
           .spiral('archimedean')
           .font('Impact')
           .fontSize(function(d) { return 10 + 60*Math.pow(d.size/max, 1); })
@@ -79,7 +76,7 @@ class Cloud extends Component {
         return_changed_case:true,
         remove_duplicates: false
       };
-      let max = 0;
+      let max = 1;
       let wordList = keyword.extract(newProps.transcription[0], options).reduce((memo, item)=>{
         item = item.toLowerCase();
         if (item in memo) {
@@ -95,14 +92,11 @@ class Cloud extends Component {
         return {text: word, size: wordList[word]};
       });
 
-      // console.log('INSIDE COMPONENTWILLRECEIVEPROPS', wordArray);
       let fill = scaleOrdinal(schemeCategory20);
 
       let layout = cloud()
           .size([500, 500])
           .words(wordArray)
-          // .padding(3)
-          // .rotate(function() { return Math.random() < 0.5 ? 90 : 0; })
           .spiral('archimedean')
           .font('Impact')
           .fontSize(function(d) { return 10 + 60*Math.pow(d.size/max, 1); })
