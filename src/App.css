@@ -90,6 +90,9 @@
   padding-left: 10px !important;
   list-style-position: outside !important;
 }
+.attitude {
+  margin-left: 110px;
+}
 
 @media (min-width: 750px) {
   .container {

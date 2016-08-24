@@ -14,23 +14,22 @@ class ToneSummary extends Component {
       result.forEach(function(segment){
         let primaryPhrase = segment.analysis.Mood["Composite"].Primary.Phrase;
         if(primaryPhrase){
-          primary.push(primaryPhrase);
+          primary.push(primaryPhrase.toLowerCase().substring(0, primaryPhrase.length-1));
         }
         let secondaryPhrase = segment.analysis.Mood["Composite"].Secondary.Phrase;
         if(secondaryPhrase){
-          secondary.push(secondaryPhrase);
+          secondary.push(secondaryPhrase.toLowerCase().substring(0, secondaryPhrase.length-1));
         }
       });
-      this.setState({primary:primary.join(), secondary:secondary.join()});
+      this.setState({primary:primary.join().replace(/\./g, ',')+'.', secondary:secondary.join().replace(/\./g, ',')+'.'});
     }
   }
 
   render(){
     return(
       <div>
-        <h3>Summary of the tone analyze</h3>
-        <p>You are mainly {this.state.primary}</p>
-        <p>But you are also {this.state.secondary} as well</p>
+        <p><span className="glyphicon glyphicon-ok"></span> You have mainly {this.state.primary}</p>
+        <p><span className="glyphicon glyphicon-ok"></span> But you also have {this.state.secondary}</p>
       </div>
     );
   }
