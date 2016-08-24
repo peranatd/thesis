@@ -14,7 +14,7 @@ const Home = () => (
           </p>
         </div>
         <div className="col-md-5">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Motion_capture_facial.jpg" className="img-responsive" />
+          <img src="https://s9.postimg.org/dfqn18cen/speak_main1.png" className="img-responsive" />
         </div>
       </div>
       <hr className="featurette-divider" />
