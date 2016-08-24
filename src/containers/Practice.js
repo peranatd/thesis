@@ -39,7 +39,6 @@ class Practice extends Component {
           user={this.context.user}
         />
         <TextBox
-          speechToText={this.props.speechToText}
           sessionTimestamp={this.state.sessionTimestamp}
           user={this.context.user}
         />
@@ -58,7 +57,6 @@ class Practice extends Component {
 function mapStateToProps(state) {
   return {
     socket: state.socket,
-    speechToText: state.speechToText,
     msEmotion: state.msEmotion,
     transcription: state.transcription
   };
