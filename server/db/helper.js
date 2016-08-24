@@ -90,7 +90,7 @@ function addSession(sessionTimestamp, username) {
 function getSession(username) {
   return new Promise((resolve, reject) => {
     db.query(`SELECT DISTINCT session.id, session.session_timestamp FROM session
-      INNER JOIN microsoft on session.id=microsoft.session_id WHERE session.user_id=(SELECT id FROM user WHERE username='${username}')`,
+      INNER JOIN microsoft on session.id=microsoft.session_id WHERE session.user_id=(SELECT id FROM user WHERE username='${username}') ORDER BY session.session_timestamp DESC`,
       (err, result) => {
         if (err) {
           reject(err);
