@@ -8,6 +8,13 @@ import Radar from './Radar';
 import ToneSummary from './ToneSummary';
 import AttitudeResult from './AttitudeResult';
 
+const initialResult = {
+  msEmotion: undefined,
+  transcript: undefined,
+  bv: undefined,
+  watson: undefined
+};
+
 class ProfilePage extends Component {
   static contextTypes = {
     user: React.PropTypes.object
@@ -18,12 +25,7 @@ class ProfilePage extends Component {
     this.state = {
       sessions: [],
       currentSession: undefined,
-      result: {
-        msEmotion: undefined,
-        transcript: undefined,
-        bv: undefined,
-        watson: undefined
-      },
+      result: initialResult,
       sessionId: {}
     };
 
@@ -39,14 +41,9 @@ class ProfilePage extends Component {
 
     this.props.socket.on('allResults', (data) => {
       this.setState({
-        result: {
-          msEmotion: undefined,
-          transcript: undefined,
-          bv: undefined,
-          watson: undefined
-        }
+        result: initialResult
       }, () => this.setState({
-        result: data
+        result: Object.assign({}, initialResult, data)
       }));
     });
   }
