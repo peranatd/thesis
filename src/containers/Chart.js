@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import rd3 from 'react-d3';
 
 let LineChart = rd3.LineChart;
@@ -9,11 +8,12 @@ class Chart extends Component {
     super(props);
     this.state = {};
   }
-  componentWillMount(){
-    if(this.props.emotion.length){
-      let categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
 
-      let result = categories.map(name => {return {name: name, values: []};});
+  formatData(props) {
+    if (props.emotion.length) {
+      const categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
+
+      const result = categories.map(name => {return {name: name, values: []};});
 
       result.forEach(cat => {
         this.props.emotion.forEach((result, i) => {
@@ -25,19 +25,13 @@ class Chart extends Component {
       });
     }
   }
+
+  componentWillMount(){
+    this.formatData(this.props);
+  }
+
   componentWillReceiveProps(newProps) {
-    let categories = ['anger','contempt','disgust','fear','happiness','neutral','sadness','surprise'];
-
-    let result = categories.map(name => {return {name: name, values: []};});
-
-    result.forEach(cat => {
-      newProps.msEmotion.forEach((result, i) => {
-        cat.values.push({x: i, y:+result.scores[cat.name]});
-      });
-    });
-    this.setState({
-      emotion: result
-    });
+    this.formatData(newProps);
   }
 
   render() {
@@ -53,10 +47,4 @@ class Chart extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    msEmotion: state.msEmotion
-  };
-}
-
-export default connect(mapStateToProps)(Chart);
+export default Chart;

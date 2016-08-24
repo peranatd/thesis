@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { msEmotionResponse } from '../actions/action_msEmotion';
 import { ToneResponse } from '../actions/action_tone';
-import { SpeechToTextResponse } from '../actions/action_speechtotext';
 import { findDOMNode } from 'react-dom';
 
 import MediaStreamRecorder from 'msr';
@@ -69,11 +68,6 @@ class Webcam extends Component {
 
     this.props.socket.on('bv', (response) => {
       this.props.ToneResponse(response, this.props.tone);
-    });
-
-    this.props.socket.on('stt', (response) => {
-      let data = JSON.parse(response).results;
-      this.props.SpeechToTextResponse(data, this.props.speechToText);
     });
   }
 
@@ -279,7 +273,6 @@ function mapStateToProps(state) {
   return {
     msEmotion: state.msEmotion,
     tone: state.tone,
-    speechToText: state.speechToText,
     socket: state.socket
   };
 }
@@ -287,8 +280,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     msEmotionResponse: msEmotionResponse,
-    ToneResponse: ToneResponse,
-    SpeechToTextResponse: SpeechToTextResponse
+    ToneResponse: ToneResponse
   }, dispatch);
 }
 
