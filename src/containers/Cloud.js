@@ -17,7 +17,7 @@ class Cloud extends Component {
         return_changed_case:true,
         remove_duplicates: false
       };
-      let max = 0;
+      let max = 1;
       let wordList = keyword.extract(this.props.trans[0], options).reduce((memo, item)=>{
         item = item.toLowerCase();
         if (item in memo) {
