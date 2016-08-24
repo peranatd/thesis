@@ -52,8 +52,8 @@ class Tone_Cloud extends React.Component {
       <div className="col-md-3">
         <TagCloud
           colorOptions={options}
-          minSize={25}
-          maxSize={35}
+          minSize={15}
+          maxSize={20}
           tags={this.state.mood}
           className="stackCloud" />
       </div>
