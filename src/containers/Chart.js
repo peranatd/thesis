@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { msEmotionReset }  from '../actions/action_msEmotion';
 import rd3 from 'react-d3';
 
 let LineChart = rd3.LineChart;
@@ -34,6 +37,10 @@ class Chart extends Component {
     this.formatData(newProps);
   }
 
+  componentWillUnmount() {
+    // this.props.msEmotionReset(null, this.props.msEmotion);
+  }
+
   render() {
     let lineChart;
     if (this.state.emotion) {
@@ -47,4 +54,16 @@ class Chart extends Component {
   }
 }
 
-export default Chart;
+function mapStateToProps(state) {
+  return {
+    msEmotion: state.msEmotion
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    msEmotionReset: msEmotionReset
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);

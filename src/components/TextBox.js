@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TranscriptionResponse } from '../actions/action_transcription.js';
 import { WatsonSentimentResponse } from '../actions/action_watsonSentiment.js';
-import { StreamingSttResponse } from '../actions/action_streamingstt.js';
 import { browserHistory } from 'react-router';
 import $ from 'jquery';
 
@@ -13,9 +12,6 @@ class TextBox extends Component {
     this.state = {
       text: ''
     };
-    this.props.socket.on('streamingSpeechToText',
-      (data) => this.props.StreamingSttResponse(data, this.props.streamingStt)
-    );
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -86,8 +82,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
     TranscriptionResponse: TranscriptionResponse,
-    WatsonSentimentResponse: WatsonSentimentResponse,
-    StreamingSttResponse: StreamingSttResponse
+    WatsonSentimentResponse: WatsonSentimentResponse
   }, dispatch);
 }
 

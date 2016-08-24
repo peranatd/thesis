@@ -7,7 +7,7 @@ if (process.env.MS_KEY) {
     microsoft: {
       key: process.env.MS_KEY
     }
-  }
+  };
 } else {
   credential = require('../credential.js');
 }
@@ -27,7 +27,6 @@ function emotion(imgBuffer) {
       if (err) {
         reject(err);
       } else {
-        // console.log(body);
         resolve(body);
       }
     });
@@ -35,12 +34,3 @@ function emotion(imgBuffer) {
 }
 
 module.exports = emotion;
-
-
-
-// POST https://api.projectoxford.ai/emotion/v1.0/recognize HTTP/1.1
-// Content-Type: application/json
-// Host: api.projectoxford.ai
-// Content-Length: 78
-// Ocp-Apim-Subscription-Key: ••••••••••••••••••••••••••••••••
-// { "url": "http://www.whatsappimagens.com/imagens/imagens-imagens-face-3.jpg" }
