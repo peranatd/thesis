@@ -30,7 +30,7 @@ class Result extends Component {
             </div>
           </div>
         </div>
-        <hr/>
+        <hr className="featurette-divider"/>
         <div className="Result">
           <h3 className="resultSection">Speech Word Cloud</h3>
           <div className="row">
@@ -46,14 +46,14 @@ class Result extends Component {
             </div>
           </div>
         </div>
-        <hr/>
+        <hr className="featurette-divider"/>
         <div className="Result">
           <h3 className="resultSection">Speech Content Sentiment Result</h3>
           {
             Object.keys(this.props.watsonSentiment).length ? <Radar watson={this.props.watsonSentiment}/> : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
           }
         </div>
-        <hr/>
+        <hr className="featurette-divider"/>
         <div className="Result">
           <h3 className="resultSection">Speech Tone Sentiment Result</h3>
           <div className="row">
