@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { msEmotionReset }  from '../actions/action_msEmotion';
 import { sttReset }  from '../actions/action_streamingstt';
@@ -89,6 +89,7 @@ class Practice extends Component {
 function mapStateToProps(state) {
   return {
     socket: state.socket,
+    speechToText: state.speechToText,
     msEmotion: state.msEmotion,
     transcription: state.transcription
   };
