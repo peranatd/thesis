@@ -1,5 +1,6 @@
 import React from 'react';
 import Loader from "react-loader";
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import attitudeData from '../attitudeData';
 
 class AttitudeResult extends React.Component {
@@ -46,26 +47,33 @@ class AttitudeResult extends React.Component {
   }
 
   render() {
+    const tooltip = (<Tooltip id="tooltip">Click to see more info</Tooltip>);
     return (
       <div className="col-md-6 attitude">
         <div>
           <span>Temper:</span>
           <Loader loaded={this.state.loaded}>
-            <img className="icon" src={this.state.temper.src} onClick={this.showinfo.bind(this,'temper')}/>
+            <OverlayTrigger placement="top" overlay={tooltip}>
+              <img className="icon" src={this.state.temper.src} onClick={this.showinfo.bind(this,'temper')}/>
+            </OverlayTrigger>
           </Loader>
         </div>
         {this.state.temper.displayInfo ? <div>{this.state.temper.info}</div> : null}
         <div>
           <span>Valence:</span>
           <Loader loaded={this.state.loaded}>
-            <img className="icon" src={this.state.valence.src} onClick={this.showinfo.bind(this,'valence')} />
+            <OverlayTrigger placement="top" overlay={tooltip}>
+              <img className="icon" src={this.state.valence.src} onClick={this.showinfo.bind(this,'valence')} />
+            </OverlayTrigger>
           </Loader>
         </div>
         {this.state.valence.displayInfo ? <div>{this.state.valence.info}</div> : null}
         <div>
           <span>Arousal:</span>
           <Loader loaded={this.state.loaded}>
-            <img className="icon" src={this.state.arousal.src} onClick={this.showinfo.bind(this,'arousal')} />
+            <OverlayTrigger placement="top" overlay={tooltip}>
+              <img className="icon" src={this.state.arousal.src} onClick={this.showinfo.bind(this,'arousal')} />
+            </OverlayTrigger>
           </Loader>
         </div>
         {this.state.arousal.displayInfo ? <div>{this.state.arousal.info}</div> : null}
