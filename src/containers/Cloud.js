@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 import { scaleOrdinal, schemeCategory20 } from 'd3-scale';
 import keyword from 'keyword-extractor';
@@ -36,7 +35,7 @@ class Cloud extends Component {
     let fill = scaleOrdinal(schemeCategory20);
 
     let layout = cloud()
-        .size([400, 400])
+        .size([950, 450])
         .words(wordArray)
         .spiral('archimedean')
         .font('Impact')
@@ -51,10 +50,10 @@ class Cloud extends Component {
       d3.select('#cloud')
           .attr('width', layout.size()[0])
           .attr('height', layout.size()[1])
-          .attr('viewBox','0 0 500 500')
+          .attr('viewBox','0 0 950 450')
           .attr('preserveAspectRatio','xMidYMid meet')
         .append('g')
-          .attr('transform', 'translate(' + layout.size()[0] / 2 + ',' + layout.size()[1] / 2 + ')')
+          .attr('transform', 'translate(' + 400 + ',' + layout.size()[1] / 2 + ')')
           .attr('class', 'wordCloud')
         .selectAll('text')
           .data(words)

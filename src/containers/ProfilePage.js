@@ -106,11 +106,6 @@ class ProfilePage extends Component {
                     <p>{"Sorry you don't have any sentiment result yet. Please go to practice page practicing first. Thank you!"}</p>
                   }
                 </div>
-                <div>
-                  {
-                    this.state.result.msEmotion ? <p>{"The emotions detected are happiness, sadness, surprise, anger, fear, contempt, disgust or neutral."}</p> : null
-                  }
-                </div>
               </div>
             </div>
             <hr className="featurette-divider"/>

@@ -1,5 +1,6 @@
 // credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
+import * as d3 from 'd3';
 
 class Radar extends Component {
   constructor(props){
@@ -10,7 +11,7 @@ class Radar extends Component {
     let cfg = {
       radius: 5,
       w: 250,
-      h: 200,
+      h: 250,
       factor: 1,
       factorLegend: .85,
       levels: 6,
@@ -20,9 +21,9 @@ class Radar extends Component {
       ToRight: 5,
       TranslateX: 80,
       TranslateY: 30,
-      ExtraWidthX: 100,
+      ExtraWidthX: 180,
       ExtraWidthY: 100,
-      color: d3.scale.category10()
+      color: d3.scaleOrdinal(d3.schemeCategory10)
     };
 
     // updating default value
@@ -34,11 +35,11 @@ class Radar extends Component {
       }
     }
 
-    cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
-    let allAxis = (d[0].map(function(i, j){return i.axis}));
+    cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}));}));
+    let allAxis = (d[0].map(function(i, j){return i.axis;}));
     let total = allAxis.length;
     let radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-    let Format = d3.format('%');
+    let Format = d3.format('.0%');
     d3.select(id).select("svg").remove();
 
     let g = d3.select(id)
@@ -215,7 +216,8 @@ class Radar extends Component {
     tooltip = g.append('text')
            .style('opacity', 0)
            .style('font-family', 'sans-serif')
-           .style('font-size', '18px');
+           .style('font-size', '13px')
+           .style('color', '#737373');
 
   }
 
@@ -224,7 +226,7 @@ class Radar extends Component {
       let emotionTone;
       let result = this.props.watson.document_tone.tone_categories;
       let self = this;
-      let mycfg = {maxValue:0.6, levels:6};
+      let mycfg = {maxValue:1, levels:6};
       result.forEach(function(emotion){
         const data = [];
         const category = emotion.category_id;
