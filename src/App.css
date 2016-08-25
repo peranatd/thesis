@@ -63,12 +63,14 @@
 .Result {
   padding: 10px;
 }
-
+#radar {
+  margin-left: -100px;
+}
 .resultSection {
   margin-bottom: 50px;
 }
 .radarTitle {
-  padding-left: 50px;
+  padding-left: 110px;
   margin-top: 30px;
   margin-bottom: 50px;
 }
