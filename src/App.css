@@ -1,5 +1,5 @@
 .App > .container {
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 .App {
   text-align: center;
@@ -77,7 +77,7 @@
   margin-bottom: 50px;
 }
 .wrapper{
-  margin-bottom: 80px;
+  margin-bottom: 100px;
   color: #5a5a5a;
 }
 .featurette-divider{
@@ -105,6 +105,10 @@
 }
 .linechart {
   margin-left: 150px;
+}
+.footerLink > a {
+  padding-bottom: 10px;
+  color: black;
 }
 @media (min-width: 750px) {
   .container {
