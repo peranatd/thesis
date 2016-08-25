@@ -10,7 +10,7 @@ class Radar extends Component {
     let cfg = {
       radius: 5,
       w: 250,
-      h: 200,
+      h: 250,
       factor: 1,
       factorLegend: .85,
       levels: 6,
@@ -20,7 +20,7 @@ class Radar extends Component {
       ToRight: 5,
       TranslateX: 80,
       TranslateY: 30,
-      ExtraWidthX: 100,
+      ExtraWidthX: 180,
       ExtraWidthY: 100,
       color: d3.scale.category10()
     };
@@ -215,7 +215,8 @@ class Radar extends Component {
     tooltip = g.append('text')
            .style('opacity', 0)
            .style('font-family', 'sans-serif')
-           .style('font-size', '18px');
+           .style('font-size', '13px')
+           .style('color', '#737373');
 
   }
 
@@ -224,7 +225,7 @@ class Radar extends Component {
       let emotionTone;
       let result = this.props.watson.document_tone.tone_categories;
       let self = this;
-      let mycfg = {maxValue:0.6, levels:6};
+      let mycfg = {maxValue:1, levels:6};
       result.forEach(function(emotion){
         const data = [];
         const category = emotion.category_id;
