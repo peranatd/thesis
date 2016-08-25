@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { msEmotionReset }  from '../actions/action_msEmotion';
-import { legendColor } from 'd3-svg-legend'
+import { legendColor } from 'd3-svg-legend';
 import * as d3 from 'd3';
 
 class Chart extends Component {

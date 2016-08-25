@@ -1,5 +1,6 @@
 // credit : http://bl.ocks.org/nbremer/6506614
 import React, { Component } from 'react';
+import * as d3 from 'd3';
 
 class Radar extends Component {
   constructor(props){
@@ -22,7 +23,7 @@ class Radar extends Component {
       TranslateY: 30,
       ExtraWidthX: 180,
       ExtraWidthY: 100,
-      color: d3.scale.category10()
+      color: d3.scaleOrdinal(d3.schemeCategory10)
     };
 
     // updating default value
@@ -34,11 +35,11 @@ class Radar extends Component {
       }
     }
 
-    cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}))}));
-    let allAxis = (d[0].map(function(i, j){return i.axis}));
+    cfg.maxValue = Math.max(cfg.maxValue, d3.max(d, function(i){return d3.max(i.map(function(o){return o.value;}));}));
+    let allAxis = (d[0].map(function(i, j){return i.axis;}));
     let total = allAxis.length;
     let radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-    let Format = d3.format('%');
+    let Format = d3.format('.0%');
     d3.select(id).select("svg").remove();
 
     let g = d3.select(id)

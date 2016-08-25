@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 import { scaleOrdinal, schemeCategory20 } from 'd3-scale';
 import keyword from 'keyword-extractor';
