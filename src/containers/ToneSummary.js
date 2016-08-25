@@ -28,8 +28,8 @@ class ToneSummary extends Component {
   render(){
     return(
       <div>
-        <p><span className="glyphicon glyphicon-ok"></span> You have mainly {this.state.primary}</p>
-        <p><span className="glyphicon glyphicon-ok"></span> But you also have {this.state.secondary}</p>
+        <p><span className="glyphicon glyphicon-ok"></span>  Primary: {this.state.primary}</p>
+        <p><span className="glyphicon glyphicon-ok"></span>  Secondary: {this.state.secondary}</p>
       </div>
     );
   }
