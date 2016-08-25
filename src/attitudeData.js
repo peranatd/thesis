@@ -30,7 +30,7 @@ const attitudeData = {
   arousal: {
     high: {
       src: "https://s26.postimg.org/ifvpbprhl/arousal_high.png",
-      info: "conveys low levels of alertness and can be registered in cases of sadness, comfort, relief or sleepiness."
+      info: "conveys a high level of alertness such as excitement, surprise, passionate communication, extreme happiness or anger."
     },
     neutral: {
       src: "https://s26.postimg.org/lciqbzxbd/arousal_mid.png",
