@@ -32,6 +32,13 @@
 .carousel-inner>.item>a>img, .carousel-inner>.item>.carouselImg, .img-responsive, .thumbnail>img, .thumbnail a>img {
   height: 500px;
 }
+.front-chart {
+  display: inline-block !important;
+  width: 75%;
+}
+.logos {
+  padding-bottom: 37px;
+}
 .techlogos {
   width: 14%;
   height: 10%;
