@@ -3,7 +3,7 @@ import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router';
 import nodeLogo from '../logos/nodejs-icon.svg';
 import expressLogo from '../logos/express.svg';
-import reactLogo from '../logos/logo.svg';
+import reactLogo from '../logos/react.svg';
 import dockerLogo from '../logos/docker.svg';
 import reduxLogo from '../logos/redux.svg';
 import mysqlLogo from '../logos/mysql.svg';
@@ -14,7 +14,7 @@ import socketLogo from '../logos/socket.io.svg';
 import webpackLogo from '../logos/webpack.svg';
 import stormpathLogo from '../logos/stormpath.svg';
 
-const logos = [nodeLogo, expressLogo, reactLogo, dockerLogo, reduxLogo, mysqlLogo, circleLogo, awsLogo, d3Logo, socketLogo, webpackLogo, stormpathLogo];
+const logos = [nodeLogo, expressLogo, reactLogo, reduxLogo, d3Logo, socketLogo, stormpathLogo, mysqlLogo, webpackLogo, dockerLogo, circleLogo, awsLogo];
 
 const Slide = () => (
   <Carousel className="carousel">
