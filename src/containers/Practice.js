@@ -76,7 +76,6 @@ class Practice extends Component {
           <div className="row">
             <h3 className="resultSection">Sentiment Result</h3>
             <Chart emotion={this.props.msEmotion}/>
-            <p>{"The emotions detected are happiness, sadness, surprise, anger, fear, contempt, disgust or neutral."}</p>
           </div>
           <hr className="featurette-divider" />
           <div className="row">
