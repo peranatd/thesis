@@ -41,8 +41,7 @@ const Team = () => (
     <hr className="featurette-divider" />
     <div className="row">
       <h4>Do you want to see our team repository?</h4>
-      <a href="https://github.com/hrr17-littlebigplanet/thesis"><span className="glyphicon glyphicon-globe
-"> </span></a>
+      <a href="https://github.com/hrr17-littlebigplanet/thesis"><span className="glyphicon glyphicon-globe"> </span></a>
     </div>
   </div>
 );
