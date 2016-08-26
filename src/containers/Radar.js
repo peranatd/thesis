@@ -223,7 +223,6 @@ class Radar extends Component {
 
   componentDidMount () {
     if(this.props.watson.document_tone){
-      let emotionTone;
       let result = this.props.watson.document_tone.tone_categories;
       let self = this;
       let mycfg = {maxValue:1, levels:6};

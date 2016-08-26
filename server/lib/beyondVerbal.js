@@ -8,7 +8,6 @@ if (process.env.BV_KEY) {
   key = require('../credential.js').beyondverbal.key;
 }
 
-
 // function to get access_token, returns a promise with the
 // object {'access_token': ,'token_type': ,'expires_in': }
 // available for then callback
@@ -26,10 +25,8 @@ function getToken() {
   return new Promise((resolve, reject) => {
     request.post(options, (err, res, body) => {
       if (err) {
-        console.log(err);
         reject(err);
       } else {
-        console.log('GOT TOKEN, ', JSON.parse(body));
         resolve(JSON.parse(body)['access_token']);
       }
     });
@@ -56,7 +53,6 @@ function startSession(token) {
       if (err) {
         reject(err);
       } else {
-        console.log('GOT SESSION ID ', JSON.parse(body));
         resolve({body: JSON.parse(body), token: token});
       }
     });
@@ -78,8 +74,6 @@ function analyseData(token, id, audioFile) {
       if (err) {
         reject(err);
       } else {
-        console.log(JSON.parse(body));
-        console.log(JSON.stringify(JSON.parse(body), null, 2));
         resolve(JSON.parse(body));
       }
     });

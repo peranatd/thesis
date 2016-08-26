@@ -121,7 +121,9 @@ class ProfilePage extends Component {
                 </div>
                 <div >
                   {
-                    this.state.result.watson ? <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p> : null
+                    this.state.result.watson ?
+                    <p>{"The clouds give greater prominence to words that appear more frequently in the source text"}</p> :
+                    null
                   }
                 </div>
               </div>
@@ -155,7 +157,7 @@ class ProfilePage extends Component {
                       <ToneSummary tone={[this.state.result.bv]}/>
                     </div>
                   </div>
-                  ): <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
+                  ) : <p>{"Sorry you don't have any sentiment result yet. Please go to practice page recording first. Thank you!"}</p>
                 }
               </div>
             </div>
@@ -163,7 +165,7 @@ class ProfilePage extends Component {
           <div className="row Result">
             <p><span className="glyphicon glyphicon-warning-sign"></span>You have no history</p>
           </div>
-          }
+        }
         </div>
       </DocumentTitle>
     );

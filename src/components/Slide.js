@@ -15,7 +15,20 @@ import webpackLogo from '../logos/webpack.svg';
 import stormpathLogo from '../logos/stormpath.svg';
 import logo from '../logos/logo.svg';
 
-const logos = [nodeLogo, expressLogo, reactLogo, reduxLogo, d3Logo, socketLogo, stormpathLogo, mysqlLogo, webpackLogo, dockerLogo, circleLogo, awsLogo];
+const logos = [
+  nodeLogo,
+  expressLogo,
+  reactLogo,
+  reduxLogo,
+  d3Logo,
+  socketLogo,
+  stormpathLogo,
+  mysqlLogo,
+  webpackLogo,
+  dockerLogo,
+  circleLogo,
+  awsLogo
+];
 
 const Slide = () => (
   <Carousel className="carousel">
@@ -23,7 +36,6 @@ const Slide = () => (
       <img className="carouselImg" alt="main" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrxxFoV6wXlBdKRq016G1Z9NcFrw7aA7x2cd4KPGvK3PUh70X4"/>
       <Carousel.Caption>
         <img className="logos" src={logo} />
-        {/*<h2>Speak Mirror</h2>*/}
         <p>Our app will give you honest feedback on how others perceive the way you speak, as you are speaking. We utilise powerful APIs to bring you the most cutting-edge automated analysis of the most important traits of a great communicator</p>
         <Link to="/practice" className="btn btn-lg btn-primary" role="button">Start Now</Link>
       </Carousel.Caption>
@@ -32,9 +44,7 @@ const Slide = () => (
       <img className="carouselImg" alt="900x500" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrxxFoV6wXlBdKRq016G1Z9NcFrw7aA7x2cd4KPGvK3PUh70X4"/>
       <Carousel.Caption>
         <h2>Tech Stack</h2>
-        {
-          logos.map(l => <img className="techlogos" src={l} />)
-        }
+        { logos.map(l => <img className="techlogos" src={l} />) }
       </Carousel.Caption>
     </Carousel.Item>
     <Carousel.Item>

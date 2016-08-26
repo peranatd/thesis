@@ -9,6 +9,16 @@ class Chart extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.categories = ['happiness', 'contempt', 'surprise', 'neutral', 'sadness', 'fear', 'disgust','anger'];
+    this.color = ['#388DC5', '#76B7DB', '#A8D0E5', '#CDE0F1', '#FDD6AC', '#FDB776', '#FD9844', '#E9600A'];
+  }
+
+  componentWillMount(){
+    this.formatData(this.props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.formatData(newProps);
   }
 
   makeLineChart(data) {
@@ -49,8 +59,8 @@ class Chart extends Component {
         .style('opacity', 0);
 
     let ordinal = d3.scaleOrdinal()
-      .domain(['happiness', 'contempt', 'surprise', 'neutral', 'sadness', 'fear', 'disgust','anger'])
-      .range(['#388DC5', '#76B7DB', '#A8D0E5', '#CDE0F1', '#FDD6AC', '#FDB776', '#FD9844', '#E9600A']);
+      .domain(this.categories)
+      .range(this.color);
 
     svg.append("g")
       .attr("class", "legendOrdinal")
@@ -104,7 +114,6 @@ class Chart extends Component {
         .style("opacity", 0);
     }
 
-    let color = ['#388DC5', '#76B7DB', '#A8D0E5', '#CDE0F1', '#FDD6AC', '#FDB776', '#FD9844', '#E9600A'];
     for (let i = 0; i < data.length; i++) {
       svg.append('path')
           .datum(data[i].values)
@@ -112,7 +121,7 @@ class Chart extends Component {
           .attr('value', data[i].name)
           .attr('d', line)
           .style('fill', 'none')
-          .style('stroke', color[i])
+          .style('stroke', this.color[i])
           .style('stroke-width', '2px')
           .on('mouseover', mouseOver)
           .on('mouseout', mouseOut);
@@ -122,10 +131,7 @@ class Chart extends Component {
 
   formatData(props) {
     if (props.emotion.length) {
-      const categories = ['happiness', 'contempt', 'surprise', 'neutral', 'sadness', 'fear', 'disgust','anger'];
-
-      const result = categories.map(name => {return {name: name, values: []};});
-
+      const result = this.categories.map(name => {return {name: name, values: []};});
       result.forEach(cat => {
         this.props.emotion.forEach((result, i) => {
           cat.values.push({x: i * 3, y:+result.scores[cat.name]});
@@ -134,18 +140,9 @@ class Chart extends Component {
       this.setState({
         emotion: result
       }, () => {
-        console.log(this.state.emotion);
         this.makeLineChart(this.state.emotion);
       });
     }
-  }
-
-  componentWillMount(){
-    this.formatData(this.props);
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.formatData(newProps);
   }
 
   render() {

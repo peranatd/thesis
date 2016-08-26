@@ -1,6 +1,5 @@
 const db = require('./connect');
 const Promise = require('bluebird');
-const format = require('./formatHelper');
 
 module.exports = {
   user: {                   // ARGUMENTS
@@ -24,20 +23,6 @@ module.exports = {
     get: getWatsonData      // (sessionId)
   }
 };
-
-// USAGE EXAMPLES
-// These are from Date.now()
-// let a = 1471750061364;
-// let b = 1471750272798;
-
-// addUser('user')
-// addSession(a, 'user')
-// getSession('user').then(res => console.log(res[0]));
-// let c = format.watsonFormatToDB({}, 'Test 1,2,3');
-// addWatsonData(...c, a);
-// getWatsonData(1).then(r => console.log(r[0]));
-// getWatsonData(1).then(r => console.log(JSON.stringify(format.watsonFormatFromDB(r[0]),null,3)));
-
 
 function addUser(username) {
   return new Promise((resolve, reject) => {

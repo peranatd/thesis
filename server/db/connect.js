@@ -11,11 +11,11 @@ if (process.env.RDS_HOSTNAME) {
   };
 } else {
   params = {
-    host: 'localhost',
+    // host: 'localhost',
     user: 'root',
-    password: '123',
+    password: '1234',
     database: 'speakmirror',
-    // socketPath: '/opt/local/var/run/mysql57/mysqld.sock'
+    socketPath: '/opt/local/var/run/mysql57/mysqld.sock'
   };
 }
 

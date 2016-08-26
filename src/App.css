@@ -34,7 +34,7 @@
 }
 .front-chart {
   display: inline-block !important;
-  width: 75%;
+  padding-top: 13px;
 }
 .logos {
   padding-bottom: 37px;
@@ -62,7 +62,9 @@
   height: 60px;
   margin-top: 15px;
   text-align: center;
-
+}
+.footerIcon {
+  cursor: pointer;
 }
 .practice {
   margin-bottom: 30px;
@@ -118,6 +120,9 @@
 .footerLink > a {
   padding-bottom: 10px;
   color: black;
+}
+.list-inline>li {
+  vertical-align: middle;
 }
 @media (min-width: 750px) {
   .container {

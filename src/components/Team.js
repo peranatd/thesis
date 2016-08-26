@@ -40,6 +40,6 @@ const Team = () => (
       </div>
     </div>
   </div>
-  );
+);
 
 export default Team;

@@ -11,7 +11,7 @@ class Tone_Cloud extends React.Component {
     super(props);
     this.state = {
       mood: []
-    }
+    };
   }
   componentWillMount(){
     if(this.props.tone[0]){
