@@ -36,6 +36,9 @@
   display: inline-block !important;
   padding-top: 13px;
 }
+.github{
+  width: 20px;
+}
 .logos {
   padding-bottom: 37px;
 }

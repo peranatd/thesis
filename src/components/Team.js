@@ -1,4 +1,5 @@
 import React from 'react';
+import github from '../logos/github.svg';
 
 const Team = () => (
   <div className="container">
@@ -9,7 +10,11 @@ const Team = () => (
       </div>
       <div className="media-body text-left">
         <h4 className="media-heading">Felipe Matsumoto</h4>
+        <h5 className="media-heading">CFO</h5>
+        <a href="https://github.com/ftmatsumoto"><img className="github" src={github} /></a>
+        <p>
         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
       </div>
     </div>
     <div className="media">
@@ -18,7 +23,11 @@ const Team = () => (
       </div>
       <div className="media-body text-left">
         <h4 className="media-heading">Peranat Dayananda</h4>
+        <h5 className="media-heading">Product Owner</h5>
+        <a href="https://github.com/peranatd"><img className="github" src={github} /></a>
+        <p>
         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
       </div>
     </div>
     <div className="media">
@@ -27,7 +36,11 @@ const Team = () => (
       </div>
       <div className="media-body text-left">
         <h4 className="media-heading">Sujin Lee</h4>
+        <h5 className="media-heading">Scrum Master</h5>
+        <a href="https://github.com/pasdesujin"><img className="github" src={github} /></a>
+        <p>
         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
       </div>
     </div>
     <div className="media">
@@ -36,7 +49,11 @@ const Team = () => (
       </div>
       <div className="media-body text-left">
         <h4 className="media-heading">Yuan Liu</h4>
+        <h5 className="media-heading">CEO</h5>
+        <a href="https://github.com/liuyuanneu"><img className="github" src={github} /></a>
+        <p>
         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+        </p>
       </div>
     </div>
   </div>
