@@ -1,5 +1,5 @@
 .App > .container {
-  margin-bottom: 100px;
+  margin-bottom: 130px;
 }
 .App {
   text-align: center;
@@ -35,6 +35,22 @@
 .front-chart {
   display: inline-block !important;
   padding-top: 13px;
+}
+.main {
+  margin-top: 50px;
+}
+.github {
+  width: 55px;
+  padding: 10px;
+}
+.linkedin {
+  width: 80px;
+  padding: 10px;
+}
+.glyphicon-globe {
+  animation: App-logo-spin infinite 20s linear;
+  font-size: 70px;
+  cursor: pointer;
 }
 .logos {
   padding-bottom: 37px;
