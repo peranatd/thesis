@@ -8,9 +8,6 @@ CREATE DATABASE speakmirror;
 
 USE speakmirror;
 
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
-
 -- ---
 -- Table user
 --
@@ -94,28 +91,3 @@ ALTER TABLE session ADD FOREIGN KEY (user_id) REFERENCES user (id);
 ALTER TABLE microsoft ADD FOREIGN KEY (session_id) REFERENCES session (id);
 ALTER TABLE bv ADD FOREIGN KEY (session_id) REFERENCES session (id);
 ALTER TABLE watson ADD FOREIGN KEY (session_id) REFERENCES session (id);
-
--- ---
--- Table Properties
--- ---
-
--- ALTER TABLE user ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE session ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE microsoft ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE bv ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE watson ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- ---
--- Test Data
--- ---
-
--- INSERT INTO user (username) VALUES
--- ('');
--- INSERT INTO session (user_id) VALUES
--- (,,);
--- INSERT INTO microsoft (id,ms_datapoint,ms_timestamp,session_id) VALUES
--- (,,,);
--- INSERT INTO bv (id,bv_summary,bv_mood,session_id) VALUES
--- (,,,);
--- INSERT INTO watson (id,wn_emotion,wn_language,wn_social,wn_transcription,session_id) VALUES
--- (,,,,,);

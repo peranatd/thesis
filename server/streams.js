@@ -14,12 +14,6 @@ const socketMethods = {
     const audio = {};
 
     io.on('connection', (socket) => {
-      socket.emit('message', {message: 'you are connected!'});
-      console.log('user connected');
-
-      // TODO: add an 'on user' listener to add new users to db
-      // put emitter on practice component to emit username
-
       // Make a connection to Watson speech to text
       let streamingWatson = watson.streamingSpeechToText(socket);
 
@@ -39,7 +33,6 @@ const socketMethods = {
       });
 
       socket.on('getSession', (data) => {
-        console.log('GET SESSION');
         db.session.get(data).then(r => socket.emit('allSessions', r));
       });
 

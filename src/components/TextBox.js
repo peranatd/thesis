@@ -40,13 +40,11 @@ class TextBox extends Component {
         user: self.props.user.username
       }),
       contentType: 'application/json',
-      success: function (data) {
+      success: (data) => {
         self.props.WatsonSentimentResponse(data);
         browserHistory.push('/profile');
       },
-      error: function () {
-        console.log('ajax post request failed!');
-      }
+      error: () => {}
     });
   }
 

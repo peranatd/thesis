@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Slide from './Slide';
-import chart from '../logos/chart.png';
+import chart from '../logos/chart.svg';
 
 const Home = () => (
   <div className="wrapper">

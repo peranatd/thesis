@@ -20,12 +20,12 @@ const Footer = () => {
         <li className="footerLink"><Link to="/">Home</Link></li>
         <li className="footerLink"><Link to="/team">OurTeam</Link></li>
         <li>
-          <FacebookShareButton url={shareUrl} title={title} >
+          <FacebookShareButton url={shareUrl} title={title} className="footerIcon" >
             <FacebookIcon size={32} round />
           </FacebookShareButton>
         </li>
         <li>
-          <GooglePlusShareButton url={shareUrl} >
+          <GooglePlusShareButton url={shareUrl} className="footerIcon" >
             <GooglePlusIcon size={32} round />
           </GooglePlusShareButton>
         </li>
@@ -33,6 +33,7 @@ const Footer = () => {
           <LinkedinShareButton
             url={shareUrl}
             title={title}
+            className="footerIcon"
             windowWidth={750}
             windowHeight={600}>
             <LinkedinIcon size={32} round />
@@ -41,6 +42,7 @@ const Footer = () => {
       </ul>
     </div>
   </footer>
-  )};
+  );
+};
 
 export default Footer;

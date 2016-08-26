@@ -57,8 +57,6 @@ const speechToText = function (file) {
 
   let bufferStream = new stream.PassThrough();
   bufferStream.end(file);
-  // bufferStream.pipe();
-  console.log(bufferStream);
   let params = {
     audio: bufferStream,
     content_type: 'audio/wav',
@@ -73,7 +71,6 @@ const speechToText = function (file) {
       if (error) {
         reject(error);
       } else {
-        console.log('INSIDE SPEECH TO TEXT ', JSON.stringify(transcript, null, 2));
         resolve(JSON.stringify(transcript, null, 2));
       }
     });
@@ -102,8 +99,8 @@ const streamingSpeechToText = function (socket) {
   // Listen for events
   recognizeStream.on('results', onResults );
   recognizeStream.on('data', (event) => { onEvent('data:', event); } );
-  recognizeStream.on('error', function(event) { onEvent('Error:', event); });
-  recognizeStream.on('close-connection', function(event) { onEvent('Close:', event); });
+  recognizeStream.on('error', (event) => { onEvent('Error:', event); });
+  recognizeStream.on('close-connection', (event) => { onEvent('Close:', event); });
 
   // logs events on the console, passed to recognizeStream
   function onEvent(name, event) {
@@ -113,7 +110,6 @@ const streamingSpeechToText = function (socket) {
 
   function onResults(event) {
     self.socket.emit('streamingSpeechToText', event);
-    console.log(event);
   }
 
   // create a passthrough stream (duplex stream) from an audio buffer
