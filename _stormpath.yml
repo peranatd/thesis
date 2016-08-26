@@ -1,0 +1,6 @@
+client:
+  apiKey:
+    id:
+    secret:
+application:
+  href:
